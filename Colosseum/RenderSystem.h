@@ -14,7 +14,7 @@ namespace render
 	void ScreenDraw(int x, int y, const char* pStr);
 
 
-	SMALL_RECT GetPlayerMovableRect();
+	SMALL_RECT GetCussorMovableRect();
 
 	void DrawBorder();
 };
