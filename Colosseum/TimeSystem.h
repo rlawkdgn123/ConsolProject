@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <Windows.h>
 
-namespace Time {
+namespace time {
 	ULONGLONG previousTime;
 	ULONGLONG currentTime;
 	ULONGLONG deltaTime;

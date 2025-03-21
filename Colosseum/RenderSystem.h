@@ -3,5 +3,5 @@
 #include <windows.h>
 
 namespace render {
-
+    void GotoXY(int x, int y);
 }

@@ -129,7 +129,9 @@
   <ItemGroup>
     <ClCompile Include="Colosseum.cpp" />
     <ClCompile Include="GameSystem.cpp" />
+    <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="TimeSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
