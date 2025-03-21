@@ -32,6 +32,7 @@ namespace global
         {
             return deltaTime;
         }
+
     };
 
     COORD prePlayerPos; // 기존 플레이어 위치
@@ -200,22 +201,6 @@ void Render()
 bool IsGameRun()
 {
     return true;
-}
-
-void FixeUpdate()
-{
-    static ULONGLONG elapsedTime;
-
-    elapsedTime += global::time::GetDeltaTime();
-
-    while (elapsedTime >= 1000) //1초
-    {
-        global::time::fixedUpdateCount += 1;
-
-        elapsedTime -= 1000;
-
-        UpdateEnemy();
-    }
 }
 
 void Update()
