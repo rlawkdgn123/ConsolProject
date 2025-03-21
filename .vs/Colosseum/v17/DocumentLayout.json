@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\User\\Desktop\\KJH\\VisualStudio\\Project\\Colosseum\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{CB804815-D145-496A-A099-6A1B0AC2EA6F}|Colosseum\\Colosseum.vcxproj|C:\\Users\\User\\Desktop\\KJH\\VisualStudio\\Project\\Colosseum\\Colosseum\\Colosseum.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB804815-D145-496A-A099-6A1B0AC2EA6F}|Colosseum\\Colosseum.vcxproj|solutionrelative:Colosseum\\Colosseum.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Colosseum.cpp",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\KJH\\VisualStudio\\Project\\Colosseum\\Colosseum\\Colosseum.cpp",
+              "RelativeDocumentMoniker": "Colosseum\\Colosseum.cpp",
+              "ToolTip": "C:\\Users\\User\\Desktop\\KJH\\VisualStudio\\Project\\Colosseum\\Colosseum\\Colosseum.cpp",
+              "RelativeToolTip": "Colosseum\\Colosseum.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-03-21T05:39:01.206Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
