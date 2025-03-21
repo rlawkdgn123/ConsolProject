@@ -2,6 +2,8 @@
 #include"TimeSystem.h"
 #include"InputSystem.h"
 #include"RenderSystem.h"
+#include"Player.h"
+
 int main()
 {
     time::InitTime();

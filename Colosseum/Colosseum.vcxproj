@@ -128,9 +128,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Colosseum.cpp" />
+    <ClCompile Include="GameSystem.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="TimeSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameSystem.h" />
+    <ClInclude Include="InputSystem.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="RenderSystem.h" />
+    <ClInclude Include="TimeSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
