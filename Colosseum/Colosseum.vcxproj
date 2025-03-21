@@ -127,13 +127,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\참고용\MyFirstConsoleGame_1\InputSystem.cpp" />
-    <ClCompile Include="..\..\..\참고용\MyFirstConsoleGame_1\RenderSystem.cpp" />
     <ClCompile Include="Colosseum.cpp" />
+    <ClCompile Include="GameSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\참고용\MyFirstConsoleGame_1\InputSystem.h" />
-    <ClInclude Include="..\..\..\참고용\MyFirstConsoleGame_1\RenderSystem.h" />
+    <ClInclude Include="GameSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
