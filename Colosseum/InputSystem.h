@@ -1,5 +1,5 @@
 #pragma once
-namespace Input {
+namespace input {
 
 	constexpr int ESCAPE_KEY_INDEX = 0;
 	constexpr int LEFT_KEY_INDEX = 1;

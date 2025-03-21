@@ -12,8 +12,5 @@ namespace Time {
 
 	void InitTime();
 	void UpdateTime();
-	ULONGLONG GetDeltaTime() // µ®≈∏≈∏¿” Getter
-	{
-		return deltaTime;
-	}
+	ULONGLONG GetDeltaTime();
 };
