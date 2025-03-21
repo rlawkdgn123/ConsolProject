@@ -35,14 +35,14 @@ namespace global
 
     };
 
-    COORD prePlayerPos; // 기존 플레이어 위치
-    COORD curPlayerPos; // 현재 플레이어 위치
+    COORD preCussorPos; // 기존 플레이어 위치
+    COORD curCussorPos; // 현재 플레이어 위치
 
     COORD enemyWorldBasis = { 10, 2 };
 
-    SMALL_RECT playerMovableRect = { 5, 5, 30, 30 }; // @SEE StartGame()
+    SMALL_RECT CussorMovableRect = { 5, 5, 30, 30 }; // @SEE StartGame()
 
-    const int playerMoveSpeed = 200;
+    const int CussorMoveSpeed = 200;
 
 
     // 노가다로-0- 적을 만들어 봅시다.
@@ -62,9 +62,9 @@ void Clamp(short& n, short min, short max) // 레퍼런스 타입에 대해 배워 봅시다.
     if (n > max) n = max;
 }
 
-void DrawPlayer()
+void DrawCussor()
 {
-    render::ScreenDraw(global::curPlayerPos.X, global::curPlayerPos.Y, '@');
+    render::ScreenDraw(global::curCussorPos.X, global::curCussorPos.Y, '@');
 }
 
 void DrawEnemy()
@@ -81,9 +81,9 @@ void DrawEnemy()
     }
 }
 
-void UpdatePlayerPosition()
+void UpdateCussorPosition()
 {
-    global::prePlayerPos = global::curPlayerPos; // 현재 위치 경신 전에 일단, 저장. 구조체를 쓰면 이런게 편한겁니다. :)
+    global::preCussorPos = global::curCussorPos; // 현재 위치 경신 전에 일단, 저장. 구조체를 쓰면 이런게 편한겁니다. :)
 
     if (global::input::IsEscapeCmdOn())
     {
@@ -98,16 +98,16 @@ void UpdatePlayerPosition()
     {
         global::input::Set(global::input::USER_CMD_LEFT, false);
 
-        global::curPlayerPos.X--;
-        Clamp(global::curPlayerPos.X, global::playerMovableRect.Left, global::playerMovableRect.Right);
+        global::curCussorPos.X--;
+        Clamp(global::curCussorPos.X, global::CussorMovableRect.Left, global::CussorMovableRect.Right);
     }
 
     if (global::input::IsRightCmdOn())
     {
         global::input::Set(global::input::USER_CMD_RIGHT, false);
 
-        global::curPlayerPos.X++;
-        Clamp(global::curPlayerPos.X, global::playerMovableRect.Left, global::playerMovableRect.Right);
+        global::curCussorPos.X++;
+        Clamp(global::curCussorPos.X, global::CussorMovableRect.Left, global::CussorMovableRect.Right);
     }
 }
 
@@ -118,42 +118,42 @@ void UpdatePlayer()
 
     elapsedTime += global::time::GetDeltaTime();
 
-    while (elapsedTime >= global::playerMoveSpeed)
+    while (elapsedTime >= global::CussorMoveSpeed)
     {
-        UpdatePlayerPosition();
+        UpdateCussorPosition();
 
-        elapsedTime -= global::playerMoveSpeed;
+        elapsedTime -= global::CussorMoveSpeed;
     }
 }
 
 void UpdateEnemy()
 {
-    if (global::enemyWorldBasis.Y == global::playerMovableRect.Bottom)
+    if (global::enemyWorldBasis.Y == global::CussorMovableRect.Bottom)
     {
-        global::enemyWorldBasis.Y = global::playerMovableRect.Top;
+        global::enemyWorldBasis.Y = global::CussorMovableRect.Top;
 
         return;
     }
 
     global::enemyWorldBasis.Y++;
 
-    Clamp(global::enemyWorldBasis.Y, global::playerMovableRect.Top, global::playerMovableRect.Bottom);
+    Clamp(global::enemyWorldBasis.Y, global::CussorMovableRect.Top, global::CussorMovableRect.Bottom);
 }
 
 void StartGame()
 {
     render::InitScreen();
 
-    global::playerMovableRect = render::GetPlayerMovableRect();
+    global::CussorMovableRect = render::GetCussorMovableRect();
 
     render::DrawBorder(); // 벽을 그려 놓자!
 
     // 플레이어 시작 위치 설정
-    global::prePlayerPos.X = global::playerMovableRect.Left + (global::playerMovableRect.Left + global::playerMovableRect.Right) / 2;
-    global::prePlayerPos.Y = global::playerMovableRect.Bottom - 2;
+    global::preCussorPos.X = global::CussorMovableRect.Left + (global::CussorMovableRect.Left + global::CussorMovableRect.Right) / 2;
+    global::preCussorPos.Y = global::CussorMovableRect.Bottom - 2;
 
-    global::curPlayerPos.X = global::prePlayerPos.X;
-    global::curPlayerPos.Y = global::prePlayerPos.Y;
+    global::curCussorPos.X = global::preCussorPos.X;
+    global::curCussorPos.Y = global::preCussorPos.Y;
 
     // 노가다로 만드는 적
     for (int i = 0; i < global::ENEMY_CNT; i++)
@@ -163,7 +163,7 @@ void StartGame()
         global::consoleEnemy[i].localPos.Y = 0; // Y 는 고정.
     }
 
-    DrawPlayer();
+    DrawCussor();
 
     DrawEnemy();
 }
@@ -179,7 +179,7 @@ void ProcessInput()
 }
 
 void PrintCountsPerSecond();
-void PrintPlayerPostion();
+void PrintCussorPostion();
 
 void Render()
 {
@@ -187,9 +187,9 @@ void Render()
 
     PrintCountsPerSecond();
 
-    PrintPlayerPostion();
+    PrintCussorPostion();
 
-    DrawPlayer();
+    DrawCussor();
 
     DrawEnemy();
 
@@ -211,10 +211,10 @@ void Update()
 
 }
 
-void PrintPlayerPostion()
+void PrintCussorPostion()
 {
     char buffer[64] = "";
-    sprintf_s(buffer, "Player Position (%d, %d)", global::curPlayerPos.X, global::curPlayerPos.Y);
+    sprintf_s(buffer, "Cussor Position (%d, %d)", global::curCussorPos.X, global::curCussorPos.Y);
 
     render::ScreenDraw(50, 0, buffer);
 }

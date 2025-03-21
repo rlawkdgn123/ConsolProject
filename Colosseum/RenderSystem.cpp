@@ -15,7 +15,7 @@ namespace render
     INT updateScreenX;
     INT updateScreenY;
 
-    SMALL_RECT GetPlayerMovableRect()
+    SMALL_RECT GetCussorMovableRect()
     {
         return updateScreenSize;
     }
@@ -40,7 +40,7 @@ namespace render
         hScreen[0] = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
         hScreen[1] = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
 
-        // 깜박이는 커서를 좀 진정 시키자.
+        // 깜박이는 커서 제거
         CONSOLE_CURSOR_INFO cursorInfo = { 0, };
         cursorInfo.bVisible = 0; // 커서를 보일지 말지 결정(0이면 안보임, 0제외 숫자 값이면 보임)
         cursorInfo.dwSize = 1; // 커서의 크기를 결정 (1~100 사이만 가능)

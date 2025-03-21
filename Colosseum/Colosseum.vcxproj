@@ -129,9 +129,13 @@
   <ItemGroup>
     <ClCompile Include="Colosseum.cpp" />
     <ClCompile Include="GameSystem.cpp" />
+    <ClCompile Include="KJH.cpp" />
+    <ClCompile Include="RenderSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameSystem.h" />
+    <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="RenderSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
