@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\User\\Desktop\\KJH\\VisualStudio\\Project\\ConsolProject\\Colosseum\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{CB804815-D145-496A-A099-6A1B0AC2EA6F}|Colosseum\\Colosseum.vcxproj|C:\\Users\\User\\Desktop\\KJH\\VisualStudio\\Project\\ConsolProject\\Colosseum\\Colosseum\\RenderSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{CB804815-D145-496A-A099-6A1B0AC2EA6F}|Colosseum\\Colosseum.vcxproj|solutionrelative:Colosseum\\RenderSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{CB804815-D145-496A-A099-6A1B0AC2EA6F}|Colosseum\\Colosseum.vcxproj|C:\\Users\\User\\Desktop\\KJH\\VisualStudio\\Project\\ConsolProject\\Colosseum\\Colosseum\\GameSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{CB804815-D145-496A-A099-6A1B0AC2EA6F}|Colosseum\\Colosseum.vcxproj|solutionrelative:Colosseum\\GameSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB804815-D145-496A-A099-6A1B0AC2EA6F}|Colosseum\\Colosseum.vcxproj|C:\\Users\\User\\Desktop\\KJH\\VisualStudio\\Project\\ConsolProject\\Colosseum\\Colosseum\\RenderSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CB804815-D145-496A-A099-6A1B0AC2EA6F}|Colosseum\\Colosseum.vcxproj|solutionrelative:Colosseum\\RenderSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{CB804815-D145-496A-A099-6A1B0AC2EA6F}|Colosseum\\Colosseum.vcxproj|C:\\Users\\User\\Desktop\\KJH\\VisualStudio\\Project\\ConsolProject\\Colosseum\\Colosseum\\RenderSystem.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -73,7 +73,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
@@ -85,8 +85,7 @@
               "RelativeToolTip": "\uCC38\uACE0\uC6A9\\MyFirstConsoleGame_1\\RenderSystem.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-03-21T07:33:42.765Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-21T07:33:42.765Z"
             },
             {
               "$type": "Document",
@@ -98,18 +97,17 @@
               "RelativeToolTip": "\uCC38\uACE0\uC6A9\\MyFirstConsoleGame_1\\InputSystem.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-03-21T07:33:41.803Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-21T07:33:41.803Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "RenderSystem.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Desktop\\KJH\\VisualStudio\\Project\\ConsolProject\\Colosseum\\Colosseum\\RenderSystem.cpp",
               "RelativeDocumentMoniker": "Colosseum\\RenderSystem.cpp",
               "ToolTip": "C:\\Users\\User\\Desktop\\KJH\\VisualStudio\\Project\\ConsolProject\\Colosseum\\Colosseum\\RenderSystem.cpp",
               "RelativeToolTip": "Colosseum\\RenderSystem.cpp",
-              "ViewState": "AgIAADIAAAAAAAAAAAAkwEQAAAArAAAAAAAAAA==",
+              "ViewState": "AgIAAAUAAAAAAAAAAIA0wBEAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-03-21T07:30:09.94Z",
               "EditorCaption": ""
@@ -124,8 +122,7 @@
               "RelativeToolTip": "Colosseum\\RenderSystem.h",
               "ViewState": "AgIAAAQAAAAAAAAAAIA0wBEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-03-21T07:30:01.347Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-21T07:30:01.347Z"
             },
             {
               "$type": "Document",
@@ -137,8 +134,7 @@
               "RelativeToolTip": "\uCC38\uACE0\uC6A9\\MyFirstConsoleGame_1\\RenderSystem.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-03-21T07:28:09.009Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-21T07:28:09.009Z"
             },
             {
               "$type": "Document",
@@ -150,8 +146,7 @@
               "RelativeToolTip": "Colosseum\\KJH.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-03-21T07:26:04.099Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-21T07:26:04.099Z"
             },
             {
               "$type": "Document",
@@ -163,18 +158,17 @@
               "RelativeToolTip": "\uCC38\uACE0\uC6A9\\MyFirstConsoleGame_1\\MyFirstConsoleGame_1.cpp",
               "ViewState": "AgIAACcAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-03-21T06:49:50.922Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-21T06:49:50.922Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "GameSystem.cpp",
               "DocumentMoniker": "C:\\Users\\User\\Desktop\\KJH\\VisualStudio\\Project\\ConsolProject\\Colosseum\\Colosseum\\GameSystem.cpp",
               "RelativeDocumentMoniker": "Colosseum\\GameSystem.cpp",
               "ToolTip": "C:\\Users\\User\\Desktop\\KJH\\VisualStudio\\Project\\ConsolProject\\Colosseum\\Colosseum\\GameSystem.cpp",
               "RelativeToolTip": "Colosseum\\GameSystem.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAASAAAAAAAAAA==",
+              "ViewState": "AgIAAIYAAAAAAAAAAAAkwJQAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-03-21T06:49:20.026Z",
               "EditorCaption": ""
@@ -201,8 +195,7 @@
               "RelativeToolTip": "Colosseum\\GameSystem.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-03-21T06:33:20.527Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-21T06:33:20.527Z"
             },
             {
               "$type": "Document",
@@ -286,8 +279,7 @@
               "RelativeToolTip": "Colosseum\\Colosseum.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-03-21T05:39:01.206Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-21T05:39:01.206Z"
             }
           ]
         }
