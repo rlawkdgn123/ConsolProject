@@ -1,34 +1,26 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\",
+  "WorkspaceRootPath": "D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\ConsolProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9ADBE86A-8B2D-43B6-9399-E8436C8EC562}|Colosseum\\Colosseum.vcxproj|D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\Colosseum\\Colosseum.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{9ADBE86A-8B2D-43B6-9399-E8436C8EC562}|Colosseum\\Colosseum.vcxproj|D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\ConsolProject\\Colosseum\\Colosseum.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{9ADBE86A-8B2D-43B6-9399-E8436C8EC562}|Colosseum\\Colosseum.vcxproj|solutionrelative:Colosseum\\Colosseum.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9ADBE86A-8B2D-43B6-9399-E8436C8EC562}|Colosseum\\Colosseum.vcxproj|D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\Colosseum\\RenderSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{9ADBE86A-8B2D-43B6-9399-E8436C8EC562}|Colosseum\\Colosseum.vcxproj|D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\ConsolProject\\Colosseum\\InputSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{9ADBE86A-8B2D-43B6-9399-E8436C8EC562}|Colosseum\\Colosseum.vcxproj|solutionrelative:Colosseum\\InputSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9ADBE86A-8B2D-43B6-9399-E8436C8EC562}|Colosseum\\Colosseum.vcxproj|D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\ConsolProject\\Colosseum\\RenderSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{9ADBE86A-8B2D-43B6-9399-E8436C8EC562}|Colosseum\\Colosseum.vcxproj|solutionrelative:Colosseum\\RenderSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9ADBE86A-8B2D-43B6-9399-E8436C8EC562}|Colosseum\\Colosseum.vcxproj|D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\Colosseum\\RenderSystem.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{9ADBE86A-8B2D-43B6-9399-E8436C8EC562}|Colosseum\\Colosseum.vcxproj|D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\ConsolProject\\Colosseum\\InputSystem.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{9ADBE86A-8B2D-43B6-9399-E8436C8EC562}|Colosseum\\Colosseum.vcxproj|solutionrelative:Colosseum\\InputSystem.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9ADBE86A-8B2D-43B6-9399-E8436C8EC562}|Colosseum\\Colosseum.vcxproj|D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\ConsolProject\\Colosseum\\RenderSystem.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{9ADBE86A-8B2D-43B6-9399-E8436C8EC562}|Colosseum\\Colosseum.vcxproj|solutionrelative:Colosseum\\RenderSystem.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9ADBE86A-8B2D-43B6-9399-E8436C8EC562}|Colosseum\\Colosseum.vcxproj|D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\Colosseum\\GameSystem.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{9ADBE86A-8B2D-43B6-9399-E8436C8EC562}|Colosseum\\Colosseum.vcxproj|solutionrelative:Colosseum\\GameSystem.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9ADBE86A-8B2D-43B6-9399-E8436C8EC562}|Colosseum\\Colosseum.vcxproj|D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\Colosseum\\TimeSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{9ADBE86A-8B2D-43B6-9399-E8436C8EC562}|Colosseum\\Colosseum.vcxproj|solutionrelative:Colosseum\\TimeSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9ADBE86A-8B2D-43B6-9399-E8436C8EC562}|Colosseum\\Colosseum.vcxproj|D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\Colosseum\\GameSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{9ADBE86A-8B2D-43B6-9399-E8436C8EC562}|Colosseum\\Colosseum.vcxproj|solutionrelative:Colosseum\\GameSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9ADBE86A-8B2D-43B6-9399-E8436C8EC562}|Colosseum\\Colosseum.vcxproj|D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\Colosseum\\InputSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{9ADBE86A-8B2D-43B6-9399-E8436C8EC562}|Colosseum\\Colosseum.vcxproj|solutionrelative:Colosseum\\InputSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,90 +34,68 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
+              "Title": "InputSystem.h",
+              "DocumentMoniker": "D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\ConsolProject\\Colosseum\\InputSystem.h",
+              "RelativeDocumentMoniker": "Colosseum\\InputSystem.h",
+              "ToolTip": "D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\ConsolProject\\Colosseum\\InputSystem.h",
+              "RelativeToolTip": "Colosseum\\InputSystem.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-03-23T07:58:44.861Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "RenderSystem.h",
-              "DocumentMoniker": "D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\Colosseum\\RenderSystem.h",
+              "DocumentMoniker": "D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\ConsolProject\\Colosseum\\RenderSystem.h",
               "RelativeDocumentMoniker": "Colosseum\\RenderSystem.h",
-              "ToolTip": "D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\Colosseum\\RenderSystem.h",
+              "ToolTip": "D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\ConsolProject\\Colosseum\\RenderSystem.h",
               "RelativeToolTip": "Colosseum\\RenderSystem.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAeAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-03-23T07:02:33.704Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "RenderSystem.cpp",
-              "DocumentMoniker": "D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\Colosseum\\RenderSystem.cpp",
+              "DocumentMoniker": "D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\ConsolProject\\Colosseum\\RenderSystem.cpp",
               "RelativeDocumentMoniker": "Colosseum\\RenderSystem.cpp",
-              "ToolTip": "D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\Colosseum\\RenderSystem.cpp",
+              "ToolTip": "D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\ConsolProject\\Colosseum\\RenderSystem.cpp",
               "RelativeToolTip": "Colosseum\\RenderSystem.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-03-23T07:00:44.653Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "GameSystem.h",
-              "DocumentMoniker": "D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\Colosseum\\GameSystem.h",
-              "RelativeDocumentMoniker": "Colosseum\\GameSystem.h",
-              "ToolTip": "D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\Colosseum\\GameSystem.h",
-              "RelativeToolTip": "Colosseum\\GameSystem.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-03-23T06:59:09.403Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Colosseum.cpp",
-              "DocumentMoniker": "D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\Colosseum\\Colosseum.cpp",
+              "DocumentMoniker": "D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\ConsolProject\\Colosseum\\Colosseum.cpp",
               "RelativeDocumentMoniker": "Colosseum\\Colosseum.cpp",
-              "ToolTip": "D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\Colosseum\\Colosseum.cpp",
+              "ToolTip": "D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\ConsolProject\\Colosseum\\Colosseum.cpp",
               "RelativeToolTip": "Colosseum\\Colosseum.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAALIAAAAAAAAAAAAQwMwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-03-21T05:39:01.206Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "TimeSystem.cpp",
-              "DocumentMoniker": "D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\Colosseum\\TimeSystem.cpp",
-              "RelativeDocumentMoniker": "Colosseum\\TimeSystem.cpp",
-              "ToolTip": "D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\Colosseum\\TimeSystem.cpp",
-              "RelativeToolTip": "Colosseum\\TimeSystem.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-03-23T07:00:45.372Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "GameSystem.cpp",
-              "DocumentMoniker": "D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\Colosseum\\GameSystem.cpp",
-              "RelativeDocumentMoniker": "Colosseum\\GameSystem.cpp",
-              "ToolTip": "D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\Colosseum\\GameSystem.cpp",
-              "RelativeToolTip": "Colosseum\\GameSystem.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-03-23T06:58:49.503Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 1,
               "Title": "InputSystem.cpp",
-              "DocumentMoniker": "D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\Colosseum\\InputSystem.cpp",
+              "DocumentMoniker": "D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\ConsolProject\\Colosseum\\InputSystem.cpp",
               "RelativeDocumentMoniker": "Colosseum\\InputSystem.cpp",
-              "ToolTip": "D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\Colosseum\\InputSystem.cpp",
+              "ToolTip": "D:\\AllProjects\\GameInJaeWon\\1\uD559\uAE30\\ConsolProject\\ConsolProject\\Colosseum\\InputSystem.cpp",
               "RelativeToolTip": "Colosseum\\InputSystem.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-03-23T06:58:51.024Z"
+              "WhenOpened": "2025-03-23T06:58:51.024Z",
+              "EditorCaption": ""
             }
           ]
         }

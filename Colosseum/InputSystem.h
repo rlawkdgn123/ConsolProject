@@ -1,21 +1,24 @@
 #pragma once
-#include <Windows.h>
-namespace global {
-	namespace input {
+namespace global
+{
+	// 함수의 선언과 정의 개념에 대해 생각해 봅시다.
+	// 필요한 인터페이스만 노출한다는 개념에 대해 생각해 봅시다.
+	namespace input
+	{
+		// 상수를 정의 하는 방법에 대해 알아 봅시다. 
+		// const 키와 #define 의 차이를 알아야 합니다. 힌트! const 는 변수에 붙은 키워드이고 #이 붙으면 프리컴파일에 결정 됩니다.
+		const int ESCAPE_KEY_INDEX = 0;
+		const int USER_CMD_LEFT = 1;
+		const int USER_CMD_RIGHT = 2;
 
-		constexpr int ESCAPE_KEY_INDEX = 0;
-		constexpr int LEFT_KEY_INDEX = 1;
-		constexpr int RIGHT_KEY_INDEX = 2;
-		constexpr int UP_KEY_INDEX = 3;
-		constexpr int DOWN_KEY_INDEX = 4;
+		const int MAX_KEY = 3;
 
-		COORD prePlayerPos; // 기존 플레이어 위치
-		COORD curPlayerPos; // 현재 플레이어 위치
+		void Set(const int keyIdx, bool bOn);
 
-		SMALL_RECT consoleScreenSize;									// 조종 가능 화면 크기
-		SMALL_RECT playerMovableRect = { 5, 5, 30, 30 };   // 플레이어가 이동이 가능한 영역
-		const int playerMoveSpeed = 200;								//플레이어 이동속도
+		bool IsEscapeCmdOn();
+		bool IsLeftCmdOn();
+		bool IsRightCmdOn();
 
 		void UpdateInput();
-	}
-}
+	};
+};

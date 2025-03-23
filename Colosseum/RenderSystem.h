@@ -1,25 +1,20 @@
 #pragma once
-#include <stdio.h>
-#include <windows.h>
+#include <Windows.h>
 
-namespace global {
-	namespace render {
-        bool bScreenIndex;
-        HANDLE hScreen[2];
+namespace render
+{
+	void InitScreen();
+	void ScreenRelease();
 
-        SMALL_RECT consoleScreenSize;
-        INT consoleScreenX;
-        INT consoleScreenY;
+	void ScreenFlipping();
+	void ScreenClear();
 
-        SMALL_RECT updateScreenSize;
-        INT updateScreenX;
-        INT updateScreenY;
+	//  함수 오버로딩에 대해 알아 봅시다.
+	void ScreenDraw(int x, int y, const char c);
+	void ScreenDraw(int x, int y, const char* pStr);
 
-        HANDLE GetScreenHandle();
-        void DrawPlayer();
-        void ScreenDraw(int x, int y, const char c);
-        void InitScreen();
-        SMALL_RECT GetPlayerMovableRect();
-        void GotoXY(int x, int y);
-    }
-}
+
+	SMALL_RECT GetPlayerMovableRect();
+
+	void DrawBorder();
+};
