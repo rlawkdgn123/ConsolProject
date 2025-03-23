@@ -1,16 +1,18 @@
 #pragma once
 #include <stdio.h>
 #include <Windows.h>
+namespace global
+{
+	namespace time {
+		ULONGLONG previousTime;
+		ULONGLONG currentTime;
+		ULONGLONG deltaTime;
 
-namespace time {
-	ULONGLONG previousTime;
-	ULONGLONG currentTime;
-	ULONGLONG deltaTime;
+		int updateCount;
+		int fixedUpdateCount;
 
-	int updateCount;
-	int fixedUpdateCount;
-
-	void InitTime();
-	void UpdateTime();
-	ULONGLONG GetDeltaTime();
+		void InitTime();
+		void UpdateTime();
+		ULONGLONG GetDeltaTime();
+	};
 };

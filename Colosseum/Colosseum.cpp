@@ -2,26 +2,28 @@
 #include"TimeSystem.h"
 #include"InputSystem.h"
 #include"RenderSystem.h"
+#include"GameSystem.h"
 #include"Player.h"
+
 
 int main()
 {
-    time::InitTime();
+    //global::time::InitTime(); // 틱 받아오기
 
-    StartGame();
+    global::game::StartGame();
 
-    while (IsGameRun())
-    {
-        UpdateTime();
+    //while (IsGameRun())
+    //{
+    //    UpdateTime();
 
-        ProcessInput();
-        FixeUpdate();
+    //    ProcessInput();
+    //    FixeUpdate();
 
-        Update();
-        Render();
-    }
+    //    Update();
+    //    Render();
+    //}
 
-    EndGame();
+    //EndGame();
 
     return 0;
 }
