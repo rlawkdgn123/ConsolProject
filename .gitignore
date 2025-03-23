@@ -436,3 +436,6 @@ FodyWeavers.xsd
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,c++
 .vs/Colosseum/v17/Browse.VC.db
+/.vs/Colosseum/v17
+.vs/
+.vs/
