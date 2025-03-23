@@ -46,19 +46,6 @@ SMALL_RECT global::render::GetPlayerMovableRect()
 {
     return updateScreenSize;
 }
-        // 콘솔이다 보니 픽셀 단위가아니라 라인 단위...한 글자씩 그려(?) 주렵니다.
-void global::render::ScreenDraw(int x, int y, const char c)
-{
-    DWORD dw;
-    COORD Cur = { x, y };
-    char buffer[10];
-    sprintf_s(buffer, "%c", c);
-
-    SetConsoleCursorPosition(GetScreenHandle(), Cur);
-
-    WriteFile(GetScreenHandle(), buffer, 1, &dw, NULL);
-}
-
 HANDLE global::render::GetScreenHandle()
 {
     int index = (render::bScreenIndex ? 1 : 0);
@@ -66,13 +53,27 @@ HANDLE global::render::GetScreenHandle()
     return render::hScreen[index];
 }
 
-void global::render::ScreenDraw(int x, int y, const char pStr)
+        // 콘솔이다 보니 픽셀 단위가아니라 라인 단위...한 글자씩 그려(?) 주렵니다.
+void ScreenDraw(int x, int y, const char c)
+{
+    DWORD dw;
+    COORD Cur = { x, y };
+    char buffer[10];
+    sprintf_s(buffer, "%c", c);
+
+    SetConsoleCursorPosition(global::render::GetScreenHandle(), Cur);
+
+    WriteFile(global::render::GetScreenHandle(), buffer, 1, &dw, NULL);
+}
+
+void ScreenDraw(int x, int y, const char* pStr)
 {
     DWORD dw;
     COORD Cur = { x, y };
 
-    SetConsoleCursorPosition(GetScreenHandle(), Cur);
+    SetConsoleCursorPosition(global::render::GetScreenHandle(), Cur);
 
-    WriteFile(GetScreenHandle(), pStr, strlen(pStr), &dw, NULL);
+    WriteFile(global::render::GetScreenHandle(), pStr, strlen(pStr), &dw, NULL);
 }
+
 
