@@ -20,5 +20,5 @@ namespace render
 	SMALL_RECT GetPlayerMovableRect();
 	void setConsoleSize(int width, int height);
 	void DrawBorder();
-	void RenderTitle(int* menuFlag);
+	void RenderTitle();
 };

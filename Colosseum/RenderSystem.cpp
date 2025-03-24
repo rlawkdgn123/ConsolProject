@@ -280,10 +280,24 @@ namespace render
         choiceMSG[2] = { 20, 75,  " Game Info  " };
         static int choiceNum = 0;
         if (choiceNum == 0) {
-            ChoiceDraw(choiceMSG[0].yPos, (choiceMSG[0].xPos,0)
+            ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text , true);
+            ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, false);
+            ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, false);
         }
-        if (USER_CMD_LEFT) {
-
+        else if(choiceNum == 1) {
+            ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, false);
+            ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, true);
+            ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, false);
+        }
+        else {
+            ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, false);
+            ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, false);
+            ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, true);
+        }
+        if (USER_CMD_LEFT && choiceNum > 0) {
+            choiceNum--;
+        }else if(USER_CMD_RIGHT && choiceNum < 2){
+            choiceNum++;
         }
     }
 };
