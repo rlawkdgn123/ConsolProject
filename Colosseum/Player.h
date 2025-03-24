@@ -1,13 +1,10 @@
 #pragma once
 #include <stdio.h>
-namespace player {
-	constexpr int WARRIOR = 0;
-	constexpr int THIEF = 1;
-	constexpr int WIZARD = 2;
-	namespace state {
 
-	}
-}
+constexpr int JOB = 3; // Á÷¾÷ ¼ö
+constexpr int WARRIOR = 0;
+constexpr int THIEF = 1;
+constexpr int WIZARD = 2;
 
 typedef struct  {
 	const char* skillName;
@@ -27,7 +24,8 @@ typedef struct  {
 	SKILL skill[2];
 }PLAYER;
 
-void SetPlayer(PLAYER* warrior, PLAYER* thief, PLAYER* wizard);
+void SetJob(PLAYER* player);
+void SelectPlayer(int x, PLAYER* player);
 void UseAttack(PLAYER* player, PLAYER* enemy);
 void UseSkill(PLAYER* player, PLAYER* enemy);
 void EnemyDied(PLAYER* player);

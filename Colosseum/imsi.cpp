@@ -4,7 +4,7 @@
 
 #include"player.h"
 
-void SetPlayer()
+void SetJob()
 {
 	//직업 특성 할당
 	warrior.JOB = player::WARRIOR;
@@ -23,23 +23,20 @@ void SetPlayer()
 	wizard.skill[0].passiveProb = 50;
 }
 
-PLAYER* SelectPlayer(int x, int y)
+void SelectPlayer(int x, PLAYER* player)
 {
 	//커서 포지션 정해지면 수정할 것
 	/*if (x == warrior.x)
 	{
-		warrior.isPlayer = true;
-		return &warrior;
+		player[WARRIOR].isPlayer = true;
 	}
 	else if (x == thief.x)
 	{
-		thief.isPlayer = true;
-		return &thief;
+		player[THIEF].isPlayer = true;
 	}
 	else if (x == wizard.x)
 	{
 		wizard.isPlayer = true;
-		return &wizard;
 	}*/
 }
 
@@ -98,6 +95,14 @@ void UseSkill(PLAYER* player, PLAYER* enemy)
 		enemy->hp -= enemy->poisonStack--;
 }
 
+void SetEnemy(PLAYER* job, PLAYER* player, PLAYER* enemy)
+{
+	for (int i = 0; i < JOB; i++)
+	{
+
+	}
+}
+
 void EnemyDied(PLAYER* player)
 {
 	if (player->isPlayer)
@@ -119,16 +124,17 @@ int main()
 {
 	static bool isPlayerTurn = false;
 	static bool selectPlayer = false;
+	PLAYER job[JOB];
 	PLAYER player;
-	PLAYER enemy[3];
+	PLAYER enemy[JOB-1];
 	
 	while (1)
 	{
 		if (!selectPlayer)
 		{
-			SetPlayer();
-			//player = SelectPlayer(x, y); //좌표 정해지면 수정
-			selectPlayer = true;
+			SetJob();
+			SelectPlayer(x, job);
+			SetEnemy();
 		}
 
 		Update();
