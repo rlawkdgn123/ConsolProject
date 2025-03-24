@@ -18,8 +18,6 @@ typedef struct  {
 
 typedef struct  {
 	int JOB;
-	int posX;
-	int posY;
 	int hp;
 	int atkDamage;
 	//int skillCount;
