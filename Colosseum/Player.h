@@ -9,34 +9,27 @@ namespace player {
 	}
 }
 
-void SetPlayer();
-void UseAttack(PLAYER* player, PLAYER* enemy);
-void UseSkill(PLAYER* player, PLAYER* enemy);
-void EnemyDied(PLAYER* player);
-
-
-struct SKILL {
+typedef struct  {
 	const char* skillName;
-	int skillDamage = 0;
-	int passiveProb = 0; //¹ßµ¿ È®·ü
+	int skillDamage;
+	int passiveProb; //¹ßµ¿ È®·ü
 	//skillEffect;
-};
+}SKILL;
 
-struct PLAYER {
+typedef struct  {
 	int JOB;
 	int posX;
 	int posY;
-	int hp = 100;
-	int atkDamage = 20;
-	int skillCount = 0;
-	int poisonStack = 0;
-	int state;
-	bool isPlayer = false;
+	int hp;
+	int atkDamage;
+	//int skillCount;
+	int poisonStack;
+	//int state;
+	bool isPlayer;
 	SKILL skill[2];
-};
+}PLAYER;
 
-PLAYER warrior;
-PLAYER thief;
-PLAYER wizard;
-
-bool isPlayerTurn;
+void SetPlayer(PLAYER* warrior, PLAYER* thief, PLAYER* wizard);
+void UseAttack(PLAYER* player, PLAYER* enemy);
+void UseSkill(PLAYER* player, PLAYER* enemy);
+void EnemyDied(PLAYER* player);

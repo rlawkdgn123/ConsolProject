@@ -3,44 +3,53 @@
 
 #include "Player.h"
 
-void SetPlayer()
+void SetPlayer(PLAYER* warrior, PLAYER* thief, PLAYER* wizard)
 {
 	//직업 특성 할당
-	warrior.JOB = player::WARRIOR;
-	warrior.hp += 20;
-	warrior.skill[0].skillName = "warriorSkill1";
-	warrior.skill[0].passiveProb = 20;
+	warrior->JOB = player::WARRIOR;
+	warrior->isPlayer = false;
+	warrior->hp = 120;
+	warrior->atkDamage = 20;
+	warrior->skill[0].skillName = "warriorSkill1";
+	warrior->skill[0].passiveProb = 20;
+	warrior->poisonStack = 0;
 
-	thief.JOB = player::THIEF;
-	thief.atkDamage = 10;
-	thief.skill[0].skillName = "thiefSkill1";
-	thief.skill[0].passiveProb = 20;
+	thief->JOB = player::THIEF;
+	thief->isPlayer = false;
+	thief->hp = 100;
+	thief->atkDamage = 10;
+	thief->skill[0].skillName = "thiefSkill1";
+	thief->skill[0].passiveProb = 20;
+	thief->poisonStack = 0;
 
-	wizard.JOB = player::WIZARD;
-	wizard.atkDamage += 6;
-	wizard.skill[0].skillName = "wizardSkill1";
-	wizard.skill[0].passiveProb = 50;
+	wizard->JOB = player::WIZARD;
+	wizard->isPlayer = false;
+	wizard->hp = 100;
+	wizard->atkDamage = 26;
+	wizard->skill[0].skillName = "wizardSkill1";
+	wizard->skill[0].passiveProb = 50;
+	wizard->poisonStack = 0;
 }
 
-PLAYER* SelectPlayer(int x, int y)
-{
-	//커서 포지션 정해지면 수정할 것
-	/*if (x == warrior.x)
-	{
-		warrior.isPlayer = true;
-		return &warrior;
-	}
-	else if (x == thief.x)
-	{
-		thief.isPlayer = true;
-		return &thief;
-	}
-	else if (x == wizard.x)
-	{
-		wizard.isPlayer = true;
-		return &wizard;
-	}*/
-}
+//PLAYER* SelectPlayer(int x, int y)
+//{
+//	//커서 포지션 정해지면 수정할 것
+//	if (x == warrior.x)
+//	{
+//		warrior.isPlayer = true;
+//		return &warrior;
+//	}
+//	else if (x == thief.x)
+//	{
+//		thief.isPlayer = true;
+//		return &thief;
+//	}
+//	else if (x == wizard.x)
+//	{
+//		wizard.isPlayer = true;
+//		return &wizard;
+//	}
+//}
 
 void UseAttack(PLAYER* player, PLAYER* enemy)
 {
