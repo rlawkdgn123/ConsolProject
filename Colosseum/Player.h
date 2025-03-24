@@ -9,6 +9,12 @@ namespace player {
 	}
 }
 
+void SetPlayer();
+void UseAttack(PLAYER* player, PLAYER* enemy);
+void UseSkill(PLAYER* player, PLAYER* enemy);
+void EnemyDied(PLAYER* player);
+
+
 struct SKILL {
 	const char* skillName;
 	int skillDamage = 0;
