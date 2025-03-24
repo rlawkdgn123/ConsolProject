@@ -79,9 +79,36 @@ void DrawPlayer()
 //        render::ScreenDraw(x, y, global::consoleEnemy[i].character);
 //    }
 //}
+void Choice(int* menuFlag, int* xPos) {
+    if (xPos != nullptr) free(xPos[]);
 
-void UpdatePlayerPosition()
+    switch (*menuFlag) {
+    case TITLE:
+        xPos = (int*)malloc(3 * sizeof(int));
+        xPos[0] = 20;
+        xPos[1] = xPos[0]+20;
+        xPos[2] = xPos[1]+20;
+        break;
+    case HEROCHOICE:
+        xPos = (int*)malloc(3 * sizeof(int));
+        xPos[0] = 20;
+        xPos[1] = xPos[0] + 20;
+        xPos[2] = xPos[1] + 20;
+        break;
+    case MAIN:
+        break;
+    case BATTLE:
+        break;
+    case END:
+        break;
+    default:
+        break;
+    }
+}
+void UpdatePlayerPosition(int* menuFlag, int* index)
 {
+    int* xPos;
+    Choice(menuFlag, xPos);
     global::prePlayerPos = global::curPlayerPos; // 현재 위치 경신 전에 일단, 저장. 구조체를 쓰면 이런게 편한겁니다. :)
 
     if (global::input::IsEscapeCmdOn())
@@ -96,7 +123,7 @@ void UpdatePlayerPosition()
     {
         global::input::Set(global::input::USER_CMD_LEFT, false);
 
-        global::curPlayerPos.X--;
+        global::curPlayerPos.X = xPos[(*index)--];
         Clamp(global::curPlayerPos.X, global::playerMovableRect.Left, global::playerMovableRect.Right);
     }
     if (global::input::IsRightCmdOn())
@@ -129,20 +156,21 @@ void UpdatePlayerPosition()
     }
 }
 
-void UpdatePlayer()
-{
-    // 키 입력과 화면 출력과 게임 로직 갱신을 분리해서 생각해 봅시다.
-    static ULONGLONG elapsedTime;
-
-    elapsedTime += global::time::GetDeltaTime();
-
-    while (elapsedTime >= global::playerMoveSpeed)
-    {
-        UpdatePlayerPosition();
-
-        elapsedTime -= global::playerMoveSpeed;
-    }
-}
+//void UpdatePlayer(int* menuFlag)
+//{
+//    // 키 입력과 화면 출력과 게임 로직 갱신을 분리해서 생각해 봅시다.
+//    static ULONGLONG elapsedTime;
+//
+//    elapsedTime += global::time::GetDeltaTime();
+//
+//
+//    /*while (elapsedTime >= global::playerMoveSpeed)
+//    {
+//        UpdatePlayerPosition();
+//
+//        elapsedTime -= global::playerMoveSpeed;
+//    }*/
+//}
 
 void UpdateEnemy()
 {
@@ -240,9 +268,10 @@ void FixeUpdate()
 
 void Update()
 {
+    static int choiceIndex = 0;
     global::time::updateCount += 1;
 
-    UpdatePlayer();
+    UpdatePlayerPosition(&global::menuFlag, &choiceIndex);
 
 }
 
@@ -279,6 +308,7 @@ int main()
     
     global::time::InitTime();
 
+    int choiceIndex = 0;
     StartGame();
 
     while (IsGameRun())
