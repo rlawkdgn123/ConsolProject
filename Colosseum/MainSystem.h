@@ -1,7 +1,7 @@
 #pragma once
 #include <Windows.h>
 #include "TimeSystem.h"
-
+#include "Define.h"
 namespace global
 {
 

@@ -1,9 +1,15 @@
 #include <stdio.h>
 #include "renderSystem.h"
-
-
 namespace render
 {
+    enum STAGE {
+        TITLE = 0,
+        HEROCHOICE = 1,
+        MAIN = 2,
+        BATTLE = 3,
+        END = 4
+    };
+
     bool bScreenIndex;
     HANDLE hScreen[2];
 
@@ -36,6 +42,8 @@ namespace render
 
     void InitScreen()
     {
+        system("mode con cols=300 lines 30|title 콜로세움");
+
         // 화면 버퍼 2개를 만든다.
         hScreen[0] = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
         hScreen[1] = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
@@ -52,6 +60,10 @@ namespace render
         CONSOLE_SCREEN_BUFFER_INFO csbi;
         GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
 
+        /*consoleScreenSize.Left = csbi.srWindow.Left;
+        consoleScreenSize.Right = csbi.srWindow.Right;
+        consoleScreenSize.Bottom = csbi.srWindow.Bottom;
+        consoleScreenSize.Top = csbi.srWindow.Top;*/
         consoleScreenSize.Left = csbi.srWindow.Left;
         consoleScreenSize.Right = csbi.srWindow.Right;
         consoleScreenSize.Bottom = csbi.srWindow.Bottom;
@@ -59,6 +71,8 @@ namespace render
         
         consoleScreenX = csbi.dwSize.X;
         consoleScreenY = csbi.dwSize.Y;
+        //consoleScreenX = SCREEN_WIDTH; // 콘솔 스크린 폭
+        //consoleScreenY = SCREEN_HEIGHT; // 콘솔 스크린 높이
 
         // 실제 갱신할 화면 영역을 지정하자. 콘솔 크기 안쪽 사각형이라고 생각하면 됩니다.
         updateScreenSize.Left = consoleScreenSize.Left + 2;
@@ -118,6 +132,67 @@ namespace render
         WriteFile(GetScreenHandle(), pStr, strlen(pStr), &dw, NULL);
     }
 
+    void DrawGames(int Stage)
+    {
+        char* temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
+
+        switch(Stage) {
+        TITLE:
+            break;
+        HEROCHOICE:
+            break;
+        MAIN:
+            break;
+        BATTLE:
+            break;
+            END:
+            default:
+            DrawBorder;
+            break;
+        }
+    }
+    char* OpenText(char* fileName, int fileHeight, int fileWidth)
+    {
+        FILE* fp = NULL;
+        size_t read_size;
+        if (0 == fopen_s(&fp, fileName, "r")) // FILE형 자료형으로 받아서 입력값을 찾아 ReadOnly로 받아온다.
+            ;
+        else
+            return NULL;
+        char* temp = (char*)malloc(sizeof(char) * fileHeight * fileWidth);
+
+        if (temp == NULL)
+            return 0;
+        while ((read_size = fread(temp, sizeof(char), fileHeight * fileWidth, fp)) > 0)
+        {
+        }
+        *(temp + fileHeight * fileWidth - 1) = '\0';
+
+        fclose(fp);
+
+        return temp;
+    }
+    char* OpenText(const char* fileName, int fileHeight, int fileWidth)
+    {
+        FILE* fp = NULL;
+        size_t read_size;
+        if (0 == fopen_s(&fp, fileName, "r")) // FILE형 자료형으로 받아서 입력값을 찾아 ReadOnly로 받아온다.
+            ;
+        else
+            return NULL;
+        char* temp = (char*)malloc(sizeof(char) * fileHeight * fileWidth);
+
+        if (temp == NULL)
+            return 0;
+        while ((read_size = fread(temp, sizeof(char), fileHeight * fileWidth, fp)) > 0)
+        {
+        }
+        *(temp + fileHeight * fileWidth - 1) = '\0';
+
+        fclose(fp);
+
+        return temp;
+    }
     void DrawBorder()
     {
         // 위쪽 라인. Y 값이 고정 된다.

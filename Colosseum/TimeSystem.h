@@ -15,7 +15,6 @@ namespace global
         {
             currentTime = previousTime = GetTickCount64(); // 틱 카운트 비교로 시간 계산
         }
-
         void UpdateTime()
         {
             previousTime = currentTime;
@@ -23,7 +22,6 @@ namespace global
 
             deltaTime = currentTime - previousTime; // 델타 타임 구하기
         }
-
         ULONGLONG GetDeltaTime()
         {
             return deltaTime;

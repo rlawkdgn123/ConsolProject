@@ -42,15 +42,24 @@ namespace global
 			{
 				global::input::Set(ESCAPE_KEY_INDEX, true);
 			}
-			
-			if (GetAsyncKeyState('A') & 0x8000) //왼쪽 'A'
+			if ((GetAsyncKeyState('A') & 0x8000) || (GetAsyncKeyState(VK_LEFT) & 0x8000)) //왼쪽 'A' 및 화살표
 			{
 				global::input::Set(USER_CMD_LEFT, true);
 			}
-			
-			if (GetAsyncKeyState('D') & 0x8000) //오른쪽 'D'
+			if ((GetAsyncKeyState('D') & 0x8000) || (GetAsyncKeyState(VK_RIGHT) & 0x8000)) //오른쪽 'D' 및 화살표
 			{
 				global::input::Set(USER_CMD_RIGHT, true);
+			}
+			if ((GetAsyncKeyState('W') & 0x8000) || (GetAsyncKeyState(VK_UP) & 0x8000)) //오른쪽 'W' 및 화살표
+			{
+				global::input::Set(USER_CMD_RIGHT, true);
+			}
+			if ((GetAsyncKeyState('S') & 0x8000) || (GetAsyncKeyState(VK_DOWN) & 0x8000)) //오른쪽 'S' 및 화살표
+			{
+				global::input::Set(USER_CMD_RIGHT, true);
+			}
+			if (GetAsyncKeyState(VK_SPACE) & 0x8000) { // 선택 CHOICE 스페이스바
+				global::input::Set(USER_CMD_SPACE, true);
 			}
 		}
 	};

@@ -5,57 +5,8 @@
 
 #include "InputSystem.h" // 기능 별로 모듈화를 한다는 개념에 대해 생각해 봅시다!
 #include "RenderSystem.h"
+#include "MainSystem.h"
 
-namespace global
-{
-    namespace time
-    {
-        ULONGLONG previousTime;
-        ULONGLONG currentTime;
-        ULONGLONG deltaTime;
-
-        int updateCount;
-        int fixedUpdateCount;
-
-        void InitTime()
-        {
-            currentTime = previousTime = GetTickCount64();
-        }
-
-        void UpdateTime()
-        {
-            previousTime = currentTime;
-            currentTime = GetTickCount64();
-
-            deltaTime = currentTime - previousTime;
-        }
-
-        ULONGLONG GetDeltaTime()
-        {
-            return deltaTime;
-        }
-    };
-
-    COORD prePlayerPos; // 기존 플레이어 위치
-    COORD curPlayerPos; // 현재 플레이어 위치
-
-    COORD enemyWorldBasis = { 10, 2 };
-
-    SMALL_RECT playerMovableRect = { 5, 5, 30, 30 }; // @SEE StartGame()
-
-    const int playerMoveSpeed = 200;
-
-
-    // 노가다로-0- 적을 만들어 봅시다.
-    const int ENEMY_CNT = 10;
-    struct Enemy
-    {
-        COORD localPos;
-        char  character;
-    };
-
-    Enemy consoleEnemy[ENEMY_CNT];
-};
 
 void Clamp(short& n, short min, short max) // 레퍼런스 타입에 대해 배워 봅시다.
 {
@@ -68,19 +19,19 @@ void DrawPlayer()
     render::ScreenDraw(global::curPlayerPos.X, global::curPlayerPos.Y, '@');
 }
 
-void DrawEnemy()
-{
-    int x = 0; int y = 0;
-
-    // 노가다로 그리는 적
-    for (int i = 0; i < global::ENEMY_CNT; i++)
-    {
-        x = global::enemyWorldBasis.X + global::consoleEnemy[i].localPos.X;
-        y = global::enemyWorldBasis.Y + global::consoleEnemy[i].localPos.Y;
-
-        render::ScreenDraw(x, y, global::consoleEnemy[i].character);
-    }
-}
+//void DrawEnemy()
+//{
+//    int x = 0; int y = 0;
+//
+//    // 노가다로 그리는 적
+//    for (int i = 0; i < global::ENEMY_CNT; i++)
+//    {
+//        x = global::enemyWorldBasis.X + global::consoleEnemy[i].localPos.X;
+//        y = global::enemyWorldBasis.Y + global::consoleEnemy[i].localPos.Y;
+//
+//        render::ScreenDraw(x, y, global::consoleEnemy[i].character);
+//    }
+//}
 
 void UpdatePlayerPosition()
 {
@@ -147,7 +98,7 @@ void StartGame()
 
     global::playerMovableRect = render::GetPlayerMovableRect();
 
-    render::DrawBorder(); // 벽을 그려 놓자!
+    //render::DrawBorder(); // 벽을 그려 놓자!
 
     // 플레이어 시작 위치 설정
     global::prePlayerPos.X = global::playerMovableRect.Left + (global::playerMovableRect.Left + global::playerMovableRect.Right) / 2;
@@ -156,17 +107,17 @@ void StartGame()
     global::curPlayerPos.X = global::prePlayerPos.X;
     global::curPlayerPos.Y = global::prePlayerPos.Y;
 
-    // 노가다로 만드는 적
-    for (int i = 0; i < global::ENEMY_CNT; i++)
-    {
-        global::consoleEnemy[i].character = 'A' + i;
-        global::consoleEnemy[i].localPos.X = i * 10;
-        global::consoleEnemy[i].localPos.Y = 0; // Y 는 고정.
-    }
+    //// 노가다로 만드는 적
+    //for (int i = 0; i < global::ENEMY_CNT; i++)
+    //{
+    //    global::consoleEnemy[i].character = 'A' + i;
+    //    global::consoleEnemy[i].localPos.X = i * 10;
+    //    global::consoleEnemy[i].localPos.Y = 0; // Y 는 고정.
+    //}
 
     DrawPlayer();
 
-    DrawEnemy();
+    //DrawEnemy();
 }
 
 void EndGame()
@@ -192,9 +143,9 @@ void Render()
 
     DrawPlayer();
 
-    DrawEnemy();
-
-    render::DrawBorder();
+    //DrawEnemy();
+    render::DrawGames(6);
+    //render::DrawBorder();
 
     render::ScreenFlipping();
 }
@@ -258,6 +209,7 @@ void PrintCountsPerSecond()
 
 int main()
 {
+    
     global::time::InitTime();
 
     StartGame();

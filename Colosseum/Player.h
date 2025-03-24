@@ -1,8 +1,5 @@
 #pragma once
-
 #include <stdio.h>
-
-
 namespace player {
 	constexpr int WARRIOR = 0;
 	constexpr int THIEF = 1;
