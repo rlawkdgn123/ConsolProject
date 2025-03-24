@@ -61,6 +61,27 @@ void UpdatePlayerPosition()
         global::curPlayerPos.X++;
         Clamp(global::curPlayerPos.X, global::playerMovableRect.Left, global::playerMovableRect.Right);
     }
+    if (global::input::IsUpCmdOn())
+    {
+        global::input::Set(global::input::USER_CMD_UP, false);
+
+        global::curPlayerPos.X++;
+        Clamp(global::curPlayerPos.X, global::playerMovableRect.Left, global::playerMovableRect.Right);
+    }
+    if (global::input::IsDownCmdOn())
+    {
+        global::input::Set(global::input::USER_CMD_DOWN, false);
+
+        global::curPlayerPos.X++;
+        Clamp(global::curPlayerPos.X, global::playerMovableRect.Left, global::playerMovableRect.Right);
+    }
+    if (global::input::IsSpaceCmdOn())
+    {
+        global::input::Set(global::input::USER_CMD_SPACE, false);
+
+        global::curPlayerPos.X++;
+        Clamp(global::curPlayerPos.X, global::playerMovableRect.Left, global::playerMovableRect.Right);
+    }
 }
 
 void UpdatePlayer()
@@ -125,9 +146,10 @@ void EndGame()
     render::ScreenRelease();
 }
 
-void ProcessInput()
+void ProcessInput() // 인풋 종류 정하기
 {
-    global::input::UpdateInput();
+    global::input::InputState(&global::menuFlag);
+    //global::input::UpdateInput();
 }
 
 void PrintCountsPerSecond();

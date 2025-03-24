@@ -2,14 +2,7 @@
 #include "renderSystem.h"
 namespace render
 {
-    enum STAGE {
-        TITLE = 0,
-        HEROCHOICE = 1,
-        MAIN = 2,
-        BATTLE = 3,
-        END = 4
-    };
-
+    
     bool bScreenIndex;
     HANDLE hScreen[2];
 
@@ -161,17 +154,18 @@ namespace render
         char* temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
 
         switch(Stage) {
-        TITLE:
+        case TITLE:
            temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
            EncodeMap(temp);
+           
             break;
-        HEROCHOICE:
+        case HEROCHOICE:
             break;
-        MAIN:
+        case MAIN:
             break;
-        BATTLE:
+        case BATTLE:
             break;
-            END:
+         case END:
             default:
             DrawBorder;
             break;
@@ -244,6 +238,9 @@ namespace render
         {
             ScreenDraw(updateScreenSize.Right + 1, y, '#');
         }
+    }
+    void RenderTitle(int* menuFlag) {
+        ULONGLONG deltaTime = global::time::GetDeltaTime();
     }
 };
 

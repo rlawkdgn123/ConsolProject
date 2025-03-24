@@ -1,4 +1,6 @@
 #pragma once
+#include "MainSystem.h"
+#include "Define.h"
 namespace global
 {
 	// 함수의 선언과 정의 개념에 대해 생각해 봅시다.
@@ -14,14 +16,20 @@ namespace global
 		const int USER_CMD_DOWN = 4;
 		const int USER_CMD_SPACE = 5;
 
-		const int MAX_KEY = 3;
+		const int MAX_KEY = 6;
 
 		void Set(const int keyIdx, bool bOn);
 
 		bool IsEscapeCmdOn();
 		bool IsLeftCmdOn();
 		bool IsRightCmdOn();
+		bool IsUpCmdOn();
+		bool IsDownCmdOn();
+		bool IsSpaceCmdOn();
 
+		void InputState(int* menuFlag); // 인풋 종류 가르기
 		void UpdateInput();
+		void TitleInput();
+		void HeroChoiceInput();
 	};
 };

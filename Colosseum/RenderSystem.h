@@ -1,6 +1,7 @@
 #pragma once
 #include <Windows.h>
 #include "Define.h"
+#include "timeSystem.h"
 namespace render
 {
 	void InitScreen();
@@ -19,4 +20,5 @@ namespace render
 	SMALL_RECT GetPlayerMovableRect();
 	void setConsoleSize(int width, int height);
 	void DrawBorder();
+	void RenderTitle(int* menuFlag);
 };

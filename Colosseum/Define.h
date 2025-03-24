@@ -9,3 +9,11 @@
 #define SCREEN_HEIGHT 50
 
 #define SOUND_LIMIT 10
+
+enum STAGE {
+    TITLE = 0,
+    HEROCHOICE = 1,
+    MAIN = 2,
+    BATTLE = 3,
+    END = 4
+};

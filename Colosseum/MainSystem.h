@@ -4,7 +4,7 @@
 #include "Define.h"
 namespace global
 {
-
+    
     COORD prePlayerPos; // 기존 플레이어 위치
     COORD curPlayerPos; // 현재 플레이어 위치
 
@@ -14,7 +14,7 @@ namespace global
 
     const int playerMoveSpeed = 200; // 플레이어 이동 속도
 
-    bool introFlag = false; // 인트로 화면 출력 여부
+    int menuFlag = false; // 인트로 화면 출력 여부
     int stage = 0;
 
     bool cussorTP = true; // 커서 순간이동(T) / 연속이동(F) 여부
