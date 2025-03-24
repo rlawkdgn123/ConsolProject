@@ -266,10 +266,45 @@ void FixeUpdate()
     }
 }
 
-void Update()
+void Update(int* menuFlag)
 {
     static int choiceIndex = 0;
     global::time::updateCount += 1;
+
+    if (global::input::IsSpaceCmdOn())
+    {
+        if (*menuFlag == TITLE)
+        {
+            switch (global::curPlayerPos.X)
+            {
+            case POS1: *menuFlag = HEROCHOICE;
+                break;
+            case POS2: *menuFlag = HOWTOPLAY;
+                break;
+            case POS3: *menuFlag = GAMEINFO;
+                break;
+            default:
+                break;
+            }
+
+        }
+        else if (*menuFlag == HEROCHOICE)
+        {
+
+        }
+        else if (*menuFlag == MAIN)
+        {
+
+        }
+        else if (*menuFlag == BATTLE)
+        {
+
+        }
+        else if (*menuFlag == END)
+        {
+
+        }
+    }
 
     UpdatePlayerPosition(&global::menuFlag, &choiceIndex);
 

@@ -15,5 +15,13 @@ enum STAGE {
     HEROCHOICE = 1,
     MAIN = 2,
     BATTLE = 3,
-    END = 4
+    END = 4,
+    HOWTOPLAY = 5,
+    GAMEINFO = 6
+};
+
+enum CHOICE {
+    POS1 = 20,
+    POS2 = 40,
+    POS3 = 60
 };
