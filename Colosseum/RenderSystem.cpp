@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "renderSystem.h"
 #include "Define.h"
+#include "InputSystem.h"
+using namespace global::input;
 namespace render
 {
     
@@ -137,6 +139,20 @@ namespace render
 
         WriteFile(GetScreenHandle(), pStr, strlen(pStr), &dw, NULL);
     }
+    void ChoiceDraw(int x, int y, const char* pStr, bool highLight)
+    {
+        DWORD dw;
+        COORD Cur = { x, y };
+
+        if (highLight)
+        {
+            // 빨간색 텍스트로 설정
+            //SetColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
+        }
+        SetConsoleCursorPosition(GetScreenHandle(), Cur);
+
+        WriteFile(GetScreenHandle(), pStr, strlen(pStr), &dw, NULL);
+    }
 
     char* EncodeMap(char* pMap)
     {
@@ -153,12 +169,12 @@ namespace render
     void DrawGames(int Stage)
     {
         char* temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
-
         switch(Stage) {
         case TITLE:
            temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
            EncodeMap(temp);
-           
+           ScreenDraw(20, 35, "Game Start\t\t");
+           RenderTitle();
             break;
         case HEROCHOICE:
             break;
@@ -241,7 +257,12 @@ namespace render
             ScreenDraw(updateScreenSize.Right + 1, y, '#');
         }
     }
-    void RenderTitle(int* menuFlag) {
+    void RenderTitle() {
+        ChoiceDraw(70, 35, "Game Start\t\t");
+        //ScreenDraw(20, 35, "Game Start\t\t");
+        if (USER_CMD_LEFT) {
+
+        }
     }
 };
 

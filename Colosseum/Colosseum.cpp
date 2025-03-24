@@ -55,9 +55,6 @@ namespace global {
     };
 }
 
-
-
-
 void Clamp(short& n, short min, short max) // 레퍼런스 타입에 대해 배워 봅시다.
 {
     if (n < min) n = min;
@@ -95,7 +92,6 @@ void UpdatePlayerPosition()
 
         return; // 다른 키 입력을 신경 쓸 필요가 없어요.
     }
-
     if (global::input::IsLeftCmdOn())
     {
         global::input::Set(global::input::USER_CMD_LEFT, false);
@@ -103,7 +99,6 @@ void UpdatePlayerPosition()
         global::curPlayerPos.X--;
         Clamp(global::curPlayerPos.X, global::playerMovableRect.Left, global::playerMovableRect.Right);
     }
-
     if (global::input::IsRightCmdOn())
     {
         global::input::Set(global::input::USER_CMD_RIGHT, false);
@@ -162,7 +157,7 @@ void UpdateEnemy()
 
     Clamp(global::enemyWorldBasis.Y, global::playerMovableRect.Top, global::playerMovableRect.Bottom);
 }
-
+ 
 void StartGame()
 {
     render::InitScreen();
@@ -186,7 +181,7 @@ void StartGame()
     //    global::consoleEnemy[i].localPos.Y = 0; // Y 는 고정.
     //}
 
-    DrawPlayer();
+    //DrawPlayer();
 
     //DrawEnemy();
 }
@@ -213,10 +208,10 @@ void Render()
 
     PrintPlayerPostion();
 
-    DrawPlayer();
+    //DrawPlayer();
 
     //DrawEnemy();
-    render::DrawGames(6);
+    render::DrawGames(0);
     //render::DrawBorder();
 
     render::ScreenFlipping();

@@ -12,6 +12,8 @@ namespace render
 	void ScreenDraw(int x, int y, const char c);
 	void ScreenDraw(int x, int y, const char* pStr);
 
+	void ChoiceDraw(int x, int y, const char* pStr, bool highLight);
+
 	void DrawGames(int num);
 	char* OpenText(char* fileName, int fileHeight, int fileWidth);
 	char* OpenText(const char* fileName, int fileHeight, int fileWidth);
