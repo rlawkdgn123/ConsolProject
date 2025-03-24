@@ -17,6 +17,6 @@ namespace render
 	char* OpenText(char* fileName, int fileHeight, int fileWidth);
 	char* OpenText(const char* fileName, int fileHeight, int fileWidth);
 	SMALL_RECT GetPlayerMovableRect();
-
+	void setConsoleSize(int width, int height);
 	void DrawBorder();
 };

@@ -40,9 +40,21 @@ namespace render
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), Cur);
     }
 
+    void setConsoleSize(int width, int height) {
+        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+        // 콘솔 화면 버퍼 크기 설정
+        COORD bufferSize = { (short)width, (short)height };
+        SetConsoleScreenBufferSize(hConsole, bufferSize);
+
+        // 콘솔 창 크기 설정
+        SMALL_RECT windowSize = { 0, 0, (short)(width - 1), (short)(height - 1) };
+        SetConsoleWindowInfo(hConsole, TRUE, &windowSize);
+
+    }
     void InitScreen()
     {
-        system("mode con cols=300 lines 30|title 콜로세움");
+        setConsoleSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
         // 화면 버퍼 2개를 만든다.
         hScreen[0] = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
@@ -132,12 +144,26 @@ namespace render
         WriteFile(GetScreenHandle(), pStr, strlen(pStr), &dw, NULL);
     }
 
+    char* EncodeMap(char* pMap)
+    {
+        for (int i = 0; i < MAP_HEIGHT * MAP_PWIDTH; i++)
+        {
+            if (pMap[i] == '0')
+            {
+                pMap[i] = ' ';
+            }
+        }
+        return pMap;
+    }
+
     void DrawGames(int Stage)
     {
         char* temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
 
         switch(Stage) {
         TITLE:
+           temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
+           EncodeMap(temp);
             break;
         HEROCHOICE:
             break;
