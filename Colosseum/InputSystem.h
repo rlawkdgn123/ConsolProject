@@ -26,7 +26,7 @@ namespace global
 		bool IsDownCmdOn();
 		bool IsSpaceCmdOn();
 
-		void InputState(int* menuFlag); // 인풋 종류 가르기
+		void InputState();
 		void UpdateInput();
 		void TitleInput();
 		void HeroChoiceInput();

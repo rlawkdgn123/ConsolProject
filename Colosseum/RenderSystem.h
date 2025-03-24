@@ -14,7 +14,7 @@ namespace render
 
 	void ChoiceDraw(int x, int y, const char* pStr, bool highLight);
 
-	void DrawGames(int num);
+	void DrawGames(int num, int* menuFlag);
 	char* OpenText(char* fileName, int fileHeight, int fileWidth);
 	char* OpenText(const char* fileName, int fileHeight, int fileWidth);
 	SMALL_RECT GetPlayerMovableRect();

@@ -166,23 +166,35 @@ namespace render
         return pMap;
     }
 
-    void DrawGames(int Stage)
+    void DrawGames(int Stage, int* menuFlag)
     {
         char* temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
         switch(Stage) {
         case TITLE:
            temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
            EncodeMap(temp);
-           ScreenDraw(20, 35, "Game Start\t\t");
            RenderTitle();
+           *menuFlag = TITLE;
             break;
         case HEROCHOICE:
+            temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
+            EncodeMap(temp);
+            *menuFlag = HEROCHOICE;
             break;
         case MAIN:
+            temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
+            EncodeMap(temp);
+            *menuFlag =MAIN;
             break;
         case BATTLE:
+            temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
+            EncodeMap(temp);
+            *menuFlag = BATTLE;
             break;
          case END:
+             temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
+             EncodeMap(temp);
+             *menuFlag = END;
             default:
             DrawBorder;
             break;
@@ -231,6 +243,11 @@ namespace render
         return temp;
     }
 
+    struct ChoiceMSG {
+        int xPos;
+        int yPos;
+        char text[15];
+    }choiceMSG[3];
     void DrawBorder()
     {
         // 위쪽 라인. Y 값이 고정 된다.
@@ -258,8 +275,13 @@ namespace render
         }
     }
     void RenderTitle() {
-        ChoiceDraw(70, 35, "Game Start\t\t");
-        //ScreenDraw(20, 35, "Game Start\t\t");
+        choiceMSG[0] = { 20, 35,  "Game Start" };
+        choiceMSG[1] = { 20, 55,  "How To Play" };
+        choiceMSG[2] = { 20, 75,  " Game Info  " };
+        static int choiceNum = 0;
+        if (choiceNum == 0) {
+            ChoiceDraw(choiceMSG[0].yPos, (choiceMSG[0].xPos,0)
+        }
         if (USER_CMD_LEFT) {
 
         }

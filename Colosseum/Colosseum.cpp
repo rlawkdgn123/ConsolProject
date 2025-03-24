@@ -193,7 +193,7 @@ void EndGame()
 
 void ProcessInput() // 인풋 종류 정하기
 {
-    global::input::InputState(&global::menuFlag);
+    global::input::InputState();
     //global::input::UpdateInput();
 }
 
@@ -211,7 +211,7 @@ void Render()
     //DrawPlayer();
 
     //DrawEnemy();
-    render::DrawGames(0);
+    render::DrawGames(0, &global::menuFlag);
     //render::DrawBorder();
 
     render::ScreenFlipping();

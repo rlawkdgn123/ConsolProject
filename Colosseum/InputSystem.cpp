@@ -23,7 +23,7 @@ namespace global
 		bool IsUpCmdOn() { return inputKeyTable[USER_CMD_LEFT]; }
 		bool IsDownCmdOn() { return inputKeyTable[USER_CMD_RIGHT]; }
 		bool IsSpaceCmdOn() { return inputKeyTable[USER_CMD_RIGHT]; }
-		void InputState(int* menuFlag) { UpdateInput(); }
+		void InputState() { UpdateInput(); }
 		// 입력 키값에 대해 알아 봅시다. 블러킹과 넌블러킹에 대해서만 이해하고 가기로 합니다!!
 		// * 비트 연산에 대해 학습합니다. & 와 && 은 달라요. 
 		// &, * 연산자가 맥락에 따라 다르게 해석되는 것에 주의 해야 합니다. 
