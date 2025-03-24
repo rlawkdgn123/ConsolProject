@@ -1,7 +1,5 @@
 #pragma once
 #include <Windows.h>
-#include "Define.h"
-#include "timeSystem.h"
 namespace render
 {
 	void InitScreen();

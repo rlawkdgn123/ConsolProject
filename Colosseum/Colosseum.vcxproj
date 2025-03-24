@@ -136,10 +136,8 @@
     <ClInclude Include="Colosseum.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="InputSystem.h" />
-    <ClInclude Include="MainSystem.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RenderSystem.h" />
-    <ClInclude Include="TimeSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

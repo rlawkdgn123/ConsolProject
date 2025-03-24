@@ -2,10 +2,60 @@
 #include <stdio.h>
 #include <windows.h>
 #include <random>
-
+#include "Define.h"
 #include "InputSystem.h" // 기능 별로 모듈화를 한다는 개념에 대해 생각해 봅시다!
 #include "RenderSystem.h"
-#include "MainSystem.h"
+namespace global {
+    COORD prePlayerPos; // 기존 플레이어 위치
+    COORD curPlayerPos; // 현재 플레이어 위치
+
+    COORD enemyWorldBasis = { 10, 2 };
+
+    SMALL_RECT playerMovableRect = { 5, 5, 30, 30 }; // @SEE StartGame()
+
+    const int playerMoveSpeed = 200; // 플레이어 이동 속도
+
+    int menuFlag = false; // 인트로 화면 출력 여부
+    int stage = 0;
+
+    bool cussorTP = true; // 커서 순간이동(T) / 연속이동(F) 여부
+
+    // 노가다로-0- 적을 만들어 봅시다.
+    /*const int ENEMY_CNT = 10;
+    struct Enemy
+    {
+        COORD localPos;
+        char  character;
+    };
+    Enemy consoleEnemy[ENEMY_CNT];*/
+    namespace time
+    {
+        ULONGLONG previousTime;
+        ULONGLONG currentTime;
+        ULONGLONG deltaTime;
+
+        int updateCount;
+        int fixedUpdateCount;
+
+        void InitTime()
+        {
+            currentTime = previousTime = GetTickCount64(); // 틱 카운트 비교로 시간 계산
+        }
+        void UpdateTime()
+        {
+            previousTime = currentTime;
+            currentTime = GetTickCount64();
+
+            deltaTime = currentTime - previousTime; // 델타 타임 구하기
+        }
+        ULONGLONG GetDeltaTime()
+        {
+            return deltaTime;
+        }
+    };
+}
+
+
 
 
 void Clamp(short& n, short min, short max) // 레퍼런스 타입에 대해 배워 봅시다.
