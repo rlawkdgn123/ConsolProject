@@ -1,5 +1,4 @@
 #pragma once
-#include "MainSystem.h"
 #include "Define.h"
 namespace global
 {

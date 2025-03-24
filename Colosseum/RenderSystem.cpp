@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "renderSystem.h"
+#include "Define.h"
 namespace render
 {
     
@@ -213,6 +214,7 @@ namespace render
 
         return temp;
     }
+
     void DrawBorder()
     {
         // 위쪽 라인. Y 값이 고정 된다.
@@ -240,7 +242,6 @@ namespace render
         }
     }
     void RenderTitle(int* menuFlag) {
-        ULONGLONG deltaTime = global::time::GetDeltaTime();
     }
 };
 
