@@ -140,7 +140,7 @@ namespace render
 
         WriteFile(GetScreenHandle(), pStr, strlen(pStr), &dw, NULL);
     }
-    void ChoiceDraw(int x, int y, const wchar_t* text, bool highlight) {
+    void ChoiceDraw(int x, int y, const char* text, bool highlight) {
         HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
         // 콘솔 화면 크기 설정
@@ -167,7 +167,7 @@ namespace render
             }
         }
     }
-    char* EncodeMap(char* pMap) // 세미콜론을 추가한 후 수정
+    wchar_t* EncodeMap(wchar_t* pMap) // 세미콜론을 추가한 후 수정
     {
         for (int i = 0; i < MAP_HEIGHT * MAP_PWIDTH; i++)
         {
@@ -182,12 +182,12 @@ namespace render
 
     void DrawGames(int Stage, int* menuFlag)
     {
-        char* temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
+        wchar_t* temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
         switch (Stage) {
         case TITLE:
             temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
             EncodeMap(temp);
-            //RenderTitle();
+            RenderTitle(0);
             *menuFlag = TITLE;
             break;
         case HEROCHOICE:
@@ -214,46 +214,101 @@ namespace render
             break;
         }
     }
-    char* OpenText(char* fileName, int fileHeight, int fileWidth)
+    //char* OpenText(char* fileName, int fileHeight, int fileWidth)
+    //{
+    //    FILE* fp = NULL;
+    //    size_t read_size;
+    //    if (0 == fopen_s(&fp, fileName, "r")) // FILE형 자료형으로 받아서 입력값을 찾아 ReadOnly로 받아온다.
+    //        ;
+    //    else
+    //        return NULL;
+    //    char* temp = (char*)malloc(sizeof(char) * fileHeight * fileWidth);
+
+    //    if (temp == NULL)
+    //        return 0;
+    //    while ((read_size = fread(temp, sizeof(char), fileHeight * fileWidth, fp)) > 0)
+    //    {
+    //    }
+    //    *(temp + fileHeight * fileWidth - 1) = '\0';
+
+    //    fclose(fp);
+
+    //    return temp;
+    //}
+    //char* OpenText(const char* fileName, int fileHeight, int fileWidth)
+    //{
+    //    FILE* fp = NULL;
+    //    size_t read_size;
+    //    if (0 == fopen_s(&fp, fileName, "r")) // FILE형 자료형으로 받아서 입력값을 찾아 ReadOnly로 받아온다.
+    //        ;
+    //    else
+    //        return NULL;
+    //    char* temp = (char*)malloc(sizeof(char) * fileHeight * fileWidth);
+
+    //    if (temp == NULL)
+    //        return 0;
+    //    while ((read_size = fread(temp, sizeof(char), fileHeight * fileWidth, fp)) > 0)
+    //    {
+    //    }
+    //    *(temp + fileHeight * fileWidth - 1) = '\0';
+
+    //    fclose(fp);
+
+    //    return temp;
+    //}
+    //char* OpenText(const char* fileName, int fileHeight, int fileWidth)
+    //{
+    //    FILE* fp = NULL;
+    //    size_t read_size;
+    //    if (0 == fopen_s(&fp, fileName, "r")) // FILE형 자료형으로 받아서 입력값을 찾아 ReadOnly로 받아온다.
+    //        ;
+    //    else
+    //        return NULL;
+    //    char* temp = (char*)malloc(sizeof(char) * fileHeight * fileWidth);
+
+    //    if (temp == NULL)
+    //        return 0;
+    //    while ((read_size = fread(temp, sizeof(char), fileHeight * fileWidth, fp)) > 0)
+    //    {
+    //    }
+    //    *(temp + fileHeight * fileWidth - 1) = '\0';
+
+    //    fclose(fp);
+
+    //    return temp;
+    //}
+    wchar_t* OpenText(const char* fileName, int fileHeight, int fileWidth)
     {
         FILE* fp = NULL;
         size_t read_size;
-        if (0 == fopen_s(&fp, fileName, "r")) // FILE형 자료형으로 받아서 입력값을 찾아 ReadOnly로 받아온다.
-            ;
-        else
-            return NULL;
-        char* temp = (char*)malloc(sizeof(char) * fileHeight * fileWidth);
 
-        if (temp == NULL)
-            return 0;
-        while ((read_size = fread(temp, sizeof(char), fileHeight * fileWidth, fp)) > 0)
+        // 유니코드 파일을 읽기 위해 "rb" 모드로 파일을 엽니다.
+        if (0 != fopen_s(&fp, fileName, "rb"))
         {
+            return NULL; // 파일을 열 수 없으면 NULL 반환
         }
-        *(temp + fileHeight * fileWidth - 1) = '\0';
+        // 파일 크기만큼 메모리 할당 (wchar_t는 2바이트씩 사용)
+        wchar_t* temp = (wchar_t*)malloc(sizeof(wchar_t) * fileHeight * fileWidth);
+        if (temp == NULL)
+        {
+            fclose(fp);
+            return NULL;
+        }
+        // 파일에서 유니코드 데이터 읽기
+        // fread를 사용하여 파일에서 데이터를 읽습니다.
+        // 유니코드 데이터는 2바이트씩 읽어야 합니다.
+        read_size = fread(temp, sizeof(wchar_t), fileHeight * fileWidth, fp);
+        if (read_size == 0) // 읽은 내용이 없으면 NULL 반환
+        {
+            free(temp);
+            fclose(fp);
+            return NULL;
+        }
+
+        // 읽은 텍스트의 끝에 널 종료 문자 추가
+        temp[read_size] = L'\0';
 
         fclose(fp);
-
-        return temp;
-    }
-    char* OpenText(const char* fileName, int fileHeight, int fileWidth)
-    {
-        FILE* fp = NULL;
-        size_t read_size;
-        if (0 == fopen_s(&fp, fileName, "r")) // FILE형 자료형으로 받아서 입력값을 찾아 ReadOnly로 받아온다.
-            ;
-        else
-            return NULL;
-        char* temp = (char*)malloc(sizeof(char) * fileHeight * fileWidth);
-
-        if (temp == NULL)
-            return 0;
-        while ((read_size = fread(temp, sizeof(char), fileHeight * fileWidth, fp)) > 0)
-        {
-        }
-        *(temp + fileHeight * fileWidth - 1) = '\0';
-
-        fclose(fp);
-
         return temp;
     }
 
@@ -289,23 +344,20 @@ namespace render
         }
     }
     void RenderTitle(int* choiceNum) {
-        choiceMSG[0] = { 20, 35,  "Game Start" };
-        choiceMSG[1] = { 20, 55,  "How To Play" };
-        choiceMSG[2] = { 20, 75,  " Game Info  " };
         if (*choiceNum == 0) {
             ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, true);
             ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, false);
             ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, false);
         }
         else if (*choiceNum == 1) {
-            ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, false);
-            ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, true);
-            ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, false);
+            ChoiceDraw(choiceMSG[1].yPos, choiceMSG[1].xPos, choiceMSG[1].text, false);
+            ChoiceDraw(choiceMSG[1].yPos, choiceMSG[1].xPos, choiceMSG[1].text, true);
+            ChoiceDraw(choiceMSG[1].yPos, choiceMSG[1].xPos, choiceMSG[1].text, false);
         }
         else {
-            ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, false);
-            ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, false);
-            ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, true);
+            ChoiceDraw(choiceMSG[2].yPos, choiceMSG[2].xPos, choiceMSG[2].text, false);
+            ChoiceDraw(choiceMSG[2].yPos, choiceMSG[2].xPos, choiceMSG[2].text, false);
+            ChoiceDraw(choiceMSG[2].yPos, choiceMSG[2].xPos, choiceMSG[2].text, true);
         }
     }
 };
