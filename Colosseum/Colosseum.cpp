@@ -5,6 +5,7 @@
 #include "Define.h"
 #include "InputSystem.h" // 기능 별로 모듈화를 한다는 개념에 대해 생각해 봅시다!
 #include "RenderSystem.h"
+#include "Player.h"
 namespace global {
     COORD prePlayerPos; // 기존 플레이어 위치
     COORD curPlayerPos; // 현재 플레이어 위치
@@ -14,9 +15,6 @@ namespace global {
     SMALL_RECT playerMovableRect = { 5, 5, 30, 30 }; // @SEE StartGame()
 
     const int playerMoveSpeed = 200; // 플레이어 이동 속도
-
-    int menuFlag = false; // 인트로 화면 출력 여부
-    int stage = 0;
 
     bool cussorTP = true; // 커서 순간이동(T) / 연속이동(F) 여부
 
@@ -79,7 +77,7 @@ void DrawPlayer()
 //        render::ScreenDraw(x, y, global::consoleEnemy[i].character);
 //    }
 //}
-void Choice(int* menuFlag, int* xPos) {
+void Choice(int* menuFlag, int* xPos, int* maxIndex) {
     static int preMenu = 0;
     if (xPos != nullptr && preMenu != *menuFlag) free(xPos);
 
@@ -89,12 +87,15 @@ void Choice(int* menuFlag, int* xPos) {
         xPos[0] = 20;
         xPos[1] = xPos[0]+20;
         xPos[2] = xPos[1]+20;
+        *maxIndex = 3;
+        global::curPlayerPos.Y = 40;
         break;
     case HEROCHOICE:
         xPos = (int*)malloc(3 * sizeof(int));
         xPos[0] = 20;
         xPos[1] = xPos[0] + 20;
         xPos[2] = xPos[1] + 20;
+        *maxIndex = 3;
         break;
     case MAIN:
         break;
@@ -110,8 +111,10 @@ void Choice(int* menuFlag, int* xPos) {
 }
 void UpdatePlayerPosition(int* menuFlag, int* index)
 {
-    int* xPos = nullptr;
-    Choice(menuFlag, xPos);
+    static int* xPos = nullptr;
+    static int maxIndex = 0;
+    if(*menuFlag == TITLE && xPos == nullptr) // 처음 한 번만 호출
+        Choice(menuFlag, xPos, &maxIndex);
     global::prePlayerPos = global::curPlayerPos; // 현재 위치 경신 전에 일단, 저장. 구조체를 쓰면 이런게 편한겁니다. :)
 
     if (global::input::IsEscapeCmdOn())
@@ -122,40 +125,28 @@ void UpdatePlayerPosition(int* menuFlag, int* index)
 
         return; // 다른 키 입력을 신경 쓸 필요가 없어요.
     }
-    if (global::input::IsLeftCmdOn())
+    if (xPos != nullptr)
     {
-        global::input::Set(global::input::USER_CMD_LEFT, false);
+        if (global::input::IsLeftCmdOn())
+        {
+            global::input::Set(global::input::USER_CMD_LEFT, false);
 
-        global::curPlayerPos.X = xPos[(*index)--];
-        Clamp(global::curPlayerPos.X, global::playerMovableRect.Left, global::playerMovableRect.Right);
-    }
-    if (global::input::IsRightCmdOn())
-    {
-        global::input::Set(global::input::USER_CMD_RIGHT, false);
+            if(*index > 0)
+                global::curPlayerPos.X = xPos[--(*index)];
+        }
+        if (global::input::IsRightCmdOn())
+        {
+            global::input::Set(global::input::USER_CMD_RIGHT, false);
 
-        global::curPlayerPos.X++;
-        Clamp(global::curPlayerPos.X, global::playerMovableRect.Left, global::playerMovableRect.Right);
-    }
-    if (global::input::IsUpCmdOn())
-    {
-        global::input::Set(global::input::USER_CMD_UP, false);
+            if (*index < maxIndex - 1)
+                global::curPlayerPos.X = xPos[++(*index)];
+        }
+        if (global::input::IsSpaceCmdOn())
+        {
+            global::input::Set(global::input::USER_CMD_SPACE, false);
 
-        global::curPlayerPos.X++;
-        Clamp(global::curPlayerPos.X, global::playerMovableRect.Left, global::playerMovableRect.Right);
-    }
-    if (global::input::IsDownCmdOn())
-    {
-        global::input::Set(global::input::USER_CMD_DOWN, false);
-
-        global::curPlayerPos.X++;
-        Clamp(global::curPlayerPos.X, global::playerMovableRect.Left, global::playerMovableRect.Right);
-    }
-    if (global::input::IsSpaceCmdOn())
-    {
-        global::input::Set(global::input::USER_CMD_SPACE, false);
-
-        global::curPlayerPos.X++;
-        Clamp(global::curPlayerPos.X, global::playerMovableRect.Left, global::playerMovableRect.Right);
+            Choice(menuFlag, xPos, &maxIndex);
+        }
     }
 }
 
@@ -215,6 +206,8 @@ void StartGame()
     //DrawPlayer();
 
     //DrawEnemy();
+
+    
 }
 
 void EndGame()
@@ -231,7 +224,7 @@ void ProcessInput() // 인풋 종류 정하기
 void PrintCountsPerSecond();
 void PrintPlayerPostion();
 
-void Render()
+void Render(int* menuFlag, int* curIndex)
 {
     render::ScreenClear();
 
@@ -242,7 +235,7 @@ void Render()
     //DrawPlayer();
 
     //DrawEnemy();
-    render::DrawGames(0, &global::menuFlag);
+    render::DrawGames(menuFlag, &global::curPlayerPos, curIndex);
     //render::DrawBorder();
 
     render::ScreenFlipping();
@@ -269,9 +262,9 @@ void FixeUpdate()
     }
 }
 
-void Update(int* menuFlag)
+void Update(int* menuFlag, int* curIndex)
 {
-    static int choiceIndex = 0;
+    
     global::time::updateCount += 1;
 
     if (global::input::IsSpaceCmdOn())
@@ -289,11 +282,20 @@ void Update(int* menuFlag)
             default:
                 break;
             }
-
         }
         else if (*menuFlag == HEROCHOICE)
         {
-
+            switch (global::curPlayerPos.X)
+            {
+            case POS1: *menuFlag = HEROCHOICE;
+                break;
+            case POS2: *menuFlag = HOWTOPLAY;
+                break;
+            case POS3: *menuFlag = GAMEINFO;
+                break;
+            default:
+                break;
+            }
         }
         else if (*menuFlag == MAIN)
         {
@@ -309,7 +311,7 @@ void Update(int* menuFlag)
         }
     }
 
-    UpdatePlayerPosition(&global::menuFlag, &choiceIndex);
+    UpdatePlayerPosition(menuFlag, curIndex);
 
 }
 
@@ -343,11 +345,16 @@ void PrintCountsPerSecond()
 
 int main()
 {
-    
     global::time::InitTime();
 
+    int menuFlag = TITLE;
     int choiceIndex = 0;
+    PLAYER job[JOB];
+    PLAYER player;
+    PLAYER enemy[JOB - 1];
+
     StartGame();
+    player::SetPlayer(job);
 
     while (IsGameRun())
     {
@@ -356,8 +363,8 @@ int main()
         ProcessInput();
         FixeUpdate();
 
-        //Update();
-        Render();
+        Update(&menuFlag, &choiceIndex);
+        Render(&menuFlag, &choiceIndex);
     }
 
     EndGame();

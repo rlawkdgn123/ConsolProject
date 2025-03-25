@@ -3,7 +3,7 @@
 
 #include "Player.h"
 
-void SetJob(PLAYER* player)
+void player::SetPlayer(PLAYER* player)
 {
 	//직업 특성 할당
 	player[WARRIOR].JOB = WARRIOR;
@@ -31,7 +31,7 @@ void SetJob(PLAYER* player)
 	player[THIEF].poisonStack = 0;
 }
 
-//PLAYER* SelectPlayer(int x, int y)
+//PLAYER* player::SelectPlayer(int x, int y)
 //{
 //	//커서 포지션 정해지면 수정할 것
 //	if (x == warrior.x)
@@ -51,7 +51,7 @@ void SetJob(PLAYER* player)
 //	}
 //}
 
-void UseAttack(PLAYER* player, PLAYER* enemy)
+void player::UseAttack(PLAYER* player, PLAYER* enemy)
 {
 	std::random_device rd;
 
@@ -80,7 +80,7 @@ void UseAttack(PLAYER* player, PLAYER* enemy)
 		enemy->hp -= enemy->poisonStack--;
 }
 
-void UseSkill(PLAYER* player, PLAYER* enemy)
+void player::UseSkill(PLAYER* player, PLAYER* enemy)
 {
 	std::random_device rd;
 
@@ -106,7 +106,7 @@ void UseSkill(PLAYER* player, PLAYER* enemy)
 		enemy->hp -= enemy->poisonStack--;
 }
 
-void EnemyDied(PLAYER* player)
+void player::EnemyDied(PLAYER* player)
 {
 	if (player->isPlayer)
 	{

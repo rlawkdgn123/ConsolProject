@@ -24,8 +24,10 @@ typedef struct  {
 	SKILL skill[2];
 }PLAYER;
 
-void SetJob(PLAYER* player);
-void SelectPlayer(int x, PLAYER* player);
-void UseAttack(PLAYER* player, PLAYER* enemy);
-void UseSkill(PLAYER* player, PLAYER* enemy);
-void EnemyDied(PLAYER* player);
+namespace player {
+	void SetPlayer(PLAYER* player);
+	void SelectPlayer(int x, PLAYER* player);
+	void UseAttack(PLAYER* player, PLAYER* enemy);
+	void UseSkill(PLAYER* player, PLAYER* enemy);
+	void EnemyDied(PLAYER* player);
+}

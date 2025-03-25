@@ -140,29 +140,25 @@ namespace render
 
         WriteFile(GetScreenHandle(), pStr, strlen(pStr), &dw, NULL);
     }
-    void ChoiceDraw(int x, int y, const char* text, bool highlight) {
+    void ChoiceDraw(int x, int y, const char* pStr, bool highlight) {
         HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-        // 콘솔 화면 크기 설정
-        const int width = 80;  // 콘솔 창 가로 크기 (적당히 설정)
-        const int height = 25; // 콘솔 창 세로 크기 (적당히 설정)
-
-        CHAR_INFO buffer[width * height]; // 화면 버퍼
+        CHAR_INFO buffer[SCREEN_WIDTH * SCREEN_HEIGHT]; // 화면 버퍼
 
         // 버퍼 초기화 (기본 공백 문자로 설정)
-        for (int i = 0; i < width * height; ++i) {
+        for (int i = 0; i < SCREEN_WIDTH * SCREEN_HEIGHT; ++i) {
             buffer[i].Char.UnicodeChar = L' '; // 공백 문자
             buffer[i].Attributes = FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED; // 텍스트 색상 (흰색)
         }
 
         // 텍스트를 CHAR_INFO 배열에 배치
-        int bufferIndex = y * width + x;
-        for (int i = 0; text[i] != L'\0'; ++i) {
-            if (text[i] == L'\n') {
-                bufferIndex += width; // 줄바꿈 처리
+        int bufferIndex = y * SCREEN_WIDTH + x;
+        for (int i = 0; pStr[i] != L'\0'; ++i) {
+            if (pStr[i] == L'\n') {
+                bufferIndex += SCREEN_WIDTH; // 줄바꿈 처리
             }
             else {
-                buffer[bufferIndex].Char.UnicodeChar = text[i];
+                buffer[bufferIndex].Char.UnicodeChar = pStr[i];
                 bufferIndex++;
             }
         }
@@ -180,14 +176,14 @@ namespace render
     }  // 세미콜론이 끝에 추가됨.
 
 
-    void DrawGames(int Stage, int* menuFlag)
+    void DrawGames(int* menuFlag, COORD* curPlayerPos, int* curIndex)
     {
         wchar_t* temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
-        switch (Stage) {
+        switch (*menuFlag) {
         case TITLE:
             temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
             EncodeMap(temp);
-            RenderTitle(0);
+            RenderTitle(curIndex, curPlayerPos);
             *menuFlag = TITLE;
             break;
         case HEROCHOICE:
@@ -312,11 +308,6 @@ namespace render
         return temp;
     }
 
-    struct ChoiceMSG {
-        int xPos;
-        int yPos;
-        char text[15];
-    }choiceMSG[3];
     void DrawBorder()
     {
         // 위쪽 라인. Y 값이 고정 된다.
@@ -343,21 +334,21 @@ namespace render
             ScreenDraw(updateScreenSize.Right + 1, y, '#');
         }
     }
-    void RenderTitle(int* choiceNum) {
+    void RenderTitle(int* choiceNum, COORD* curPlayerPos) {
         if (*choiceNum == 0) {
-            ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, true);
-            ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, false);
-            ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, false);
+            ChoiceDraw(curPlayerPos->X, curPlayerPos->Y, "Game Start", true);
+            ChoiceDraw(curPlayerPos->X, curPlayerPos->Y, "How To Play", false);
+            ChoiceDraw(curPlayerPos->X, curPlayerPos->Y, "Game Info", false);
         }
         else if (*choiceNum == 1) {
-            ChoiceDraw(choiceMSG[1].yPos, choiceMSG[1].xPos, choiceMSG[1].text, false);
-            ChoiceDraw(choiceMSG[1].yPos, choiceMSG[1].xPos, choiceMSG[1].text, true);
-            ChoiceDraw(choiceMSG[1].yPos, choiceMSG[1].xPos, choiceMSG[1].text, false);
+            ChoiceDraw(curPlayerPos->X, curPlayerPos->Y, "Game Start", false);
+            ChoiceDraw(curPlayerPos->X, curPlayerPos->Y, "How To Play", true);
+            ChoiceDraw(curPlayerPos->X, curPlayerPos->Y, "Game Info", false);
         }
         else {
-            ChoiceDraw(choiceMSG[2].yPos, choiceMSG[2].xPos, choiceMSG[2].text, false);
-            ChoiceDraw(choiceMSG[2].yPos, choiceMSG[2].xPos, choiceMSG[2].text, false);
-            ChoiceDraw(choiceMSG[2].yPos, choiceMSG[2].xPos, choiceMSG[2].text, true);
+            ChoiceDraw(curPlayerPos->X, curPlayerPos->Y, "Game Start", false);
+            ChoiceDraw(curPlayerPos->X, curPlayerPos->Y, "How To Play", false);
+            ChoiceDraw(curPlayerPos->X, curPlayerPos->Y, "Game Info", true);
         }
     }
 };

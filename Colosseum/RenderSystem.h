@@ -14,7 +14,7 @@ namespace render
 
 	void ChoiceDraw(int x, int y, const char* pStr, bool highLight);
 
-	void DrawGames(int num, int* menuFlag);
+	void DrawGames(int* menuFlag, COORD* curPlayerPos, int* curIndex);
 	//char* OpenText(char* fileName, int fileHeight, int fileWidth);
 	//char* OpenText(const char* fileName, int fileHeight, int fileWidth);
 	wchar_t* OpenText(const char* fileName, int fileHeight, int fileWidth);
@@ -23,5 +23,5 @@ namespace render
 	SMALL_RECT GetPlayerMovableRect();
 	void setConsoleSize(int width, int height);
 	void DrawBorder();
-	void RenderTitle(int* choiceNum);
+	void RenderTitle(int* choiceNum, COORD* curPlayerPos);
 };
