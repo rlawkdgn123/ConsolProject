@@ -9,7 +9,7 @@
 namespace global {
     int mSecPerFrame = 1000 / 25; // 40
     COORD prePlayerPos; // 기존 플레이어 위치
-    COORD curPlayerPos; // 현재 플레이어 위치
+    COORD curPlayerPos = { 20, 40 }; // 현재 플레이어 위치
     int saveXPos[5] = { 0, };
 
     COORD enemyWorldBasis = { 10, 2 };
@@ -140,7 +140,7 @@ void UpdatePlayerPosition(int* menuFlag, int* index)
         }
         if (global::input::IsSpaceCmdOn())
         {
-            global::input::Set(global::input::USER_CMD_SPACE, false);
+            
 
             Choice(menuFlag, &maxIndex);
         }
@@ -305,6 +305,7 @@ void Update(int* menuFlag, int* curIndex)
         {
 
         }
+        global::input::Set(global::input::USER_CMD_SPACE, false);
     }
 
     UpdatePlayerPosition(menuFlag, curIndex);

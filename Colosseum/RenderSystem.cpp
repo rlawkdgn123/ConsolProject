@@ -58,10 +58,11 @@ namespace render
         hScreen[1] = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
 
         // 깜박이는 커서를 좀 진정 시키자.
-        CONSOLE_CURSOR_INFO cursorInfo = { 0, };
+        CONSOLE_CURSOR_INFO cursorInfo = { 0 };
         cursorInfo.bVisible = 0; // 커서를 보일지 말지 결정(0이면 안보임, 0제외 숫자 값이면 보임)
         cursorInfo.dwSize = 1; // 커서의 크기를 결정 (1~100 사이만 가능)
-        SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
+        SetConsoleCursorInfo(hScreen[0], &cursorInfo);
+        SetConsoleCursorInfo(hScreen[1], &cursorInfo);
 
 
         // 콘솔창 크기를 가져 오자.
@@ -98,7 +99,13 @@ namespace render
         SetConsoleActiveScreenBuffer(GetScreenHandle());
         bScreenIndex = !bScreenIndex;
     }
-
+    void PrintScreen(int x, int y, const char* string)
+    {
+        DWORD dw;
+        COORD CursorPosition = { x, y };
+        SetConsoleCursorPosition(GetScreenHandle(), CursorPosition);
+        WriteFile(GetScreenHandle(), string, strlen(string), &dw, NULL);
+    }
     void ScreenClear()
     {
         COORD Coor = { updateScreenSize.Left, updateScreenSize.Top };
@@ -141,27 +148,9 @@ namespace render
         WriteFile(GetScreenHandle(), pStr, strlen(pStr), &dw, NULL);
     }
     void ChoiceDraw(int x, int y, const char* pStr, bool highlight) {
-        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
-        CHAR_INFO buffer[SCREEN_WIDTH * SCREEN_HEIGHT]; // 화면 버퍼
-
-        // 버퍼 초기화 (기본 공백 문자로 설정)
-        for (int i = 0; i < SCREEN_WIDTH * SCREEN_HEIGHT; ++i) {
-            buffer[i].Char.UnicodeChar = L' '; // 공백 문자
-            buffer[i].Attributes = FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED; // 텍스트 색상 (흰색)
-        }
-
-        // 텍스트를 CHAR_INFO 배열에 배치
-        int bufferIndex = y * SCREEN_WIDTH + x;
-        for (int i = 0; pStr[i] != L'\0'; ++i) {
-            if (pStr[i] == L'\n') {
-                bufferIndex += SCREEN_WIDTH; // 줄바꿈 처리
-            }
-            else {
-                buffer[bufferIndex].Char.UnicodeChar = pStr[i];
-                bufferIndex++;
-            }
-        }
+        if(highlight)SetColor(12);
+        PrintScreen(x,y,pStr);
+        SetColor(1);
     }
     wchar_t* EncodeMap(wchar_t* pMap) // 세미콜론을 추가한 후 수정
     {
@@ -182,13 +171,16 @@ namespace render
         switch (*menuFlag) {
         case TITLE:
             temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
-            EncodeMap(temp);
+            //EncodeMap(temp);
             RenderTitle(curIndex, curPlayerPos);
+            PrintScreen(curPlayerPos->X - 3,curPlayerPos->Y, ">>");
             *menuFlag = TITLE;
             break;
         case HEROCHOICE:
             temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
-            EncodeMap(temp);
+            //EncodeMap(temp);
+            RenderHeroChoice(curIndex, curPlayerPos);
+            PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = HEROCHOICE;
             break;
         case MAIN:
@@ -205,10 +197,15 @@ namespace render
             temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
             EncodeMap(temp);
             *menuFlag = END;
+
         default:
             DrawBorder();
             break;
         }
+    }
+    void SetColor(unsigned short color)
+    {
+        SetConsoleTextAttribute(GetScreenHandle(), color);
     }
     //char* OpenText(char* fileName, int fileHeight, int fileWidth)
     //{
@@ -336,19 +333,37 @@ namespace render
     }
     void RenderTitle(int* choiceNum, COORD* curPlayerPos) {
         if (*choiceNum == 0) {
-            ChoiceDraw(curPlayerPos->X, curPlayerPos->Y, "Game Start", true);
-            ChoiceDraw(curPlayerPos->X, curPlayerPos->Y, "How To Play", false);
-            ChoiceDraw(curPlayerPos->X, curPlayerPos->Y, "Game Info", false);
+            ChoiceDraw(POS1, curPlayerPos->Y, "Game Start", true);
+            ChoiceDraw(POS2, curPlayerPos->Y, "How To Play", false);
+            ChoiceDraw(POS3, curPlayerPos->Y, "Game Info", false);
         }
         else if (*choiceNum == 1) {
-            ChoiceDraw(curPlayerPos->X, curPlayerPos->Y, "Game Start", false);
-            ChoiceDraw(curPlayerPos->X, curPlayerPos->Y, "How To Play", true);
-            ChoiceDraw(curPlayerPos->X, curPlayerPos->Y, "Game Info", false);
+            ChoiceDraw(POS1, curPlayerPos->Y, "Game Start", false);
+            ChoiceDraw(POS2, curPlayerPos->Y, "How To Play", true);
+            ChoiceDraw(POS3, curPlayerPos->Y, "Game Info", false);
         }
         else {
-            ChoiceDraw(curPlayerPos->X, curPlayerPos->Y, "Game Start", false);
-            ChoiceDraw(curPlayerPos->X, curPlayerPos->Y, "How To Play", false);
-            ChoiceDraw(curPlayerPos->X, curPlayerPos->Y, "Game Info", true);
+            ChoiceDraw(POS1, curPlayerPos->Y, "Game Start", false);
+            ChoiceDraw(POS2, curPlayerPos->Y, "How To Play", false);
+            ChoiceDraw(POS3, curPlayerPos->Y, "Game Info", true);
+        }
+    }
+    void RenderHeroChoice(int* choiceNum, COORD* curPlayerPos)
+    {
+        if (*choiceNum == 0) {
+            ChoiceDraw(POS1, curPlayerPos->Y, "Worrior", true);
+            ChoiceDraw(POS2, curPlayerPos->Y, "Thief", false);
+            ChoiceDraw(POS3, curPlayerPos->Y, "Wizard", false);
+        }
+        else if (*choiceNum == 1) {
+            ChoiceDraw(POS1, curPlayerPos->Y, "Worrior", false);
+            ChoiceDraw(POS2, curPlayerPos->Y, "Thief", true);
+            ChoiceDraw(POS3, curPlayerPos->Y, "Wizard", false);
+        }
+        else {
+            ChoiceDraw(POS1, curPlayerPos->Y, "Worrior", false);
+            ChoiceDraw(POS2, curPlayerPos->Y, "Thief", false);
+            ChoiceDraw(POS3, curPlayerPos->Y, "Wizard", true);
         }
     }
 };
