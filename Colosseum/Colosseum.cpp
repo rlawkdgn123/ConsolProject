@@ -80,7 +80,7 @@ void DrawPlayer()
 //    }
 //}
 void Choice(int* menuFlag, int* xPos) {
-    if (xPos != nullptr) free(xPos[]);
+    if (xPos != nullptr) free(xPos);
 
     switch (*menuFlag) {
     case TITLE:

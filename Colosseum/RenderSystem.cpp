@@ -2,10 +2,11 @@
 #include "renderSystem.h"
 #include "Define.h"
 #include "InputSystem.h"
+using namespace render;
 using namespace global::input;
 namespace render
 {
-    
+
     bool bScreenIndex;
     HANDLE hScreen[2];
 
@@ -16,7 +17,7 @@ namespace render
     SMALL_RECT updateScreenSize;
     INT updateScreenX;
     INT updateScreenY;
-
+}
     SMALL_RECT GetPlayerMovableRect()
     {
         return updateScreenSize;
@@ -139,34 +140,46 @@ namespace render
 
         WriteFile(GetScreenHandle(), pStr, strlen(pStr), &dw, NULL);
     }
-    void ChoiceDraw(int x, int y, const char* pStr, bool highLight)
-    {
-        DWORD dw;
-        COORD Cur = { x, y };
+    void ChoiceDraw(int x, int y, const wchar_t* text) {
+        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-        if (highLight)
-        {
-            // 빨간색 텍스트로 설정
-            //SetColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
+        // 콘솔 화면 크기 설정
+        const int width = 80;  // 콘솔 창 가로 크기 (적당히 설정)
+        const int height = 25; // 콘솔 창 세로 크기 (적당히 설정)
+
+        CHAR_INFO buffer[width * height]; // 화면 버퍼
+
+        // 버퍼 초기화 (기본 공백 문자로 설정)
+        for (int i = 0; i < width * height; ++i) {
+            buffer[i].Char.UnicodeChar = L' '; // 공백 문자
+            buffer[i].Attributes = FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED; // 텍스트 색상 (흰색)
         }
-        SetConsoleCursorPosition(GetScreenHandle(), Cur);
 
-        WriteFile(GetScreenHandle(), pStr, strlen(pStr), &dw, NULL);
-    }
-
-    char* EncodeMap(char* pMap)
-    {
-        for (int i = 0; i < MAP_HEIGHT * MAP_PWIDTH; i++)
-        {
-            if (pMap[i] == '0')
-            {
-                pMap[i] = ' ';
+        // 텍스트를 CHAR_INFO 배열에 배치
+        int bufferIndex = y * width + x;
+        for (int i = 0; text[i] != L'\0'; ++i) {
+            if (text[i] == L'\n') {
+                bufferIndex += width; // 줄바꿈 처리
+            }
+            else {
+                buffer[bufferIndex].Char.UnicodeChar = text[i];
+                bufferIndex++;
             }
         }
-        return pMap;
-    }
+        char* EncodeMap(char* pMap) // 세미콜론을 추가한 후 수정
+        {
+            for (int i = 0; i < MAP_HEIGHT * MAP_PWIDTH; i++)
+            {
+                if (pMap[i] == '0')
+                {
+                    pMap[i] = ' ';
+                }
+            }
+            return pMap;
+        }  // 세미콜론이 끝에 추가됨.
 
-    void DrawGames(int Stage, int* menuFlag)
+
+        void DrawGames(int Stage, int* menuFlag)
     {
         char* temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
         switch(Stage) {
@@ -196,7 +209,7 @@ namespace render
              EncodeMap(temp);
              *menuFlag = END;
             default:
-            DrawBorder;
+            DrawBorder();
             break;
         }
     }
@@ -278,12 +291,12 @@ namespace render
         choiceMSG[0] = { 20, 35,  "Game Start" };
         choiceMSG[1] = { 20, 55,  "How To Play" };
         choiceMSG[2] = { 20, 75,  " Game Info  " };
-        if (choiceNum == 0) {
+        if (*choiceNum == 0) {
             ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text , true);
             ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, false);
             ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, false);
         }
-        else if(choiceNum == 1) {
+        else if(*choiceNum == 1) {
             ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, false);
             ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, true);
             ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, false);
