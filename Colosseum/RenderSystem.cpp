@@ -17,7 +17,7 @@ namespace render
     SMALL_RECT updateScreenSize;
     INT updateScreenX;
     INT updateScreenY;
-}
+
     SMALL_RECT GetPlayerMovableRect()
     {
         return updateScreenSize;
@@ -77,7 +77,7 @@ namespace render
         consoleScreenSize.Right = csbi.srWindow.Right;
         consoleScreenSize.Bottom = csbi.srWindow.Bottom;
         consoleScreenSize.Top = csbi.srWindow.Top;
-        
+
         consoleScreenX = csbi.dwSize.X;
         consoleScreenY = csbi.dwSize.Y;
         //consoleScreenX = SCREEN_WIDTH; // 콘솔 스크린 폭
@@ -94,7 +94,7 @@ namespace render
     }
 
     void ScreenFlipping()
-    {   
+    {
         SetConsoleActiveScreenBuffer(GetScreenHandle());
         bScreenIndex = !bScreenIndex;
     }
@@ -103,7 +103,7 @@ namespace render
     {
         COORD Coor = { updateScreenSize.Left, updateScreenSize.Top };
         DWORD dw;
-        
+
         for (int y = 0; y < updateScreenY; y++)
         {
             Coor.Y = updateScreenSize.Top + y;
@@ -166,28 +166,29 @@ namespace render
                 bufferIndex++;
             }
         }
-        char* EncodeMap(char* pMap) // 세미콜론을 추가한 후 수정
+    }
+    char* EncodeMap(char* pMap) // 세미콜론을 추가한 후 수정
+    {
+        for (int i = 0; i < MAP_HEIGHT * MAP_PWIDTH; i++)
         {
-            for (int i = 0; i < MAP_HEIGHT * MAP_PWIDTH; i++)
+            if (pMap[i] == '0')
             {
-                if (pMap[i] == '0')
-                {
-                    pMap[i] = ' ';
-                }
+                pMap[i] = ' ';
             }
-            return pMap;
-        }  // 세미콜론이 끝에 추가됨.
+        }
+        return pMap;
+    }  // 세미콜론이 끝에 추가됨.
 
 
-        void DrawGames(int Stage, int* menuFlag)
+    void DrawGames(int Stage, int* menuFlag)
     {
         char* temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
-        switch(Stage) {
+        switch (Stage) {
         case TITLE:
-           temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
-           EncodeMap(temp);
-           RenderTitle();
-           *menuFlag = TITLE;
+            temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
+            EncodeMap(temp);
+            RenderTitle();
+            *menuFlag = TITLE;
             break;
         case HEROCHOICE:
             temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
@@ -197,18 +198,18 @@ namespace render
         case MAIN:
             temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
             EncodeMap(temp);
-            *menuFlag =MAIN;
+            *menuFlag = MAIN;
             break;
         case BATTLE:
             temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
             EncodeMap(temp);
             *menuFlag = BATTLE;
             break;
-         case END:
-             temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
-             EncodeMap(temp);
-             *menuFlag = END;
-            default:
+        case END:
+            temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
+            EncodeMap(temp);
+            *menuFlag = END;
+        default:
             DrawBorder();
             break;
         }
@@ -292,11 +293,11 @@ namespace render
         choiceMSG[1] = { 20, 55,  "How To Play" };
         choiceMSG[2] = { 20, 75,  " Game Info  " };
         if (*choiceNum == 0) {
-            ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text , true);
+            ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, true);
             ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, false);
             ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, false);
         }
-        else if(*choiceNum == 1) {
+        else if (*choiceNum == 1) {
             ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, false);
             ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, true);
             ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, false);
@@ -306,7 +307,6 @@ namespace render
             ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, false);
             ChoiceDraw(choiceMSG[0].yPos, choiceMSG[0].xPos, choiceMSG[0].text, true);
         }
-       
     }
 };
 
