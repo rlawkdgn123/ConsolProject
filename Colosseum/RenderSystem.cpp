@@ -165,7 +165,7 @@ namespace render
     }
     wchar_t* EncodeMap(wchar_t* pMap) // 세미콜론을 추가한 후 수정
     {
-        for (int i = 0; i < MAP_HEIGHT * MAP_PWIDTH; i++)
+        for (int i = 0; i < MAP_PHEIGHT * MAP_PWIDTH; i++)
         {
             if (pMap[i] == '0')
             {
@@ -178,31 +178,31 @@ namespace render
 
     void DrawGames(int* menuFlag, COORD* curPlayerPos, int* curIndex)
     {
-        wchar_t* temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
+        wchar_t* temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
         switch (*menuFlag) {
         case TITLE:
-            temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
+            temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
             EncodeMap(temp);
             RenderTitle(curIndex, curPlayerPos);
             *menuFlag = TITLE;
             break;
         case HEROCHOICE:
-            temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
+            temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
             EncodeMap(temp);
             *menuFlag = HEROCHOICE;
             break;
         case MAIN:
-            temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
+            temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
             EncodeMap(temp);
             *menuFlag = MAIN;
             break;
         case BATTLE:
-            temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
+            temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
             EncodeMap(temp);
             *menuFlag = BATTLE;
             break;
         case END:
-            temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
+            temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
             EncodeMap(temp);
             *menuFlag = END;
         default:

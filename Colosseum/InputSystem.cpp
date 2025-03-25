@@ -18,7 +18,7 @@ namespace global
 		}
 
 		bool IsEscapeCmdOn() { return inputKeyTable[ESCAPE_KEY_INDEX]; }
-		bool IsLeftCmdOn() { return inputKeyTable[USER_CMD_LEFT]; }
+		bool IsLeftCmdOn() { return inputKeyTable[USER_CMD_LEFT];  }
 		bool IsRightCmdOn() { return inputKeyTable[USER_CMD_RIGHT]; }
 		bool IsUpCmdOn() { return inputKeyTable[USER_CMD_LEFT]; }
 		bool IsDownCmdOn() { return inputKeyTable[USER_CMD_RIGHT]; }

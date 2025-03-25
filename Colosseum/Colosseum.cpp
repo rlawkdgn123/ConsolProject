@@ -1,4 +1,4 @@
-﻿
+﻿#include <stdlib.h>
 #include <stdio.h>
 #include <windows.h>
 #include <random>
@@ -7,8 +7,10 @@
 #include "RenderSystem.h"
 #include "Player.h"
 namespace global {
+    int mSecPerFrame = 1000 / 25; // 40
     COORD prePlayerPos; // 기존 플레이어 위치
     COORD curPlayerPos; // 현재 플레이어 위치
+    int saveXPos[5] = { 0, };
 
     COORD enemyWorldBasis = { 10, 2 };
 
@@ -77,24 +79,21 @@ void DrawPlayer()
 //        render::ScreenDraw(x, y, global::consoleEnemy[i].character);
 //    }
 //}
-void Choice(int* menuFlag, int* xPos, int* maxIndex) {
+void Choice(int* menuFlag, int* maxIndex) {
     static int preMenu = 0;
-    if (xPos != nullptr && preMenu != *menuFlag) free(xPos);
 
     switch (*menuFlag) {
     case TITLE:
-        xPos = (int*)malloc(3 * sizeof(int));
-        xPos[0] = 20;
-        xPos[1] = xPos[0]+20;
-        xPos[2] = xPos[1]+20;
+        global::saveXPos[0] = POS1;
+        global::saveXPos[1] = POS2;
+        global::saveXPos[2] = POS3;
         *maxIndex = 3;
         global::curPlayerPos.Y = 40;
         break;
     case HEROCHOICE:
-        xPos = (int*)malloc(3 * sizeof(int));
-        xPos[0] = 20;
-        xPos[1] = xPos[0] + 20;
-        xPos[2] = xPos[1] + 20;
+        global::saveXPos[0] = POS1;
+        global::saveXPos[1] = POS2;
+        global::saveXPos[2] = POS3;
         *maxIndex = 3;
         break;
     case MAIN:
@@ -111,10 +110,9 @@ void Choice(int* menuFlag, int* xPos, int* maxIndex) {
 }
 void UpdatePlayerPosition(int* menuFlag, int* index)
 {
-    static int* xPos = nullptr;
     static int maxIndex = 0;
-    if(*menuFlag == TITLE && xPos == nullptr) // 처음 한 번만 호출
-        Choice(menuFlag, xPos, &maxIndex);
+    if(*menuFlag == TITLE && global::saveXPos[0] == 0) // 처음 한 번만 호출
+        Choice(menuFlag, &maxIndex);
     global::prePlayerPos = global::curPlayerPos; // 현재 위치 경신 전에 일단, 저장. 구조체를 쓰면 이런게 편한겁니다. :)
 
     if (global::input::IsEscapeCmdOn())
@@ -125,30 +123,27 @@ void UpdatePlayerPosition(int* menuFlag, int* index)
 
         return; // 다른 키 입력을 신경 쓸 필요가 없어요.
     }
-    if (xPos != nullptr)
-    {
         if (global::input::IsLeftCmdOn())
         {
             global::input::Set(global::input::USER_CMD_LEFT, false);
 
             if(*index > 0)
-                global::curPlayerPos.X = xPos[--(*index)];
+                global::curPlayerPos.X = global::saveXPos[--(*index)];
         }
         if (global::input::IsRightCmdOn())
         {
             global::input::Set(global::input::USER_CMD_RIGHT, false);
 
             if (*index < maxIndex - 1)
-                global::curPlayerPos.X = xPos[++(*index)];
+                global::curPlayerPos.X = global::saveXPos[++(*index)];
         }
         if (global::input::IsSpaceCmdOn())
         {
             global::input::Set(global::input::USER_CMD_SPACE, false);
 
-            Choice(menuFlag, xPos, &maxIndex);
+            Choice(menuFlag, &maxIndex);
         }
     }
-}
 
 //void UpdatePlayer(int* menuFlag)
 //{
@@ -360,11 +355,18 @@ int main()
     {
         global::time::UpdateTime();
 
-        ProcessInput();
-        FixeUpdate();
+        static ULONGLONG elapsedTime = 0;
 
-        Update(&menuFlag, &choiceIndex);
-        Render(&menuFlag, &choiceIndex);
+        elapsedTime += global::time::GetDeltaTime();
+        if (elapsedTime > global::mSecPerFrame)
+        {
+            ProcessInput();
+            FixeUpdate();
+
+            Update(&menuFlag, &choiceIndex);
+            Render(&menuFlag, &choiceIndex);
+            elapsedTime -= global::mSecPerFrame;
+        }
     }
 
     EndGame();
