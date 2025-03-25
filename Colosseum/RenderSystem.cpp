@@ -140,7 +140,7 @@ namespace render
 
         WriteFile(GetScreenHandle(), pStr, strlen(pStr), &dw, NULL);
     }
-    void ChoiceDraw(int x, int y, const wchar_t* text) {
+    void ChoiceDraw(int x, int y, const wchar_t* text, bool highlight) {
         HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
         // 콘솔 화면 크기 설정
@@ -187,7 +187,7 @@ namespace render
         case TITLE:
             temp = OpenText("Maps\\Title.txt", MAP_HEIGHT, MAP_PWIDTH);
             EncodeMap(temp);
-            RenderTitle();
+            //RenderTitle();
             *menuFlag = TITLE;
             break;
         case HEROCHOICE:

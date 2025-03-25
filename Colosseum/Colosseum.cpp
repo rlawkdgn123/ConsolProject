@@ -80,7 +80,8 @@ void DrawPlayer()
 //    }
 //}
 void Choice(int* menuFlag, int* xPos) {
-    if (xPos != nullptr) free(xPos);
+    static int preMenu = 0;
+    if (xPos != nullptr && preMenu != *menuFlag) free(xPos);
 
     switch (*menuFlag) {
     case TITLE:
@@ -104,10 +105,12 @@ void Choice(int* menuFlag, int* xPos) {
     default:
         break;
     }
+
+    preMenu = *menuFlag;
 }
 void UpdatePlayerPosition(int* menuFlag, int* index)
 {
-    int* xPos;
+    int* xPos = nullptr;
     Choice(menuFlag, xPos);
     global::prePlayerPos = global::curPlayerPos; // 현재 위치 경신 전에 일단, 저장. 구조체를 쓰면 이런게 편한겁니다. :)
 
@@ -353,7 +356,7 @@ int main()
         ProcessInput();
         FixeUpdate();
 
-        Update();
+        //Update();
         Render();
     }
 
