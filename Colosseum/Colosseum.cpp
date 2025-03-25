@@ -111,6 +111,7 @@ void Choice(int* menuFlag, int* maxIndex) {
 void UpdatePlayerPosition(int* menuFlag, int* index)
 {
     static int maxIndex = 0;
+    
     if(*menuFlag == TITLE && global::saveXPos[0] == 0) // 처음 한 번만 호출
         Choice(menuFlag, &maxIndex);
     global::prePlayerPos = global::curPlayerPos; // 현재 위치 경신 전에 일단, 저장. 구조체를 쓰면 이런게 편한겁니다. :)
@@ -253,7 +254,7 @@ void FixeUpdate()
 
         elapsedTime -= 1000;
 
-        UpdateEnemy();
+        //UpdateEnemy();
     }
 }
 
