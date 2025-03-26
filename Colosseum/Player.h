@@ -6,8 +6,9 @@ constexpr int WARRIOR = 0;
 constexpr int THIEF = 1;
 constexpr int WIZARD = 2;
 
-constexpr int HEAL = 0;
-constexpr int STUN = 1;
+constexpr int NORMAL = 0;
+constexpr int HEAL = 1;
+constexpr int STUN = 2;
 
 typedef struct  {
 	const char* skillName;
@@ -20,6 +21,7 @@ typedef struct {
 	const char* itemName;
 	int effect;
 	int num;
+	int itemcount;
 	//skillEffect;
 }ITEM;
 
@@ -29,10 +31,10 @@ typedef struct  {
 	int atkDamage;
 	int skillCount;
 	int poisonStack;
-	//int state;
+	int state;
 	bool isPlayer;
 	SKILL skill[2];
-	ITEM item[3];
+	ITEM item[2];
 }PLAYER;
 
 namespace player {
@@ -40,6 +42,7 @@ namespace player {
 	void SetPlayer(PLAYER* player);
 	void SetEnemy(PLAYER* job, PLAYER* enemy);
 	void UseAttack(PLAYER* player, PLAYER* enemy);
-	void UseSkill(PLAYER* player, PLAYER* enemy);
+	void UseSkill(PLAYER* player, PLAYER* enemy, int skillNum);
+	void UseItem(PLAYER* player, int itemNum);
 	void EnemyDied(PLAYER* player);
 }

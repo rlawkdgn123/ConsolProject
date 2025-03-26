@@ -15,15 +15,11 @@ enum STAGE {
     HEROCHOICE = 1,
     MAIN = 2,
     BATTLE = 3,
-    END = 4,
-    HOWTOPLAY = 5,
-    GAMEINFO = 6
-};
-
-enum IN_BATTLE {
-    ATTACK = 0,
-    SKILL = 1,
-    ITEM = 2
+    BATTLE_SKILL = 4,
+    BATTLE_ITEM = 5,
+    END = 6,
+    HOWTOPLAY = 7,
+    GAMEINFO = 8
 };
 
 enum CHOICE {
