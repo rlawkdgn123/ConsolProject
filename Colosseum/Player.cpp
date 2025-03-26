@@ -3,6 +3,21 @@
 
 #include "Player.h"
 
+void player::SetItem(ITEM* playeritem)
+{
+	ITEM item[2];
+	item[0].itemName = "Hp Potion";
+	item[0].effect = HEAL;
+	item[0].num = 30;
+	item[1].itemName = "Stun";
+	item[1].effect = STUN;
+	item[1].num = 1;
+
+	playeritem[0] = item[0];
+	playeritem[1] = item[0];
+	playeritem[2] = item[1];
+}
+
 void player::SetPlayer(PLAYER* player)
 {
 	//직업 특성 할당
@@ -10,46 +25,45 @@ void player::SetPlayer(PLAYER* player)
 	player[WARRIOR].isPlayer = false;
 	player[WARRIOR].hp = 120;
 	player[WARRIOR].atkDamage = 20;
+	player::SetItem(player[WARRIOR].item);
 	player[WARRIOR].skill[0].skillName = "warriorSkill1";
 	player[WARRIOR].skill[0].passiveProb = 20;
 	player[WARRIOR].poisonStack = 0;
+	player[WARRIOR].skillCount = 0;
+
 
 	player[THIEF].JOB = THIEF;
 	player[THIEF].isPlayer = false;
 	player[THIEF].hp = 100;
 	player[THIEF].atkDamage = 10;
+	player::SetItem(player[THIEF].item);
 	player[THIEF].skill[0].skillName = "thiefSkill1";
 	player[THIEF].skill[0].passiveProb = 20;
 	player[THIEF].poisonStack = 0;
+	player[THIEF].skillCount = 0;
 
 	player[THIEF].JOB = WIZARD;
 	player[THIEF].isPlayer = false;
 	player[THIEF].hp = 100;
 	player[THIEF].atkDamage = 26;
+	player::SetItem(player[WIZARD].item);
 	player[THIEF].skill[0].skillName = "wizardSkill1";
 	player[THIEF].skill[0].passiveProb = 50;
 	player[THIEF].poisonStack = 0;
+	player[WIZARD].skillCount = 0;
 }
 
-//PLAYER* player::SelectPlayer(int x, int y)
-//{
-//	//커서 포지션 정해지면 수정할 것
-//	if (x == warrior.x)
-//	{
-//		warrior.isPlayer = true;
-//		return &warrior;
-//	}
-//	else if (x == thief.x)
-//	{
-//		thief.isPlayer = true;
-//		return &thief;
-//	}
-//	else if (x == wizard.x)
-//	{
-//		wizard.isPlayer = true;
-//		return &wizard;
-//	}
-//}
+void player::SetEnemy(PLAYER* job, PLAYER* enemy)
+{
+	int j = 0;
+	for (int i = 0; i < JOBCOUNT; i++)
+	{
+		if (!(job[i].isPlayer))
+		{
+			enemy[j] = job[i];
+		}
+	}
+}
 
 void player::UseAttack(PLAYER* player, PLAYER* enemy)
 {

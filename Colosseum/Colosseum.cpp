@@ -53,6 +53,17 @@ namespace global {
             return deltaTime;
         }
     };
+
+    namespace player
+    {
+        PLAYER job[JOBCOUNT];
+        PLAYER player;
+        PLAYER enemy[JOBCOUNT - 1];
+        int current_enemy;
+        bool isPlayerTurn;
+        bool isEnemyTurn;
+        bool isUseSkill;
+    };
 }
 
 void Clamp(short& n, short min, short max) // 레퍼런스 타입에 대해 배워 봅시다.
@@ -97,6 +108,9 @@ void Choice(int* menuFlag, int* maxIndex) {
         *maxIndex = 3;
         break;
     case MAIN:
+        global::saveXPos[0] = POS1;
+        global::saveXPos[1] = POS2;
+        *maxIndex = 2;
         break;
     case BATTLE:
         break;
@@ -185,8 +199,8 @@ void StartGame()
     //render::DrawBorder(); // 벽을 그려 놓자!
 
     // 플레이어 시작 위치 설정
-    global::prePlayerPos.X = global::playerMovableRect.Left + (global::playerMovableRect.Left + global::playerMovableRect.Right) / 2;
-    global::prePlayerPos.Y = global::playerMovableRect.Bottom - 2;
+    global::prePlayerPos.X = 30;
+    global::prePlayerPos.Y = 40;
 
     global::curPlayerPos.X = global::prePlayerPos.X;
     global::curPlayerPos.Y = global::prePlayerPos.Y;
@@ -203,7 +217,7 @@ void StartGame()
 
     //DrawEnemy();
 
-    
+    player::SetPlayer(global::player::job);
 }
 
 void EndGame()
@@ -260,7 +274,6 @@ void FixeUpdate()
 
 void Update(int* menuFlag, int* curIndex)
 {
-    
     global::time::updateCount += 1;
 
     if (global::input::IsSpaceCmdOn())
@@ -283,11 +296,23 @@ void Update(int* menuFlag, int* curIndex)
         {
             switch (global::curPlayerPos.X)
             {
-            case POS1: *menuFlag = HEROCHOICE;
+            case POS1:
+                global::player::player = global::player::job[WARRIOR];
+                global::player::job[WARRIOR].isPlayer = true;
+                player::SetEnemy(global::player::job, global::player::enemy);
+                *menuFlag = MAIN;
                 break;
-            case POS2: *menuFlag = HOWTOPLAY;
+            case POS2: 
+                global::player::player = global::player::job[THIEF];
+                global::player::job[THIEF].isPlayer = true;
+                player::SetEnemy(global::player::job, global::player::enemy);
+                *menuFlag = MAIN;
                 break;
-            case POS3: *menuFlag = GAMEINFO;
+            case POS3: 
+                global::player::player = global::player::job[WIZARD];
+                global::player::job[THIEF].isPlayer = true;
+                player::SetEnemy(global::player::job, global::player::enemy);
+                *menuFlag = MAIN;
                 break;
             default:
                 break;
@@ -295,11 +320,41 @@ void Update(int* menuFlag, int* curIndex)
         }
         else if (*menuFlag == MAIN)
         {
-
+            switch (global::curPlayerPos.X)
+            {
+            case POS1:
+                global::player::current_enemy = 0;
+                global::player::isPlayerTurn = true;
+                global::player::isEnemyTurn = false;
+                global::player::isUseSkill = false;
+                *menuFlag = BATTLE;
+                break;
+            case POS2:
+                global::player::current_enemy = 1;
+                global::player::isPlayerTurn = true;
+                global::player::isEnemyTurn = false;
+                global::player::isUseSkill = false;
+                *menuFlag = BATTLE;
+                break;
+            default:
+                break;
+            }
         }
         else if (*menuFlag == BATTLE)
         {
-
+            if (global::player::isPlayerTurn)
+            {
+                switch (global::curPlayerPos.X)
+                {
+                case POS1:
+                    player::UseAttack(&global::player::player, &global::player::enemy[global::player::current_enemy]);
+                    break;
+                case POS2:
+                    break;
+                case POS3:
+                    break;
+                }
+            }
         }
         else if (*menuFlag == END)
         {
@@ -346,12 +401,9 @@ int main()
 
     int menuFlag = TITLE;
     int choiceIndex = 0;
-    PLAYER job[JOB];
-    PLAYER player;
-    PLAYER enemy[JOB - 1];
+    
 
     StartGame();
-    player::SetPlayer(job);
 
     while (IsGameRun())
     {

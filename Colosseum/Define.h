@@ -20,6 +20,12 @@ enum STAGE {
     GAMEINFO = 6
 };
 
+enum IN_BATTLE {
+    ATTACK = 0,
+    SKILL = 1,
+    ITEM = 2
+};
+
 enum CHOICE {
     POS1 = 30,
     POS2 = 60,
