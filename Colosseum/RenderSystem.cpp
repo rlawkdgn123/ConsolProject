@@ -174,7 +174,7 @@ namespace render
 
     void OpenTextAndWrite(int x, int y, const char* fileName) {
         FILE* pFile = nullptr;
-        char* string = (char*)malloc(200 + 1);  // +1은 널 종료 문자 추가를 위해;
+        char* string = (char*)malloc(MAP_WIDTH + 1);  // +1은 널 종료 문자 추가를 위해;
         size_t length;
         int count = 0;
         fopen_s(&pFile, fileName, "rb");
@@ -182,16 +182,20 @@ namespace render
             return;
         }
         // 파일 끝까지 반복
-        fgets(string, 200, pFile);
+        fgets(string, MAP_WIDTH, pFile);
+        
         length = strlen(string);
         // 동적으로 메모리 할당
-        string = (char*)malloc(length + 1);  // +1은 널 종료 문자 추가를 위해
+        //string = (char*)malloc(length + 1);  // +1은 널 종료 문자 추가를 위해
 
-        while (fgets(string, sizeof(string), pFile) != NULL) {
+        while (fgets(string, length+1, pFile) != NULL) {
+            length = strlen(string);
+
             if (string[length - 1] == '\n')
                 string[length - 1] = '\0';
 
-            PrintScreen(x, y++, string);
+            PrintScreen(x, y, string);
+            y++;
         }
         free(string);
         fclose(pFile);
