@@ -543,7 +543,7 @@ namespace render
         if (*choiceNum == 0) {
             ChoiceDraw(POS1, curPlayerPos->Y, "Knight", true, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, "Mage", false, 11);
-            ChoiceDraw(POS3, curPlayerPos->Y, "Wizard", false, 11);
+            ChoiceDraw(POS3, curPlayerPos->Y, "Berserker", false, 11);
         }
         else if (*choiceNum == 1) {
             ChoiceDraw(POS1, curPlayerPos->Y, "Knight", false, 11);
