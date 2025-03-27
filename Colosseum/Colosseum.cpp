@@ -236,6 +236,8 @@ void PrintPlayerPostion();
 
 void Render(int* menuFlag, int* curIndex)
 {
+    static ULONGLONG elapsedTime;
+
     render::ScreenClear();
 
     PrintCountsPerSecond();
@@ -247,6 +249,14 @@ void Render(int* menuFlag, int* curIndex)
     //DrawEnemy();
     render::DrawGames(menuFlag, &global::curPlayerPos, curIndex, &global::player::current_enemy, &global::player::player, global::player::enemy);
     //render::DrawBorder();
+    if (global::player::isUseAttack || global::player::isUseItem || global::player::isUseSkill)
+    {
+        elapsedTime += global::time::GetDeltaTime();
+        if (elapsedTime > 1000)
+        {
+
+        }
+    }
 
     render::ScreenFlipping();
 }
@@ -274,6 +284,9 @@ void FixeUpdate()
 
 void Update(int* menuFlag, int* curIndex)
 {
+    if (global::player::isUseAttack || global::player::isUseItem || global::player::isUseSkill)
+        return;
+
     global::time::updateCount += 1;
 
     if (global::player::player.hp <= 0)
