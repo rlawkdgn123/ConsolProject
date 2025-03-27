@@ -200,7 +200,7 @@ namespace render
         free(string);
         fclose(pFile);
     }
-    void DrawGames(int* menuFlag, COORD* curPlayerPos, int* curIndex, int* curEnemy, PLAYER* player, PLAYER* enemy)
+    void DrawGameText(int* menuFlag, COORD* curPlayerPos, int* curIndex, int* curEnemy, PLAYER* player, PLAYER* enemy)
     {
         switch (*menuFlag) {
         case TITLE:
@@ -223,6 +223,7 @@ namespace render
         case BATTLE:
             //EncodeMap(temp);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
+            PrintScreen(0, 40, ">>");
             *menuFlag = BATTLE;
             break;
         case BATTLE_SKILL:

@@ -200,7 +200,7 @@ namespace render
         free(string);
         fclose(pFile);
     }
-    void DrawGames(int* menuFlag, COORD* curPlayerPos, int* curIndex, int* curEnemy, PLAYER* player, PLAYER* enemy)
+    void DrawGameText(int* menuFlag, COORD* curPlayerPos, int* curIndex, int* curEnemy, PLAYER* player, PLAYER* enemy)
     {
         switch (*menuFlag) {
         case TITLE:
