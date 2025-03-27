@@ -252,7 +252,7 @@ void Render(int* menuFlag, int* curIndex)
     //DrawPlayer();
 
     //DrawEnemy();
-    render::DrawGames(menuFlag, &global::curPlayerPos, curIndex, &global::player::current_enemy , &global::player::player, global::player::enemy);
+    render::DrawGames(menuFlag, &global::curPlayerPos, curIndex, &global::player::current_enemy, &global::player::player, global::player::enemy);
     //render::DrawBorder();
 
     render::ScreenFlipping();
