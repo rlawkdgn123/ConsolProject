@@ -8,6 +8,7 @@ namespace render
 	void ScreenRelease();
 
 	void ScreenFlipping();
+	void PrintScreen(int x, int y, const char* string);
 	void PrintScreen(int x, int y, char* string);
 	void ScreenClear();
 	void SetColor(unsigned short color);
@@ -23,6 +24,7 @@ namespace render
 	//char* OpenText(const char* fileName, int fileHeight, int fileWidth);
 	wchar_t* OpenText(const char* fileName, int fileHeight, int fileWidth);
 	wchar_t* EncodeMap(wchar_t* pMap);
+	void OpenTextAndWrite(int x, int y, const char* fileName);
 
 	SMALL_RECT GetPlayerMovableRect();
 	void setConsoleSize(int width, int height);
