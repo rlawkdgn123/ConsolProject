@@ -221,8 +221,22 @@ namespace render
             *menuFlag = MAIN;
             break;
         case BATTLE:
-            //EncodeMap(temp);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
+            for (int i = 42; i < SCREEN_HEIGHT - 1; i++)
+            {
+                if (i == 42 || i == SCREEN_WIDTH)
+                {
+                    for (int j = 0; j < SCREEN_WIDTH; j++)
+                    {
+                        PrintScreen(j, i, "-");
+                    }
+                }
+                else
+                {
+                    PrintScreen(0, i, "|");
+                    PrintScreen(200, i, "|");
+                }
+            }
             *menuFlag = BATTLE;
             break; 
         case BATTLE_SKILL:

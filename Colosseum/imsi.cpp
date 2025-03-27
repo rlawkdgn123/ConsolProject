@@ -204,7 +204,6 @@ namespace render
     {
         switch (*menuFlag) {
         case TITLE:
-            //EncodeMap(temp);
             RenderTitle(curIndex, curPlayerPos);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = TITLE;
@@ -215,34 +214,42 @@ namespace render
             *menuFlag = HEROCHOICE;
             break;
         case MAIN:
-            //EncodeMap(temp);
             RenderMain(curIndex, curPlayerPos, enemy);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = MAIN;
             break;
         case BATTLE:
-            //EncodeMap(temp);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
-            PrintScreen(0, 40, ">>");
+            for (int i = 42; i < SCREEN_HEIGHT - 1; i++)
+            {
+                if (i == 42 || i == SCREEN_WIDTH )
+                {
+                    for (int j = 0; j < SCREEN_WIDTH; j++)
+                    {
+                        PrintScreen(j, i, "-");
+                    }
+                }
+                else
+                {
+                    PrintScreen(0, i, "|");
+                    PrintScreen(200, i, "|");
+                }
+            }
             *menuFlag = BATTLE;
             break;
         case BATTLE_SKILL:
-            //EncodeMap(temp);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = BATTLE_SKILL;
             break;
         case BATTLE_ITEM:
-            //EncodeMap(temp);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = BATTLE_ITEM;
             break;
         case BATTLE_END:
-            //EncodeMap(temp);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = BATTLE_END;
             break;
         case END:
-            //EncodeMap(temp);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = END;
             break;
