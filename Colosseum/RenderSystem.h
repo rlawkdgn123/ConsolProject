@@ -20,9 +20,6 @@ namespace render
 	void ChoiceDraw(int x, int y, const char* pStr, bool highLight);
 
 	void DrawGames(int* menuFlag, COORD* curPlayerPos, int* curIndex, int* curEnemy, PLAYER* player, PLAYER* enemy);
-	//char* OpenText(char* fileName, int fileHeight, int fileWidth);
-	//char* OpenText(const char* fileName, int fileHeight, int fileWidth);
-	wchar_t* OpenText(const char* fileName, int fileHeight, int fileWidth);
 	wchar_t* EncodeMap(wchar_t* pMap);
 	void OpenTextAndWrite(int x, int y, const char* fileName);
 

@@ -202,55 +202,45 @@ namespace render
     }
     void DrawGames(int* menuFlag, COORD* curPlayerPos, int* curIndex, int* curEnemy, PLAYER* player, PLAYER* enemy)
     {
-        wchar_t* temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
         switch (*menuFlag) {
         case TITLE:
-            OpenTextAndWrite(1, 1, ".\\Images\\Wizard1.txt");
             //EncodeMap(temp);
             RenderTitle(curIndex, curPlayerPos);
             PrintScreen(curPlayerPos->X - 3,curPlayerPos->Y, ">>");
             *menuFlag = TITLE;
             break;
         case HEROCHOICE:
-            temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
-            //EncodeMap(temp);
             RenderHeroChoice(curIndex, curPlayerPos);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = HEROCHOICE;
             break;
         case MAIN:
-            temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
             //EncodeMap(temp);
             RenderMain(curIndex, curPlayerPos, enemy);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = MAIN;
             break;
         case BATTLE:
-            temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
             //EncodeMap(temp);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = BATTLE;
             break; 
         case BATTLE_SKILL:
-            temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
             //EncodeMap(temp);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = BATTLE_SKILL;
             break;
         case BATTLE_ITEM:
-            temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
             //EncodeMap(temp);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = BATTLE_ITEM;
             break;
         case BATTLE_END:
-            temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
             //EncodeMap(temp);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = BATTLE_END;
             break;
         case END:
-            temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
             //EncodeMap(temp);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = END;
@@ -263,103 +253,6 @@ namespace render
     void SetColor(unsigned short color)
     {
         SetConsoleTextAttribute(GetScreenHandle(), color);
-    }
-    //char* OpenText(char* fileName, int fileHeight, int fileWidth)
-    //{
-    //    FILE* fp = NULL;
-    //    size_t read_size;
-    //    if (0 == fopen_s(&fp, fileName, "r")) // FILE형 자료형으로 받아서 입력값을 찾아 ReadOnly로 받아온다.
-    //        ;
-    //    else
-    //        return NULL;
-    //    char* temp = (char*)malloc(sizeof(char) * fileHeight * fileWidth);
-
-    //    if (temp == NULL)
-    //        return 0;
-    //    while ((read_size = fread(temp, sizeof(char), fileHeight * fileWidth, fp)) > 0)
-    //    {
-    //    }
-    //    *(temp + fileHeight * fileWidth - 1) = '\0';
-
-    //    fclose(fp);
-
-    //    return temp;
-    //}
-    //char* OpenText(const char* fileName, int fileHeight, int fileWidth)
-    //{
-    //    FILE* fp = NULL;
-    //    size_t read_size;
-    //    if (0 == fopen_s(&fp, fileName, "r")) // FILE형 자료형으로 받아서 입력값을 찾아 ReadOnly로 받아온다.
-    //        ;
-    //    else
-    //        return NULL;
-    //    char* temp = (char*)malloc(sizeof(char) * fileHeight * fileWidth);
-
-    //    if (temp == NULL)
-    //        return 0;
-    //    while ((read_size = fread(temp, sizeof(char), fileHeight * fileWidth, fp)) > 0)
-    //    {
-    //    }
-    //    *(temp + fileHeight * fileWidth - 1) = '\0';
-
-    //    fclose(fp);
-
-    //    return temp;
-    //}
-    //char* OpenText(const char* fileName, int fileHeight, int fileWidth)
-    //{
-    //    FILE* fp = NULL;
-    //    size_t read_size;
-    //    if (0 == fopen_s(&fp, fileName, "r")) // FILE형 자료형으로 받아서 입력값을 찾아 ReadOnly로 받아온다.
-    //        ;
-    //    else
-    //        return NULL;
-    //    char* temp = (char*)malloc(sizeof(char) * fileHeight * fileWidth);
-
-    //    if (temp == NULL)
-    //        return 0;
-    //    while ((read_size = fread(temp, sizeof(char), fileHeight * fileWidth, fp)) > 0)
-    //    {
-    //    }
-    //    *(temp + fileHeight * fileWidth - 1) = '\0';
-
-    //    fclose(fp);
-
-    //    return temp;
-    //}
-    wchar_t* OpenText(const char* fileName, int fileHeight, int fileWidth)
-    {
-        FILE* fp = NULL;
-        size_t read_size;
-
-        // 유니코드 파일을 읽기 위해 "rb" 모드로 파일을 엽니다.
-        if (0 != fopen_s(&fp, fileName, "rb"))
-        {
-            return NULL; // 파일을 열 수 없으면 NULL 반환
-        }
-        // 파일 크기만큼 메모리 할당 (wchar_t는 2바이트씩 사용)
-        wchar_t* temp = (wchar_t*)malloc(sizeof(wchar_t) * fileHeight * fileWidth);
-        if (temp == NULL)
-        {
-            fclose(fp);
-            return NULL;
-        }
-        // 파일에서 유니코드 데이터 읽기
-        // fread를 사용하여 파일에서 데이터를 읽습니다.
-        // 유니코드 데이터는 2바이트씩 읽어야 합니다.
-        read_size = fread(temp, sizeof(wchar_t), fileHeight * fileWidth, fp);
-        if (read_size == 0) // 읽은 내용이 없으면 NULL 반환
-        {
-            free(temp);
-            fclose(fp);
-            return NULL;
-        }
-
-        // 읽은 텍스트의 끝에 널 종료 문자 추가
-        temp[read_size] = L'\0';
-
-        fclose(fp);
-        return temp;
     }
 
     void DrawBorder()
@@ -421,6 +314,7 @@ namespace render
             ChoiceDraw(POS1, curPlayerPos->Y, "Worrior", false);
             ChoiceDraw(POS2, curPlayerPos->Y, "Thief", false);
             ChoiceDraw(POS3, curPlayerPos->Y, "Wizard", true);
+            OpenTextAndWrite(80, 5, ".\\Images\\Wizard1.txt");
         }
     }
     void RenderMain(int* choiceNum, COORD* curPlayerPos, PLAYER* enemy)
