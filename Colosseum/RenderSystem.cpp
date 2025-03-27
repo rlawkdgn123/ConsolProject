@@ -107,6 +107,13 @@ namespace render
         SetConsoleCursorPosition(GetScreenHandle(), CursorPosition);
         WriteFile(GetScreenHandle(), string, strlen(string), &dw, NULL);
     }
+    void PrintScreen(int x, int y, char* string)
+    {
+        DWORD dw;
+        COORD CursorPosition = { x, y };
+        SetConsoleCursorPosition(GetScreenHandle(), CursorPosition);
+        WriteFile(GetScreenHandle(), string, strlen(string), &dw, NULL);
+    }
     void ScreenClear()
     {
         COORD Coor = { updateScreenSize.Left, updateScreenSize.Top };
@@ -165,13 +172,36 @@ namespace render
         return pMap;
     }  // 세미콜론이 끝에 추가됨.
 
+    void OpenTextAndWrite(int x, int y, const char* fileName) {
+        FILE* pFile = nullptr;
+        char* string = (char*)malloc(200 + 1);  // +1은 널 종료 문자 추가를 위해;
+        size_t length;
+        int count = 0;
+        fopen_s(&pFile, fileName, "rb");
+        if (pFile == nullptr) {
+            return;
+        }
+        // 파일 끝까지 반복
+        fgets(string, 200, pFile);
+        length = strlen(string);
+        // 동적으로 메모리 할당
+        string = (char*)malloc(length + 1);  // +1은 널 종료 문자 추가를 위해
 
+        while (fgets(string, sizeof(string), pFile) != NULL) {
+            if (string[length - 1] == '\n')
+                string[length - 1] = '\0';
+
+            PrintScreen(x, y++, string);
+        }
+        free(string);
+        fclose(pFile);
+    }
     void DrawGames(int* menuFlag, COORD* curPlayerPos, int* curIndex, int* curEnemy, PLAYER* player, PLAYER* enemy)
     {
         wchar_t* temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
         switch (*menuFlag) {
         case TITLE:
-            temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
+            OpenTextAndWrite(1, 1, "C:\\Users\\User\\Desktop\\KJH\\VisualStudio\\Project\\ConsolProject\\Colosseum\\Colosseum\\Images\\Wizard1.txt");
             //EncodeMap(temp);
             RenderTitle(curIndex, curPlayerPos);
             PrintScreen(curPlayerPos->X - 3,curPlayerPos->Y, ">>");
