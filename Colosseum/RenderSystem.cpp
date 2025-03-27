@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "renderSystem.h"
 #include "Define.h"
+
 #include "InputSystem.h"
 using namespace render;
 using namespace global::input;
@@ -165,7 +166,7 @@ namespace render
     }  // 세미콜론이 끝에 추가됨.
 
 
-    void DrawGames(int* menuFlag, COORD* curPlayerPos, int* curIndex)
+    void DrawGames(int* menuFlag, COORD* curPlayerPos, int* curIndex, int* curEnemy, PLAYER* player, PLAYER* enemy)
     {
         wchar_t* temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
         switch (*menuFlag) {
@@ -185,19 +186,41 @@ namespace render
             break;
         case MAIN:
             temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
-            EncodeMap(temp);
+            //EncodeMap(temp);
+            RenderMain(curIndex, curPlayerPos, enemy);
+            PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = MAIN;
             break;
         case BATTLE:
             temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
-            EncodeMap(temp);
+            //EncodeMap(temp);
+            PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = BATTLE;
+            break; 
+        case BATTLE_SKILL:
+            temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
+            //EncodeMap(temp);
+            PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
+            *menuFlag = BATTLE_SKILL;
+            break;
+        case BATTLE_ITEM:
+            temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
+            //EncodeMap(temp);
+            PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
+            *menuFlag = BATTLE_ITEM;
+            break;
+        case BATTLE_END:
+            temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
+            //EncodeMap(temp);
+            PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
+            *menuFlag = BATTLE_END;
             break;
         case END:
             temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
-            EncodeMap(temp);
+            //EncodeMap(temp);
+            PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = END;
-
+            break;
         default:
             DrawBorder();
             break;
@@ -366,6 +389,29 @@ namespace render
             ChoiceDraw(POS3, curPlayerPos->Y, "Wizard", true);
         }
     }
+    void RenderMain(int* choiceNum, COORD* curPlayerPos, PLAYER* enemy)
+    {
+        if (*choiceNum == 0) {
+            ChoiceDraw(POS1, curPlayerPos->Y, enemy[0].job_name, true);
+            ChoiceDraw(POS2, curPlayerPos->Y, enemy[1].job_name, false);
+        }
+        else if (*choiceNum == 1) {
+            ChoiceDraw(POS1, curPlayerPos->Y, enemy[0].job_name, false);
+            ChoiceDraw(POS2, curPlayerPos->Y, enemy[1].job_name, true);
+        }
+    }
+
+    /*void RenderBattle(int* choiceNum, COORD* curPlayerPos, PLAYER* enemy)
+    {
+        if (*choiceNum == 0) {
+            ChoiceDraw(POS1, curPlayerPos->Y, enemy[0].job_name, true);
+            ChoiceDraw(POS2, curPlayerPos->Y, enemy[1].job_name, false);
+        }
+        else if (*choiceNum == 1) {
+            ChoiceDraw(POS1, curPlayerPos->Y, enemy[0].job_name, false);
+            ChoiceDraw(POS2, curPlayerPos->Y, enemy[1].job_name, true);
+        }
+    }*/
 };
 
 

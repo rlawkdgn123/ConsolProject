@@ -20,19 +20,23 @@ typedef struct  {
 typedef struct {
 	const char* itemName;
 	int effect;
-	int num;
+	int value;
 	int itemcount;
 	//skillEffect;
 }ITEM;
 
 typedef struct  {
+	const char* job_name;
 	int JOB;
 	int hp;
 	int atkDamage;
 	int skillCount;
 	int poisonStack;
+	int maxPoisonStk;
 	int state;
+	int receiveDmg;
 	bool isPlayer;
+	bool isDied;
 	SKILL skill[2];
 	ITEM item[2];
 }PLAYER;

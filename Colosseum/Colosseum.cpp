@@ -219,6 +219,9 @@ void StartGame()
 
     player::SetPlayer(global::player::job);
 
+    global::player::player.hp = 1;
+    global::player::enemy[0].hp = 1;
+    global::player::enemy[1].hp = 1;
     global::player::isPlayerTurn = true;
     global::player::isEnemyTurn = false;
     global::player::isUseSkill = false;
@@ -249,7 +252,7 @@ void Render(int* menuFlag, int* curIndex)
     //DrawPlayer();
 
     //DrawEnemy();
-    render::DrawGames(menuFlag, &global::curPlayerPos, curIndex);
+    render::DrawGames(menuFlag, &global::curPlayerPos, curIndex, &global::player::current_enemy , &global::player::player, global::player::enemy);
     //render::DrawBorder();
 
     render::ScreenFlipping();
@@ -286,7 +289,26 @@ void Update(int* menuFlag, int* curIndex)
     }
     else if (global::player::enemy[global::player::current_enemy].hp <= 0)
     {
-        *menuFlag = MAIN;
+        global::player::enemy[global::player::current_enemy].isDied = true;
+
+        if (global::player::enemy[0].isDied && global::player::enemy[1].isDied)
+        {
+            *menuFlag = END;
+        }
+        else
+        {
+            if (global::player::current_enemy == 0) // 두 번째 적 강화
+            {
+                global::player::enemy[1].hp = 150;
+                global::player::enemy[1].item[1].itemcount += 1;
+            }
+            else if (global::player::current_enemy == 1) // 두 번째 적 강화
+            {
+                global::player::enemy[0].hp = 150;
+                global::player::enemy[0].item[1].itemcount += 1;
+            }
+            *menuFlag = BATTLE_END;
+        }
     }
     
     if (global::player::player.state == STUN && global::player::isPlayerTurn)
@@ -363,15 +385,15 @@ void Update(int* menuFlag, int* curIndex)
                 {
                     switch (global::curPlayerPos.X)
                     {
-                    case POS1:
+                    case POS1: // 기본 공격
                         player::UseAttack(&global::player::player, &global::player::enemy[global::player::current_enemy]);
                         global::player::isPlayerTurn = false;
                         global::player::isEnemyTurn = true;
                         break;
-                    case POS2:
+                    case POS2: // 스킬창
                         *menuFlag = BATTLE_SKILL;
                         break;
-                    case POS3:
+                    case POS3: // 아이템 창
                         *menuFlag = BATTLE_ITEM;
                         break;
                     default:
@@ -383,13 +405,13 @@ void Update(int* menuFlag, int* curIndex)
             {
                 switch (global::curPlayerPos.X)
                 {
-                case POS1:
+                case POS1: // 1번 스킬 사용
                     player::UseSkill(&global::player::player, &global::player::enemy[global::player::current_enemy], 0);
                     global::player::player.skillCount++;
                     global::player::isUseSkill = true;
                     *menuFlag = BATTLE;
                     break;
-                case POS2:
+                case POS2: // 2번 스킬 사용
                     player::UseSkill(&global::player::player, &global::player::enemy[global::player::current_enemy], 1);
                     global::player::player.skillCount++;
                     global::player::isUseSkill = true;
@@ -403,16 +425,41 @@ void Update(int* menuFlag, int* curIndex)
             {
                 switch (global::curPlayerPos.X)
                 {
-                case POS1:
+                case POS1: // 포션 아이템 사용
                     if(global::player::player.item[0].itemcount > 0)
                         player::UseItem(&global::player::player, 0);
                     break;
-                case POS2:
+                case POS2: // 스턴 아이템 사용
                     if (global::player::player.item[0].itemcount > 0)
                         player::UseItem(&global::player::player, 1);
                     break;
                 }
             }
+            else if (*menuFlag == BATTLE_END)
+            {
+                switch (global::curPlayerPos.X)
+                {
+                case POS1: //hp 50 회복
+                    global::player::player.hp += 50;
+                    *menuFlag = MAIN;
+                    break;
+                case POS2: // 도적이면 독 스택 데미지 최대치 +5, 나머지는 공격력 + 5
+                    if (global::player::player.JOB == THIEF)
+                    {
+                        global::player::player.maxPoisonStk += 5;
+                    }
+                    else
+                    {
+                        global::player::player.atkDamage += 5;
+                    }
+                    *menuFlag = MAIN;
+                    break;
+                case POS3: // 스턴 1개 아이템 추가
+                    global::player::player.item[1].itemcount += 1; 
+                    *menuFlag = MAIN;
+                    break;
+                }
+                }
             else if (*menuFlag == END)
             {
                 switch (global::curPlayerPos.X)
@@ -444,6 +491,8 @@ void Update(int* menuFlag, int* curIndex)
 
         std::uniform_int_distribution<int> dist(0, 2);
 
+        int itemNum = dist(gen) % 2;
+
         switch (dist(gen))
         {
         case 0:
@@ -466,7 +515,6 @@ void Update(int* menuFlag, int* curIndex)
                 player::UseAttack(&global::player::enemy[global::player::current_enemy], &global::player::player);
             break;
         case 2:
-            int itemNum = dist(gen) % 2;
             if (global::player::enemy[global::player::current_enemy].item[itemNum].itemcount > 0)
                 player::UseItem(&global::player::enemy[global::player::current_enemy], itemNum);
             break;
@@ -523,6 +571,7 @@ int main()
     
 
     StartGame();
+    
 
     while (IsGameRun())
     {
