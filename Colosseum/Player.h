@@ -22,7 +22,6 @@ typedef struct {
 	int effect;
 	int value;
 	int itemcount;
-	//skillEffect;
 }ITEM;
 
 typedef struct  {
@@ -48,5 +47,4 @@ namespace player {
 	void UseAttack(PLAYER* player, PLAYER* enemy);
 	void UseSkill(PLAYER* player, PLAYER* enemy, int skillNum);
 	void UseItem(PLAYER* player, int itemNum);
-	void EnemyDied(PLAYER* player);
 }
