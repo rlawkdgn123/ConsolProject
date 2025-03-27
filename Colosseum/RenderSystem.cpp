@@ -107,6 +107,56 @@ namespace render
         SetConsoleCursorPosition(GetScreenHandle(), CursorPosition);
         WriteFile(GetScreenHandle(), string, strlen(string), &dw, NULL);
     }
+    void PrintScreens(int x, int y, char** string)
+    {
+        DWORD dw;
+        int i = 0;
+        // 각 줄을 순차적으로 출력
+        while (string[i] != NULL) {
+            COORD CursorPosition = { x, y + i };  // 각 줄마다 y 값을 증가
+            SetConsoleCursorPosition(GetScreenHandle(), CursorPosition);
+            WriteFile(GetScreenHandle(), string[i], strlen(string[i]), &dw, NULL);
+            i++;
+        }
+    }
+    void OpenTextAndWright(int raw, int col, const char* fileName)
+    {
+        FILE* pFile = nullptr;
+        char** lines = new char* [raw];
+        int lineCount = 0;
+        fopen_s(&pFile, fileName, "rb");
+
+        // 이차원 배열 할당 행x열
+        for (int i = 0; i < raw; i++) {
+            lines[i] = new char[col + 1];
+            // == lines* = new char[];
+        }
+        //lines[raw-1][col] = '\0';
+
+        // 받아오기
+        //int lineCount = 0;
+        //for (int i = 0; i < raw; i++)
+        //    for (int j = 0; j < col; j++)
+        //        fscanf_s(pFile, "%c", &lines[i][j]);
+
+        while (lineCount < raw && fgets(lines[lineCount], col + 1, pFile)) {
+            // fgets()는 자동으로 '\0'을 추가하므로 추가적인 처리 필요 없음
+            lineCount++;
+        }
+
+        //for (int i = 0; i < raw; i++) {
+        //    printf("%s\n", lines[i]);
+        //}
+        // 출력
+        PrintScreens(2, 2, lines);
+        //PrintScreen(raw, col, lines);
+
+        // 할당 해제
+        for (int i = 0; i < raw; i++)
+            delete[] lines[i];
+        delete[] lines;
+    }
+
     void ScreenClear()
     {
         COORD Coor = { updateScreenSize.Left, updateScreenSize.Top };
@@ -171,8 +221,9 @@ namespace render
         wchar_t* temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
         switch (*menuFlag) {
         case TITLE:
-            temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
+            //temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
             //EncodeMap(temp);
+            OpenTextAndWright(10, 50, "C:\\Users\\User\\Desktop\\KJH\\VisualStudio\\Project\\ConsolProject\\Colosseum\\Colosseum\\Images\\Wizard1.txt");
             RenderTitle(curIndex, curPlayerPos);
             PrintScreen(curPlayerPos->X - 3,curPlayerPos->Y, ">>");
             *menuFlag = TITLE;
