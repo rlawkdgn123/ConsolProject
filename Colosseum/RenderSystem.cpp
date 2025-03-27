@@ -1,4 +1,5 @@
 #include <stdio.h>
+
 #include "renderSystem.h"
 #include "Define.h"
 
@@ -199,6 +200,11 @@ namespace render
         }
         free(string);
         fclose(pFile);
+    }
+    void OpenTextAndWriteAnim(int x, int y, const char* dirPath)
+    {
+        
+
     }
     void DrawGameText(int* menuFlag, COORD* curPlayerPos, int* curIndex, int* curEnemy, PLAYER* player, PLAYER* enemy)
     {

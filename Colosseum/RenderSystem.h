@@ -22,6 +22,7 @@ namespace render
 	void DrawGameText(int* menuFlag, COORD* curPlayerPos, int* curIndex, int* curEnemy, PLAYER* player, PLAYER* enemy);
 	wchar_t* EncodeMap(wchar_t* pMap);
 	void OpenTextAndWrite(int x, int y, const char* fileName);
+	void OpenTextAndWriteAnim(int x, int y, const char* dirPath);
 
 	SMALL_RECT GetPlayerMovableRect();
 	void setConsoleSize(int width, int height);
