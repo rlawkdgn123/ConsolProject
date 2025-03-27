@@ -93,7 +93,7 @@ void Choice(int* menuFlag, int* maxIndex) {
         global::saveXPos[1] = POS2;
         global::saveXPos[2] = POS3;
         *maxIndex = 3;
-        global::curPlayerPos.Y = 41;
+        global::curPlayerPos.Y = DEF_Y;
         break;
     case HEROCHOICE:
         global::saveXPos[0] = POS1;
@@ -206,7 +206,7 @@ void StartGame()
 
     // 플레이어 시작 위치 설정
     global::prePlayerPos.X = POS1;
-    global::prePlayerPos.Y = 41;
+    global::prePlayerPos.Y = DEF_Y;
 
     global::curPlayerPos.X = global::prePlayerPos.X;
     global::curPlayerPos.Y = global::prePlayerPos.Y;
@@ -251,18 +251,26 @@ void Render(int* menuFlag, int* curIndex)
     //DrawPlayer();
 
     //DrawEnemy();
-    render::DrawGameText(menuFlag, &global::curPlayerPos, curIndex, &global::player::current_enemy, &global::player::player, global::player::enemy);
+    render::DrawGameText(menuFlag, &global::curPlayerPos, curIndex, &global::player::current_enemy, 
+        &global::player::player, global::player::enemy);
     //render::DrawBorder();
-    if (global::player::isUseAttack || global::player::isUseItem || global::player::isUseSkill)
+    if (*menuFlag == BATTLE_STATE && (global::player::isUseAttack || global::player::isUseItem || global::player::isUseSkill))
     {
-        elapsedTime += global::time::GetDeltaTime();
-        if (elapsedTime > 1000)
+        if (!global::player::isPlayerTurn)
         {
-
+            render::DrawStateText(&global::curPlayerPos, &global::player::player, &global::player::enemy[global::player::current_enemy],
+                &global::player::isUseAttack, &global::player::isUseSkill, &global::player::isUseItem);
         }
-    }
+        else if (!global::player::isEnemyTurn)
+        {
+            render::DrawStateText(&global::curPlayerPos, &global::player::enemy[global::player::current_enemy], &global::player::player,
+                &global::player::isUseAttack, &global::player::isUseSkill, &global::player::isUseItem);
+        }
 
+    }
     render::ScreenFlipping();
+    if (*menuFlag == BATTLE_STATE)
+        Sleep(2000);
 }
 
 bool IsGameRun()
@@ -290,6 +298,9 @@ void Update(int* menuFlag, int* curIndex)
 {
     if (global::player::isUseAttack || global::player::isUseItem || global::player::isUseSkill)
         return;
+
+    if (*menuFlag == BATTLE_STATE)
+        *menuFlag = BATTLE;
 
     global::time::updateCount += 1;
 
@@ -329,7 +340,7 @@ void Update(int* menuFlag, int* curIndex)
         global::player::isEnemyTurn = true;
     }
 
-    if (global::player::isPlayerTurn && !(global::player::isUseSkill))
+    if (global::player::isPlayerTurn)
     {
         if (global::input::IsSpaceCmdOn())
         {
@@ -353,20 +364,20 @@ void Update(int* menuFlag, int* curIndex)
                 switch (global::curPlayerPos.X)
                 {
                 case POS1:
-                    global::player::player = global::player::job[WARRIOR];
                     global::player::job[WARRIOR].isPlayer = true;
+                    global::player::player = global::player::job[WARRIOR];
                     player::SetEnemy(global::player::job, global::player::enemy);
                     *menuFlag = MAIN;
                     break;
                 case POS2:
-                    global::player::player = global::player::job[THIEF];
                     global::player::job[THIEF].isPlayer = true;
+                    global::player::player = global::player::job[THIEF];
                     player::SetEnemy(global::player::job, global::player::enemy);
                     *menuFlag = MAIN;
                     break;
                 case POS3:
+                    global::player::job[WIZARD].isPlayer = true;
                     global::player::player = global::player::job[WIZARD];
-                    global::player::job[THIEF].isPlayer = true;
                     player::SetEnemy(global::player::job, global::player::enemy);
                     *menuFlag = MAIN;
                     break;
@@ -380,11 +391,25 @@ void Update(int* menuFlag, int* curIndex)
                 {
                 case POS1:
                     global::player::current_enemy = 0;
-                    *menuFlag = BATTLE;
+                    if (global::player::enemy[global::player::current_enemy].isDied)
+                    {
+                        *menuFlag = MAIN;
+                    }
+                    else
+                    {
+                        *menuFlag = BATTLE;
+                    }
                     break;
                 case POS2:
                     global::player::current_enemy = 1;
-                    *menuFlag = BATTLE;
+                    if (global::player::enemy[global::player::current_enemy].isDied)
+                    {
+                        *menuFlag = MAIN;
+                    }
+                    else
+                    {
+                        *menuFlag = BATTLE;
+                    }
                     break;
                 default:
                     break;
@@ -401,6 +426,7 @@ void Update(int* menuFlag, int* curIndex)
                         global::player::isUseAttack = true;
                         global::player::isPlayerTurn = false;
                         global::player::isEnemyTurn = true;
+                        *menuFlag = BATTLE_STATE;
                         break;
                     case POS2: // 스킬창
                         *menuFlag = BATTLE_SKILL;
@@ -418,14 +444,32 @@ void Update(int* menuFlag, int* curIndex)
                 switch (global::curPlayerPos.X)
                 {
                 case POS1: // 1번 스킬 사용
-                    player::UseSkill(&global::player::player, &global::player::enemy[global::player::current_enemy], 0);
-                    global::player::isUseSkill = true;
-                    *menuFlag = BATTLE;
+                    if (global::player::player.skillCount >= 3)
+                    {
+                        *menuFlag = BATTLE_SKILL;
+                    }
+                    else
+                    {
+                        player::UseSkill(&global::player::player, &global::player::enemy[global::player::current_enemy], 0);
+                        global::player::isUseSkill = true;
+                        global::player::isPlayerTurn = false;
+                        global::player::isEnemyTurn = true;
+                        *menuFlag = BATTLE_STATE;
+                    }
                     break;
                 case POS2: // 2번 스킬 사용
-                    player::UseSkill(&global::player::player, &global::player::enemy[global::player::current_enemy], 1);
-                    global::player::isUseSkill = true;
-                    *menuFlag = BATTLE;
+                    if (global::player::player.skillCount >= 3)
+                    {
+                        *menuFlag = BATTLE_SKILL;
+                    }
+                    else
+                    {
+                        player::UseSkill(&global::player::player, &global::player::enemy[global::player::current_enemy], 1);
+                        global::player::isUseSkill = true;
+                        global::player::isPlayerTurn = false;
+                        global::player::isEnemyTurn = true;
+                        *menuFlag = BATTLE_STATE;
+                    }
                     break;
                 case POS3: // 돌아가기
                     *menuFlag = BATTLE;
@@ -438,10 +482,17 @@ void Update(int* menuFlag, int* curIndex)
                 switch (global::curPlayerPos.X)
                 {
                 case POS1: // 포션 아이템 사용
-                    if (global::player::player.item[0].itemcount > 0)
+                    if (global::player::player.item[0].itemcount <= 0)
+                    {
+                        *menuFlag = BATTLE_ITEM;
+                    }
+                    else
                     {
                         player::UseItem(&global::player::player, 0);
                         global::player::isUseItem = true;
+                        global::player::isPlayerTurn = false;
+                        global::player::isEnemyTurn = true;
+                        *menuFlag = BATTLE_STATE;
                     }
                     break;
                 case POS2: // 스턴 아이템 사용
@@ -449,7 +500,10 @@ void Update(int* menuFlag, int* curIndex)
                     {
                         player::UseItem(&global::player::player, 1);
                         global::player::isUseItem = true;
+                        global::player::isPlayerTurn = false;
+                        global::player::isEnemyTurn = true;
                     }
+                    *menuFlag = BATTLE_STATE;
                     break;
                 case POS3: // 돌아가기
                     *menuFlag = BATTLE;
@@ -498,18 +552,17 @@ void Update(int* menuFlag, int* curIndex)
                     *menuFlag = TITLE;
                     StartGame();
                 }
-                }
+            }
         }
     }
-
-    if (global::player::isEnemyTurn && !(global::player::isUseSkill))
+    else if (global::player::isEnemyTurn)
     {
         if (global::player::enemy[global::player::current_enemy].state == STUN)
         {
             global::player::enemy[global::player::current_enemy].state = NORMAL;
             global::player::isEnemyTurn = false;
             global::player::isPlayerTurn = true;
-            
+
             return;
         }
         std::random_device rd;
@@ -526,6 +579,7 @@ void Update(int* menuFlag, int* curIndex)
         {
         case 0:
             player::UseAttack(&global::player::enemy[global::player::current_enemy], &global::player::player);
+            global::player::isUseAttack = true;
             break;
         case 1:
             if (global::player::enemy[global::player::current_enemy].JOB == WARRIOR && global::player::enemy[global::player::current_enemy].skillCount < 3)
@@ -539,24 +593,27 @@ void Update(int* menuFlag, int* curIndex)
                 global::player::isUseSkill = true;
             }
             else
+            {
                 player::UseAttack(&global::player::enemy[global::player::current_enemy], &global::player::player);
+                global::player::isUseAttack = true;
+            }
             break;
         case 2:
             if (global::player::enemy[global::player::current_enemy].item[itemNum].itemcount > 0)
+            {
                 player::UseItem(&global::player::enemy[global::player::current_enemy], itemNum);
+                global::player::isUseItem = true;
+            }
             break;
         default:
             break;
         }
 
+        *menuFlag = BATTLE_STATE;
         global::player::isEnemyTurn = false;
         global::player::isPlayerTurn = true;
     }
-
-    if (global::player::isUseSkill)
-    {
-        return;
-    }
+    
 
     UpdatePlayerPosition(menuFlag, curIndex);
 }

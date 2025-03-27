@@ -157,9 +157,9 @@ namespace render
         WriteFile(GetScreenHandle(), pStr, strlen(pStr), &dw, NULL);
     }
     void ChoiceDraw(int x, int y, const char* pStr, bool highlight) {
-        if(highlight)SetColor(12);
+        if(highlight)SetColor(11);
         PrintScreen(x,y,pStr);
-        SetColor(1);
+        SetColor(15);
     }
     wchar_t* EncodeMap(wchar_t* pMap) // 세미콜론을 추가한 후 수정
     {
@@ -205,6 +205,96 @@ namespace render
     {
         
 
+    }
+    void DrawStateText(COORD* curPlayerPos, PLAYER* player, PLAYER* enemy, bool* UseAttack, bool* UseSkill, bool* UseItem)
+    {
+        char numStr[5];
+        if (UseAttack)
+        {
+            if (player->isPlayer)
+            {
+                sprintf_s(numStr, "%d", player->atkDamage);
+                PrintScreen(POS1, DEF_Y, "당신은 상대에게 "); 
+                PrintScreen(POS1 + 16, DEF_Y, numStr);
+                PrintScreen(POS1 + 20, DEF_Y, "데미지를 주었다.");
+                *UseAttack = false;
+            }
+            else
+            {
+                sprintf_s(numStr, "%d", player->atkDamage);
+                PrintScreen(POS1, DEF_Y, player->job_name);
+                PrintScreen(POS1 + 10, DEF_Y, "이(가) 당신에게 ");
+                PrintScreen(POS1 + 26, DEF_Y, numStr);
+                PrintScreen(POS1 + 30, DEF_Y, "데미지를 주었다.");
+                *UseAttack = false;
+            }
+        }
+        else if (UseSkill)
+        {
+            if (player->isPlayer)
+            {
+                if (curPlayerPos->X == POS1)
+                {
+                    PrintScreen(POS1, DEF_Y, "당신은 ");
+                    PrintScreen(POS1 + 7, DEF_Y, player->skill[0].skillName);
+                    PrintScreen(POS1 + 15, DEF_Y, " 을 사용했다.");
+                    if (player->skill[0].skillDamage > 0)
+                    {
+                        sprintf_s(numStr, "%d", player->skill[0].skillDamage);
+                        PrintScreen(POS1 + 28, DEF_Y, "( ");
+                        PrintScreen(POS1 + 30, DEF_Y, numStr);
+                        PrintScreen(POS1 + 34, DEF_Y, "데미지)");
+                    }
+                    *UseSkill = false;
+                }
+                else if (curPlayerPos->X == POS2)
+                {
+                    PrintScreen(POS1, DEF_Y, "당신은 ");
+                    PrintScreen(POS1 + 7, DEF_Y, player->skill[1].skillName);
+                    PrintScreen(POS1 + 15, DEF_Y, " 을 사용했다.");
+                    if (player->skill[0].skillDamage > 0)
+                    {
+                        sprintf_s(numStr, "%d", player->skill[1].skillDamage);
+                        PrintScreen(POS1 + 28, DEF_Y, "( ");
+                        PrintScreen(POS1 + 30, DEF_Y, numStr);
+                        PrintScreen(POS1 + 34, DEF_Y, "데미지)");
+                    }
+                    *UseSkill = false;
+                }
+            }
+            else
+            {
+                PrintScreen(POS1, DEF_Y, player->job_name);
+                PrintScreen(POS1 + 10, DEF_Y, "이(가) 스킬을 사용했다.");
+                *UseSkill = false;
+            }
+        }
+        else if (UseItem)
+        {
+            if (player->isPlayer)
+            {
+                if (curPlayerPos->X == POS1)
+                {
+                    PrintScreen(POS1, DEF_Y, "당신은 ");
+                    PrintScreen(POS1 + 7, DEF_Y, player->item[0].itemName);
+                    PrintScreen(POS1 + 15, DEF_Y, " 을 사용했다.");
+                    *UseItem = false;
+                }
+                else if (curPlayerPos->X == POS2)
+                {
+                    PrintScreen(POS1, DEF_Y, "당신은 ");
+                    PrintScreen(POS1 + 7, DEF_Y, player->item[1].itemName);
+                    PrintScreen(POS1 + 15, DEF_Y, " 을 사용했다.");
+                    *UseItem = false;
+                }
+            }
+            else
+            {
+                PrintScreen(POS1, DEF_Y, player->job_name);
+                PrintScreen(POS1 + 10, DEF_Y, "이(가) 아이템을 사용했습니다.");
+                *UseItem = false;
+            }
+        }
     }
     void DrawGameText(int* menuFlag, COORD* curPlayerPos, int* curIndex, int* curEnemy, PLAYER* player, PLAYER* enemy)
     {
@@ -329,7 +419,6 @@ namespace render
             *menuFlag = END_CLEAR;
             break;
         default:
-            DrawBorder();
             break;
         }
     }
@@ -384,17 +473,17 @@ namespace render
     void RenderHeroChoice(int* choiceNum, COORD* curPlayerPos)
     {
         if (*choiceNum == 0) {
-            ChoiceDraw(POS1, curPlayerPos->Y, "Worrior", true);
+            ChoiceDraw(POS1, curPlayerPos->Y, "Warrior", true);
             ChoiceDraw(POS2, curPlayerPos->Y, "Thief", false);
             ChoiceDraw(POS3, curPlayerPos->Y, "Wizard", false);
         }
         else if (*choiceNum == 1) {
-            ChoiceDraw(POS1, curPlayerPos->Y, "Worrior", false);
+            ChoiceDraw(POS1, curPlayerPos->Y, "Warrior", false);
             ChoiceDraw(POS2, curPlayerPos->Y, "Thief", true);
             ChoiceDraw(POS3, curPlayerPos->Y, "Wizard", false);
         }
         else {
-            ChoiceDraw(POS1, curPlayerPos->Y, "Worrior", false);
+            ChoiceDraw(POS1, curPlayerPos->Y, "Warrior", false);
             ChoiceDraw(POS2, curPlayerPos->Y, "Thief", false);
             ChoiceDraw(POS3, curPlayerPos->Y, "Wizard", true);
             OpenTextAndWrite(80, 5, ".\\Images\\Wizard1.txt");
