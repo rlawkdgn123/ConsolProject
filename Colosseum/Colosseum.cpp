@@ -93,7 +93,7 @@ void Choice(int* menuFlag, int* maxIndex) {
         global::saveXPos[1] = POS2;
         global::saveXPos[2] = POS3;
         *maxIndex = 3;
-        global::curPlayerPos.Y = 45;
+        global::curPlayerPos.Y = 41;
         break;
     case HEROCHOICE:
         global::saveXPos[0] = POS1;
@@ -205,8 +205,8 @@ void StartGame()
     //render::DrawBorder(); // 벽을 그려 놓자!
 
     // 플레이어 시작 위치 설정
-    global::prePlayerPos.X = 30;
-    global::prePlayerPos.Y = 40;
+    global::prePlayerPos.X = POS1;
+    global::prePlayerPos.Y = 41;
 
     global::curPlayerPos.X = global::prePlayerPos.X;
     global::curPlayerPos.Y = global::prePlayerPos.Y;

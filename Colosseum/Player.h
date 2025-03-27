@@ -12,6 +12,7 @@ constexpr int STUN = 2;
 
 typedef struct  {
 	const char* skillName;
+	const char* description;
 	int skillDamage;
 	int passiveProb; //¹ßµ¿ È®·ü
 	//skillEffect;

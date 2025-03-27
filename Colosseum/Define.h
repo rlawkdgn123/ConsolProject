@@ -25,7 +25,7 @@ enum STAGE {
 };
 
 enum CHOICE {
-    POS1 = 30,
-    POS2 = 60,
-    POS3 = 90
+    POS1 = 10,
+    POS2 = 51,
+    POS3 = 91
 };
