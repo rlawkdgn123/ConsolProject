@@ -205,7 +205,7 @@ namespace render
         wchar_t* temp = OpenText("Maps\\Title.txt", MAP_PHEIGHT, MAP_PWIDTH);
         switch (*menuFlag) {
         case TITLE:
-            OpenTextAndWrite(1, 1, "C:\\Users\\User\\Desktop\\KJH\\VisualStudio\\Project\\ConsolProject\\Colosseum\\Colosseum\\Images\\Wizard1.txt");
+            OpenTextAndWrite(1, 1, ".\\Images\\Wizard1.txt");
             //EncodeMap(temp);
             RenderTitle(curIndex, curPlayerPos);
             PrintScreen(curPlayerPos->X - 3,curPlayerPos->Y, ">>");
