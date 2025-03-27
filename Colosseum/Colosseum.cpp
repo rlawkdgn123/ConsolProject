@@ -9,7 +9,7 @@
 namespace global {
     int mSecPerFrame = 1000 / 25; // 40
     COORD prePlayerPos; // 기존 플레이어 위치
-    COORD curPlayerPos = { 20, 40 }; // 현재 플레이어 위치
+    COORD curPlayerPos = { 20, 45 }; // 현재 플레이어 위치
     int saveXPos[5] = { 0, };
 
     COORD enemyWorldBasis = { 10, 2 };
@@ -93,7 +93,7 @@ void Choice(int* menuFlag, int* maxIndex) {
         global::saveXPos[1] = POS2;
         global::saveXPos[2] = POS3;
         *maxIndex = 3;
-        global::curPlayerPos.Y = 40;
+        global::curPlayerPos.Y = 45;
         break;
     case HEROCHOICE:
         global::saveXPos[0] = POS1;
