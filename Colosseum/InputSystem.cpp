@@ -87,7 +87,7 @@ namespace global
 				inputLockS = false;
 				global::input::Set(USER_CMD_RIGHT, false);
 			}
-			if ((!GetAsyncKeyState(VK_SPACE) & 0x8000) && inputLockSPACE) { // 선택 CHOICE 스페이스바
+			if (!(GetAsyncKeyState(VK_SPACE) & 0x8000) && inputLockSPACE) { // 선택 CHOICE 스페이스바
 				inputLockSPACE = false;
 				global::input::Set(USER_CMD_SPACE, false);
 			}

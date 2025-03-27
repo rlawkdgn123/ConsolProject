@@ -322,6 +322,7 @@ void Update(int* menuFlag, int* curIndex)
     {
         if (global::input::IsSpaceCmdOn())
         {
+            global::input::Set(global::input::USER_CMD_SPACE, false);
             if (*menuFlag == TITLE)
             {
                 switch (global::curPlayerPos.X)
@@ -469,7 +470,6 @@ void Update(int* menuFlag, int* curIndex)
                     StartGame();
                 }
             }
-            global::input::Set(global::input::USER_CMD_SPACE, false);
         }
     }
 

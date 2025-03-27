@@ -75,6 +75,7 @@ void player::SetEnemy(PLAYER* job, PLAYER* enemy)
 		if (!(job[i].isPlayer))
 		{
 			enemy[j] = job[i];
+			j++;
 		}
 	}
 }
