@@ -210,6 +210,10 @@ namespace render
 
     void DrawHP(PLAYER* player, PLAYER* enemy)
     {
+        char numStr1[5];
+        char numStr2[5];
+        sprintf_s(numStr1, "%d", player->hp);
+        sprintf_s(numStr2, "%d", enemy->hp);
         for (int i = 0; i <= (player->hp / 2); i++)
         {
             ChoiceDraw(PLAYER_HP_POSX + i, PLAYER_HP_POSY, "|", true, 12);
@@ -218,6 +222,10 @@ namespace render
         {
             ChoiceDraw(ENEMY_HP_POSX - i, ENEMY_HP_POSY, "|", true, 12);
         }
+        PrintScreen(PLAYER_HP_POSX, PLAYER_HP_POSY + 1, "나의 HP : ");
+        PrintScreen(PLAYER_HP_POSX + 12, PLAYER_HP_POSY + 1, numStr1);
+        PrintScreen(ENEMY_HP_POSX - 12, ENEMY_HP_POSY + 1, "적 HP : ");
+        PrintScreen(ENEMY_HP_POSX - 2, ENEMY_HP_POSY + 1, numStr2);
     }
 
     void DrawStateText(COORD* curPlayerPos, PLAYER* player, PLAYER* enemy, bool* UseAttack, bool* UseSkill, bool* UseItem)
@@ -609,12 +617,12 @@ namespace render
         if (*choiceNum == 0) {
             ChoiceDraw(POS1, curPlayerPos->Y, "Hp 50 회복", true, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, "공격력 5 증가(도적이면 스택 최대 데미지 5 증가)", false, 11);
-            ChoiceDraw(POS3, curPlayerPos->Y, "스턴 아이템 한개 획득", false, 11);
+            ChoiceDraw(POS4, curPlayerPos->Y, "스턴 아이템 한개 획득", false, 11);
         }
         else if (*choiceNum == 1) {
             ChoiceDraw(POS1, curPlayerPos->Y, "Hp 50 회복", false, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, "공격력 5 증가(도적이면 스택 최대 데미지 5 증가)", true, 11);
-            ChoiceDraw(POS3, curPlayerPos->Y, "스턴 아이템 한개 획득", false, 11);
+            ChoiceDraw(POS4, curPlayerPos->Y, "스턴 아이템 한개 획득", false, 11);
         }
         else if (*choiceNum == 2) {
             ChoiceDraw(POS1, curPlayerPos->Y, "Hp 50 회복", false, 11);

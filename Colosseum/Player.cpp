@@ -26,7 +26,7 @@ void player::SetPlayer(PLAYER* player)
 	player[WARRIOR].JOB = WARRIOR;
 	player[WARRIOR].isPlayer = false;
 	player[WARRIOR].hp = 120;
-	player[WARRIOR].atkDamage = 20;
+	player[WARRIOR].atkDamage = 15;
 	player[WARRIOR].state = NORMAL;
 	player::SetItem(player[WARRIOR].item);
 	player[WARRIOR].skill[0].skillName = "warriorSkill1(ÆÐ½Ãºê)";
@@ -94,7 +94,7 @@ void player::UseAttack(PLAYER* player, PLAYER* enemy)
 
 	std::mt19937 gen(seed);
 
-	std::uniform_int_distribution<int> dist(1, 4);
+	std::uniform_int_distribution<int> dist(1, 5);
 
 	enemy->receiveDmg = 0;
 

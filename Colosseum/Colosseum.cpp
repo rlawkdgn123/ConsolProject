@@ -326,11 +326,13 @@ void Update(int* menuFlag, int* curIndex)
             if (global::player::current_enemy == 0) // 두 번째 적 강화
             {
                 global::player::enemy[1].hp = 150;
-                global::player::enemy[1].item[1].itemcount += 1;
+                global::player::enemy[1].item[0].itemcount = 3;
+                global::player::enemy[1].item[1].itemcount = 2;
             }
             else if (global::player::current_enemy == 1) // 두 번째 적 강화
             {
                 global::player::enemy[0].hp = 150;
+                global::player::enemy[0].item[0].itemcount = 3;
                 global::player::enemy[0].item[1].itemcount += 1;
             }
             global::player::player.skillCount = 0;
@@ -538,12 +540,12 @@ void Update(int* menuFlag, int* curIndex)
                     }
                     *menuFlag = MAIN;
                     break;
-                case POS3: // 스턴 1개 아이템 추가
+                case POS4: // 스턴 1개 아이템 추가
                     global::player::player.item[1].itemcount += 1; 
                     *menuFlag = MAIN;
                     break;
                 }
-                }
+             }
             else if (*menuFlag == END_CLEAR)
             {
                 switch (global::curPlayerPos.X)
