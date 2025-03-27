@@ -222,7 +222,7 @@ namespace render
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             for (int i = 42; i < SCREEN_HEIGHT - 1; i++)
             {
-                if (i == 42 || i == SCREEN_WIDTH )
+                if (i == 42 || i == SCREEN_WIDTH - 1 )
                 {
                     for (int j = 0; j < SCREEN_WIDTH; j++)
                     {
@@ -232,7 +232,7 @@ namespace render
                 else
                 {
                     PrintScreen(0, i, "|");
-                    PrintScreen(200, i, "|");
+                    PrintScreen(SCREEN_HEIGHT, i, "|");
                 }
             }
             *menuFlag = BATTLE;

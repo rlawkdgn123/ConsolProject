@@ -86,13 +86,13 @@ namespace render
         //consoleScreenY = SCREEN_HEIGHT; // 콘솔 스크린 높이
 
         // 실제 갱신할 화면 영역을 지정하자. 콘솔 크기 안쪽 사각형이라고 생각하면 됩니다.
-        updateScreenSize.Left = consoleScreenSize.Left + 2;
-        updateScreenSize.Right = consoleScreenSize.Right - 2;
-        updateScreenSize.Bottom = consoleScreenSize.Bottom - 2;
-        updateScreenSize.Top = consoleScreenSize.Top + 2;
+        updateScreenSize.Left = consoleScreenSize.Left;
+        updateScreenSize.Right = consoleScreenSize.Right;
+        updateScreenSize.Bottom = consoleScreenSize.Bottom;
+        updateScreenSize.Top = consoleScreenSize.Top;
 
-        updateScreenX = consoleScreenX - 4;
-        updateScreenY = consoleScreenY - 4;
+        updateScreenX = consoleScreenX ;
+        updateScreenY = consoleScreenY;
     }
 
     void ScreenFlipping()
@@ -218,13 +218,28 @@ namespace render
             //EncodeMap(temp);
             RenderMain(curIndex, curPlayerPos, enemy);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
+            for (int i = 40; i < SCREEN_HEIGHT - 1; i++)
+            {
+                if (i == 40 || i == SCREEN_HEIGHT - 2)
+                {
+                    for (int j = 0; j < SCREEN_WIDTH; j++)
+                    {
+                        PrintScreen(j, i, "-");
+                    }
+                }
+                else
+                {
+                    PrintScreen(0, i, "|");
+                    PrintScreen(SCREEN_WIDTH - 1, i, "|");
+                }
+            }
             *menuFlag = MAIN;
             break;
         case BATTLE:
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
-            for (int i = 42; i < SCREEN_HEIGHT - 1; i++)
+            for (int i = 40; i <= SCREEN_HEIGHT - 1; i++)
             {
-                if (i == 42 || i == SCREEN_WIDTH)
+                if (i == 40 || i == SCREEN_HEIGHT - 2)
                 {
                     for (int j = 0; j < SCREEN_WIDTH; j++)
                     {
