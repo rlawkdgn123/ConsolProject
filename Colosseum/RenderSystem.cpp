@@ -235,7 +235,15 @@ namespace render
         {
             if (player->isPlayer)
             {
-                sprintf_s(numStr, "%d", player->atkDamage);
+                if (player->JOB == MAGE)
+                {
+                    if (enemy->poisonStack >= player->maxPoisonStk)
+                        sprintf_s(numStr, "%d", player->maxPoisonStk);
+                    else
+                        sprintf_s(numStr, "%d", enemy->poisonStack);
+                }
+                else
+                    sprintf_s(numStr, "%d", player->atkDamage);
                 PrintScreen(POS1, DEF_Y, "당신은 상대에게 "); 
                 PrintScreen(POS1 + 16, DEF_Y, numStr);
                 PrintScreen(POS1 + 20, DEF_Y, "데미지를 주었다.");
@@ -543,7 +551,7 @@ namespace render
         if (*choiceNum == 0) {
             ChoiceDraw(POS1, curPlayerPos->Y, "Knight", true, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, "Mage", false, 11);
-            ChoiceDraw(POS3, curPlayerPos->Y, "Wizard", false, 11);
+            ChoiceDraw(POS3, curPlayerPos->Y, "Berserker", false, 11);
         }
         else if (*choiceNum == 1) {
             ChoiceDraw(POS1, curPlayerPos->Y, "Knight", false, 11);
