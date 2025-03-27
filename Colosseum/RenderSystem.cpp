@@ -223,7 +223,7 @@ namespace render
     void DrawStateText(COORD* curPlayerPos, PLAYER* player, PLAYER* enemy, bool* UseAttack, bool* UseSkill, bool* UseItem)
     {
         char numStr[5];
-        if (UseAttack)
+        if (*UseAttack)
         {
             if (player->isPlayer)
             {
@@ -255,7 +255,7 @@ namespace render
                 }
             }
         }
-        else if (UseSkill)
+        else if (*UseSkill)
         {
             if (player->isPlayer)
             {
@@ -295,7 +295,7 @@ namespace render
                 *UseSkill = false;
             }
         }
-        else if (UseItem)
+        else if (*UseItem)
         {
             if (player->isPlayer)
             {
@@ -619,7 +619,7 @@ namespace render
         else if (*choiceNum == 2) {
             ChoiceDraw(POS1, curPlayerPos->Y, "Hp 50 회복", false, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, "공격력 5 증가(도적이면 스택 최대 데미지 5 증가)", false, 11);
-            ChoiceDraw(POS3, curPlayerPos->Y, "스턴 아이템 한개 획득", true, 11);
+            ChoiceDraw(POS4, curPlayerPos->Y, "스턴 아이템 한개 획득", true, 11);
         }
     }
     void RenderEnd(int* choiceNum, COORD* curPlayerPos)

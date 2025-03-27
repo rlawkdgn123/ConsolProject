@@ -127,7 +127,7 @@ void Choice(int* menuFlag, int* maxIndex) {
     case BATTLE_END:
         global::saveXPos[0] = POS1;
         global::saveXPos[1] = POS2;
-        global::saveXPos[2] = POS3;
+        global::saveXPos[2] = POS4;
         *maxIndex = 3;
         break;
     case END_CLEAR:

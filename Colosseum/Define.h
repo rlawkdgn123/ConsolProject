@@ -29,6 +29,7 @@ enum CHOICE {
     POS1 = 10,
     POS2 = 51,
     POS3 = 91,
+    POS4 = 131,
     DEF_Y = 41,
     PLAYER_HP_POSX = 5,
     PLAYER_HP_POSY = 3,
