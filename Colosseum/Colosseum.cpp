@@ -138,6 +138,14 @@ void Choice(int* menuFlag, int* maxIndex) {
         global::saveXPos[0] = POS1;
         *maxIndex = 1;
         break;
+    case HOWTOPLAY:
+        global::saveXPos[0] = POS1;
+        *maxIndex = 1;
+        break;
+    case GAMEINFO:
+        global::saveXPos[0] = POS1;
+        *maxIndex = 1;
+        break;
     default:
         break;
     }
@@ -323,6 +331,8 @@ void Update(int* menuFlag, int* curIndex)
         }
         else
         {
+            if (*menuFlag != MAIN)
+                *menuFlag = BATTLE_END;
             if (global::player::current_enemy == 0) // 두 번째 적 강화
             {
                 global::player::enemy[1].hp = 150;
@@ -333,10 +343,9 @@ void Update(int* menuFlag, int* curIndex)
             {
                 global::player::enemy[0].hp = 150;
                 global::player::enemy[0].item[0].itemcount = 3;
-                global::player::enemy[0].item[1].itemcount += 1;
+                global::player::enemy[0].item[1].itemcount = 2;
             }
             global::player::player.skillCount = 0;
-            *menuFlag = BATTLE_END;
         }
     }
     
@@ -562,6 +571,30 @@ void Update(int* menuFlag, int* curIndex)
                 case POS1:
                     *menuFlag = TITLE;
                     StartGame();
+                default:
+                    break;
+                }
+            }
+            else if (*menuFlag == HOWTOPLAY)
+            {
+                switch (global::curPlayerPos.X)
+                {
+                case POS1:
+                    *menuFlag = TITLE;
+                    break;
+                default:
+                    break;
+                }
+            }
+            else if (*menuFlag == GAMEINFO)
+            {
+                switch (global::curPlayerPos.X)
+                {
+                case POS1:
+                    *menuFlag = TITLE;
+                    break;
+                default:
+                    break;
                 }
             }
         }

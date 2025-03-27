@@ -20,6 +20,7 @@ typedef struct  {
 
 typedef struct {
 	const char* itemName;
+	const char* description;
 	int effect;
 	int value;
 	int itemcount;

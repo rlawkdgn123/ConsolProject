@@ -245,7 +245,10 @@ namespace render
             {
                 if (player->JOB == THIEF)
                 {
-                    sprintf_s(numStr, "%d", enemy->poisonStack);
+                    if(enemy->poisonStack >= player->maxPoisonStk)
+                        sprintf_s(numStr, "%d", player->maxPoisonStk);
+                    else
+                        sprintf_s(numStr, "%d", enemy->poisonStack);
                     PrintScreen(POS1, DEF_Y, player->job_name);
                     PrintScreen(POS1 + 10, DEF_Y, "이(가) 당신에게 ");
                     PrintScreen(POS1 + 26, DEF_Y, numStr);
@@ -452,6 +455,21 @@ namespace render
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = END_CLEAR;
             break;
+        case HOWTOPLAY:
+            PrintScreen((SCREEN_WIDTH/2) - 20, 5, "이 게임은 턴제 전투 게임 '콜로세움' 입니다.\n 당신은 전사, 도적, 마법사 이 세 가지 직업 중\n");
+            PrintScreen((SCREEN_WIDTH / 2) - 20, 8, "한 가지를 선택하여 플레이 할 수 있습니다.\n 당신이 선택하지 않은 두 직업은 당신의 상대가 되어 당신과\n 전투를 하게 됩니다. \n");
+            PrintScreen((SCREEN_WIDTH / 2) - 20, 12, "두 명의 상대를 모두 물리치면 게임에서 승리하게 됩니다.\n");
+            RenderEnd(curIndex, curPlayerPos);
+            PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
+            *menuFlag = HOWTOPLAY;
+        case GAMEINFO:
+            PrintScreen((SCREEN_WIDTH / 2) - 20, 5, "게임 개발");
+            PrintScreen((SCREEN_WIDTH / 2) - 20, 6, "조현승");
+            PrintScreen((SCREEN_WIDTH / 2) - 20, 7, "김장후");
+            PrintScreen((SCREEN_WIDTH / 2) - 20, 8, "Colosseum");
+            RenderEnd(curIndex, curPlayerPos);
+            PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
+            *menuFlag = GAMEINFO;
         default:
             break;
         }
@@ -577,12 +595,14 @@ namespace render
             ChoiceDraw(POS1, curPlayerPos->Y, player->skill[0].skillName, true, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, player->skill[1].skillName, false, 11);
             ChoiceDraw(POS3, curPlayerPos->Y, "돌아가기", false, 11);
+            PrintScreen(POS1, DEF_Y + 3, player->skill[0].description);
         }
         else if (*choiceNum == 1)
         {
             ChoiceDraw(POS1, curPlayerPos->Y, player->skill[0].skillName, false , 11);
             ChoiceDraw(POS2, curPlayerPos->Y, player->skill[1].skillName, true, 11);
             ChoiceDraw(POS3, curPlayerPos->Y, "돌아가기", false, 11);
+            PrintScreen(POS1, DEF_Y + 3, player->skill[1].description);
         }
         else if (*choiceNum == 2)
         {
@@ -598,12 +618,14 @@ namespace render
             ChoiceDraw(POS1, curPlayerPos->Y, player->item[0].itemName, true, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, player->item[1].itemName, false, 11);
             ChoiceDraw(POS3, curPlayerPos->Y, "돌아가기", false, 11);
+            PrintScreen(POS1, DEF_Y + 3, player->item[0].description);
         }
         else if (*choiceNum == 1)
         {
             ChoiceDraw(POS1, curPlayerPos->Y, player->item[0].itemName, false, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, player->item[1].itemName, true, 11);
             ChoiceDraw(POS3, curPlayerPos->Y, "돌아가기", false, 11);
+            PrintScreen(POS1, DEF_Y + 3, player->item[1].description);
         }
         else if (*choiceNum == 2)
         {

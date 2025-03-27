@@ -7,10 +7,12 @@ void player::SetItem(ITEM* playeritem)
 {
 	ITEM item[2];
 	item[0].itemName = "Hp포션";
+	item[0].description = "HP를 40 회복한다.";
 	item[0].effect = HEAL;
-	item[0].value = 30;
+	item[0].value = 40;
 	item[0].itemcount = 2;
 	item[1].itemName = "짱돌";
+	item[1].description = "적을 1턴 기절 시킨다.";
 	item[1].effect = STUN;
 	item[1].value = 1;
 	item[1].itemcount = 1;
@@ -59,8 +61,8 @@ void player::SetPlayer(PLAYER* player)
 	player[WIZARD].JOB = WIZARD;
 	player[WIZARD].isPlayer = false;
 	player[WIZARD].hp = 100;
-	player[WIZARD].atkDamage = 26;
-	player[WIZARD	].state = NORMAL;
+	player[WIZARD].atkDamage = 22;
+	player[WIZARD].state = NORMAL;
 	player::SetItem(player[WIZARD].item);
 	player[WIZARD].skill[0].skillName = "wizardSkill1";
 	player[WIZARD].skill[0].passiveProb = 50;
