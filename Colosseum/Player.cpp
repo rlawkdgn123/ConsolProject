@@ -6,11 +6,11 @@
 void player::SetItem(ITEM* playeritem)
 {
 	ITEM item[2];
-	item[0].itemName = "Hp Potion";
+	item[0].itemName = "Hp포션";
 	item[0].effect = HEAL;
 	item[0].value = 30;
 	item[0].itemcount = 2;
-	item[1].itemName = "Stun";
+	item[1].itemName = "짱돌";
 	item[1].effect = STUN;
 	item[1].value = 1;
 	item[1].itemcount = 1;
@@ -29,7 +29,7 @@ void player::SetPlayer(PLAYER* player)
 	player[WARRIOR].atkDamage = 20;
 	player[WARRIOR].state = NORMAL;
 	player::SetItem(player[WARRIOR].item);
-	player[WARRIOR].skill[0].skillName = "warriorSkill1";
+	player[WARRIOR].skill[0].skillName = "단단함";
 	player[WARRIOR].skill[0].passiveProb = 20;
 	player[WARRIOR].skill[1].skillName = "warriorSkill2";
 	player[WARRIOR].skill[1].passiveProb = 100;
@@ -250,17 +250,5 @@ void player::UseItem(PLAYER* player, int itemNum)
 	{
 		player->state = STUN;
 		player->item[itemNum].itemcount--;
-	}
-}
-
-void player::EnemyDied(PLAYER* player)
-{
-	if (player->isPlayer)
-	{
-		//GameOver();
-	}
-	else
-	{
-		//GoNextStage();
 	}
 }
