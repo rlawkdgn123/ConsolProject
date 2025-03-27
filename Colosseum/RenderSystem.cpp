@@ -235,7 +235,15 @@ namespace render
         {
             if (player->isPlayer)
             {
-                sprintf_s(numStr, "%d", player->atkDamage);
+                if (player->JOB == MAGE)
+                {
+                    if (enemy->poisonStack >= player->maxPoisonStk)
+                        sprintf_s(numStr, "%d", player->maxPoisonStk);
+                    else
+                        sprintf_s(numStr, "%d", enemy->poisonStack);
+                }
+                else
+                    sprintf_s(numStr, "%d", player->atkDamage);
                 PrintScreen(POS1, DEF_Y, "당신은 상대에게 "); 
                 PrintScreen(POS1 + 16, DEF_Y, numStr);
                 PrintScreen(POS1 + 20, DEF_Y, "데미지를 주었다.");
