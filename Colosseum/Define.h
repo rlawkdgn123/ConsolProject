@@ -18,9 +18,10 @@ enum STAGE {
     BATTLE_SKILL = 4,
     BATTLE_ITEM = 5,
     BATTLE_END = 6,
-    END = 7,
-    HOWTOPLAY = 8,
-    GAMEINFO = 9
+    END_CLEAR = 7,
+    END_GAMEOVER = 8,
+    HOWTOPLAY = 9,
+    GAMEINFO = 10
 };
 
 enum CHOICE {

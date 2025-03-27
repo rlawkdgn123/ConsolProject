@@ -130,7 +130,11 @@ void Choice(int* menuFlag, int* maxIndex) {
         global::saveXPos[2] = POS3;
         *maxIndex = 3;
         break;
-    case END:
+    case END_CLEAR:
+        global::saveXPos[0] = POS1;
+        *maxIndex = 1;
+        break;
+    case END_GAMEOVER:
         global::saveXPos[0] = POS1;
         *maxIndex = 1;
         break;
@@ -291,7 +295,7 @@ void Update(int* menuFlag, int* curIndex)
 
     if (global::player::player.hp <= 0)
     {
-        *menuFlag = END;
+        *menuFlag = END_GAMEOVER;
     }
     else if (global::player::enemy[global::player::current_enemy].hp <= 0)
     {
@@ -299,7 +303,7 @@ void Update(int* menuFlag, int* curIndex)
 
         if (global::player::enemy[0].isDied && global::player::enemy[1].isDied)
         {
-            *menuFlag = END;
+            *menuFlag = END_CLEAR;
         }
         else
         {
@@ -477,7 +481,7 @@ void Update(int* menuFlag, int* curIndex)
                     break;
                 }
                 }
-            else if (*menuFlag == END)
+            else if (*menuFlag == END_CLEAR)
             {
                 switch (global::curPlayerPos.X)
                 {
@@ -486,6 +490,15 @@ void Update(int* menuFlag, int* curIndex)
                     StartGame();
                 }
             }
+            else if (*menuFlag == END_GAMEOVER)
+            {
+                switch (global::curPlayerPos.X)
+                {
+                case POS1:
+                    *menuFlag = TITLE;
+                    StartGame();
+                }
+                }
         }
     }
 

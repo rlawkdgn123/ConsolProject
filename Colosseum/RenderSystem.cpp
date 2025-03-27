@@ -210,9 +210,8 @@ namespace render
     {
         switch (*menuFlag) {
         case TITLE:
-            //EncodeMap(temp);
             RenderTitle(curIndex, curPlayerPos);
-            PrintScreen(curPlayerPos->X - 3,curPlayerPos->Y, ">>");
+            PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = TITLE;
             break;
         case HEROCHOICE:
@@ -221,31 +220,30 @@ namespace render
             *menuFlag = HEROCHOICE;
             break;
         case MAIN:
-            //EncodeMap(temp);
             RenderMain(curIndex, curPlayerPos, enemy);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
-            for (int i = 40; i < SCREEN_HEIGHT - 1; i++)
-            {
-                if (i == 40 || i == SCREEN_HEIGHT - 2)
-                {
-                    for (int j = 0; j < SCREEN_WIDTH; j++)
-                    {
-                        PrintScreen(j, i, "-");
-                    }
-                }
-                else
-                {
-                    PrintScreen(0, i, "|");
-                    PrintScreen(SCREEN_WIDTH - 1, i, "|");
-                }
-            }
             *menuFlag = MAIN;
             break;
         case BATTLE:
-            PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
-            for (int i = 40; i <= SCREEN_HEIGHT - 1; i++)
+            RenderBattle(curIndex, curPlayerPos);
+            PrintScreen(POS2 + 3, curPlayerPos->Y, "남은 스킬 사용 횟수 : ");
+            if (player->skillCount == 0)
             {
-                if (i == 40 || i == SCREEN_HEIGHT - 2)
+                if (player->JOB == WARRIOR)
+                    PrintScreen(POS2 + 14, curPlayerPos->Y, "1");
+                else
+                    PrintScreen(POS2 + 14, curPlayerPos->Y, "3");
+            }
+            else if (player->skillCount == 1)
+                PrintScreen(POS2 + 14, curPlayerPos->Y, "2");
+            else if (player->skillCount == 2)
+                PrintScreen(POS2 + 14, curPlayerPos->Y, "1");
+            else if (player->skillCount >= 3)
+                PrintScreen(POS2 + 14, curPlayerPos->Y, "0");
+            PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
+            for (int i = 42; i < SCREEN_HEIGHT - 1; i++)
+            {
+                if (i == 42 || i == SCREEN_WIDTH - 1)
                 {
                     for (int j = 0; j < SCREEN_WIDTH; j++)
                     {
@@ -255,30 +253,80 @@ namespace render
                 else
                 {
                     PrintScreen(0, i, "|");
-                    PrintScreen(200, i, "|");
+                    PrintScreen(SCREEN_HEIGHT, i, "|");
                 }
             }
             *menuFlag = BATTLE;
-            break; 
+            break;
         case BATTLE_SKILL:
-            //EncodeMap(temp);
+            RenderBattle_Skill(curIndex, curPlayerPos, player);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
+            for (int i = 42; i < SCREEN_HEIGHT - 1; i++)
+            {
+                if (i == 42 || i == SCREEN_WIDTH - 1)
+                {
+                    for (int j = 0; j < SCREEN_WIDTH; j++)
+                    {
+                        PrintScreen(j, i, "-");
+                    }
+                }
+                else
+                {
+                    PrintScreen(0, i, "|");
+                    PrintScreen(SCREEN_HEIGHT, i, "|");
+                }
+            }
             *menuFlag = BATTLE_SKILL;
             break;
         case BATTLE_ITEM:
-            //EncodeMap(temp);
+            RenderBattle_Item(curIndex, curPlayerPos, player);
+            PrintScreen(POS1 + 5, curPlayerPos->Y, "X  : ");
+            if (player->item[0].itemcount == 2)
+                PrintScreen(POS1 + 9, curPlayerPos->Y, "2");
+            else if (player->item[0].itemcount == 1)
+                PrintScreen(POS1 + 9, curPlayerPos->Y, "1");
+            else if (player->item[0].itemcount == 0)
+                PrintScreen(POS1 + 9, curPlayerPos->Y, "0");
+            PrintScreen(POS2 + 3, curPlayerPos->Y, "X  : ");
+            if (player->item[1].itemcount == 2)
+                PrintScreen(POS2 + 7, curPlayerPos->Y, "2");
+            else if (player->item[0].itemcount == 1)
+                PrintScreen(POS2 + 7, curPlayerPos->Y, "1");
+            else if (player->item[0].itemcount == 0)
+                PrintScreen(POS2 + 7, curPlayerPos->Y, "0");
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
+            for (int i = 42; i < SCREEN_HEIGHT - 1; i++)
+            {
+                if (i == 42 || i == SCREEN_WIDTH - 1)
+                {
+                    for (int j = 0; j < SCREEN_WIDTH; j++)
+                    {
+                        PrintScreen(j, i, "-");
+                    }
+                }
+                else
+                {
+                    PrintScreen(0, i, "|");
+                    PrintScreen(SCREEN_HEIGHT, i, "|");
+                }
+            }
             *menuFlag = BATTLE_ITEM;
             break;
         case BATTLE_END:
-            //EncodeMap(temp);
+            RenderBattle_End(curIndex, curPlayerPos);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = BATTLE_END;
             break;
-        case END:
-            //EncodeMap(temp);
+        case END_CLEAR:
+            RenderEnd(curIndex, curPlayerPos);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
-            *menuFlag = END;
+            *menuFlag = END_CLEAR;
+            break;
+        case END_GAMEOVER:
+            OpenTextAndWrite(80, 5, ".\\Images\\GameOver.txt");
+            RenderEnd(curIndex, curPlayerPos);
+            PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
+            *menuFlag = END_CLEAR;
             break;
         default:
             DrawBorder();
@@ -364,17 +412,89 @@ namespace render
         }
     }
 
-    /*void RenderBattle(int* choiceNum, COORD* curPlayerPos, PLAYER* enemy)
+    void RenderBattle(int* choiceNum, COORD* curPlayerPos)
     {
         if (*choiceNum == 0) {
-            ChoiceDraw(POS1, curPlayerPos->Y, enemy[0].job_name, true);
-            ChoiceDraw(POS2, curPlayerPos->Y, enemy[1].job_name, false);
+            ChoiceDraw(POS1, curPlayerPos->Y, "공격", true);
+            ChoiceDraw(POS2, curPlayerPos->Y, "스킬", false);
+            ChoiceDraw(POS3, curPlayerPos->Y, "아이템", false);
         }
         else if (*choiceNum == 1) {
-            ChoiceDraw(POS1, curPlayerPos->Y, enemy[0].job_name, false);
-            ChoiceDraw(POS2, curPlayerPos->Y, enemy[1].job_name, true);
+            ChoiceDraw(POS1, curPlayerPos->Y, "공격", false);
+            ChoiceDraw(POS2, curPlayerPos->Y, "스킬", true);
+            ChoiceDraw(POS3, curPlayerPos->Y, "아이템", false);
         }
-    }*/
+        else if (*choiceNum == 2) {
+            ChoiceDraw(POS1, curPlayerPos->Y, "공격", false);
+            ChoiceDraw(POS2, curPlayerPos->Y, "스킬", false);
+            ChoiceDraw(POS3, curPlayerPos->Y, "아이템", true);
+        }
+    }
+
+    void RenderBattle_Skill(int* choiceNum, COORD* curPlayerPos, PLAYER* player)
+    {
+        if (*choiceNum == 0)
+        {
+            ChoiceDraw(POS1, curPlayerPos->Y, player->skill[0].skillName, true);
+            ChoiceDraw(POS2, curPlayerPos->Y, player->skill[1].skillName, false);
+            ChoiceDraw(POS3, curPlayerPos->Y, "돌아가기", false);
+        }
+        else if (*choiceNum == 1)
+        {
+            ChoiceDraw(POS1, curPlayerPos->Y, player->skill[0].skillName, false);
+            ChoiceDraw(POS2, curPlayerPos->Y, player->skill[1].skillName, true);
+            ChoiceDraw(POS3, curPlayerPos->Y, "돌아가기", false);
+        }
+        else if (*choiceNum == 2)
+        {
+            ChoiceDraw(POS1, curPlayerPos->Y, player->skill[0].skillName, false);
+            ChoiceDraw(POS2, curPlayerPos->Y, player->skill[1].skillName, false);
+            ChoiceDraw(POS3, curPlayerPos->Y, "돌아가기", true);
+        }
+    }
+    void RenderBattle_Item(int* choiceNum, COORD* curPlayerPos, PLAYER* player)
+    {
+        if (*choiceNum == 0)
+        {
+            ChoiceDraw(POS1, curPlayerPos->Y, player->item[0].itemName, true);
+            ChoiceDraw(POS2, curPlayerPos->Y, player->item[1].itemName, false);
+            ChoiceDraw(POS3, curPlayerPos->Y, "돌아가기", false);
+        }
+        else if (*choiceNum == 1)
+        {
+            ChoiceDraw(POS1, curPlayerPos->Y, player->item[0].itemName, false);
+            ChoiceDraw(POS2, curPlayerPos->Y, player->item[1].itemName, true);
+            ChoiceDraw(POS3, curPlayerPos->Y, "돌아가기", false);
+        }
+        else if (*choiceNum == 2)
+        {
+            ChoiceDraw(POS1, curPlayerPos->Y, player->skill[0].skillName, false);
+            ChoiceDraw(POS2, curPlayerPos->Y, player->skill[1].skillName, false);
+            ChoiceDraw(POS3, curPlayerPos->Y, "돌아가기", true);
+        }
+    }
+    void RenderBattle_End(int* choiceNum, COORD* curPlayerPos)
+    {
+        if (*choiceNum == 0) {
+            ChoiceDraw(POS1, curPlayerPos->Y, "Hp 50 회복", true);
+            ChoiceDraw(POS2, curPlayerPos->Y, "공격력 5 증가(도적이면 스택 최대 데미지 5 증가)", false);
+            ChoiceDraw(POS3, curPlayerPos->Y, "스턴 아이템 한개 획득", false);
+        }
+        else if (*choiceNum == 1) {
+            ChoiceDraw(POS1, curPlayerPos->Y, "Hp 50 회복", false);
+            ChoiceDraw(POS2, curPlayerPos->Y, "공격력 5 증가(도적이면 스택 최대 데미지 5 증가)", true);
+            ChoiceDraw(POS3, curPlayerPos->Y, "스턴 아이템 한개 획득", false);
+        }
+        else if (*choiceNum == 2) {
+            ChoiceDraw(POS1, curPlayerPos->Y, "Hp 50 회복", false);
+            ChoiceDraw(POS2, curPlayerPos->Y, "공격력 5 증가(도적이면 스택 최대 데미지 5 증가)", false);
+            ChoiceDraw(POS3, curPlayerPos->Y, "스턴 아이템 한개 획득", true);
+        }
+    }
+    void RenderEnd(int* choiceNum, COORD* curPlayerPos)
+    {
+        ChoiceDraw(POS1, curPlayerPos->Y, "타이틀 화면으로", true);
+    }
 };
 
 

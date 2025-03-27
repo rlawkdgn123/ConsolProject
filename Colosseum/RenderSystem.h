@@ -30,4 +30,9 @@ namespace render
 	void RenderTitle(int* choiceNum, COORD* curPlayerPos);
 	void RenderHeroChoice(int* choiceNum, COORD* curPlayerPos);
 	void RenderMain(int* choiceNum, COORD* curPlayerPos, PLAYER* enemy);
+	void RenderBattle(int* choiceNum, COORD* curPlayerPos);
+	void RenderBattle_Skill(int* choiceNum, COORD* curPlayerPos, PLAYER* player);
+	void RenderBattle_Item(int* choiceNum, COORD* curPlayerPos, PLAYER* player);
+	void RenderBattle_End(int* choiceNum, COORD* curPlayerPos);
+	void RenderEnd(int* choiceNum, COORD* curPlayerPos);
 };
