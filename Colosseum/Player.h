@@ -2,9 +2,9 @@
 #include <stdio.h>
 
 constexpr int JOBCOUNT = 3; // Á÷¾÷ ¼ö
-constexpr int WARRIOR = 0;
-constexpr int THIEF = 1;
-constexpr int WIZARD = 2;
+constexpr int KNIGHT = 0;
+constexpr int MAGE = 1;
+constexpr int BERSERKER = 2;
 
 constexpr int NORMAL = 0;
 constexpr int HEAL = 1;

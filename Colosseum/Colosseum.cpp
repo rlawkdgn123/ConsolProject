@@ -149,7 +149,6 @@ void Choice(int* menuFlag, int* maxIndex) {
     default:
         break;
     }
-
     preMenu = *menuFlag;
 }
 void UpdatePlayerPosition(int* menuFlag, int* index)
@@ -184,8 +183,6 @@ void UpdatePlayerPosition(int* menuFlag, int* index)
         }
         if (global::input::IsSpaceCmdOn())
         {
-            
-
             Choice(menuFlag, &maxIndex);
         }
     }
@@ -380,20 +377,20 @@ void Update(int* menuFlag, int* curIndex)
                 switch (global::curPlayerPos.X)
                 {
                 case POS1:
-                    global::player::job[WARRIOR].isPlayer = true;
-                    global::player::player = global::player::job[WARRIOR];
+                    global::player::job[KNIGHT].isPlayer = true;
+                    global::player::player = global::player::job[KNIGHT];
                     player::SetEnemy(global::player::job, global::player::enemy);
                     *menuFlag = MAIN;
                     break;
                 case POS2:
-                    global::player::job[THIEF].isPlayer = true;
-                    global::player::player = global::player::job[THIEF];
+                    global::player::job[MAGE].isPlayer = true;
+                    global::player::player = global::player::job[MAGE];
                     player::SetEnemy(global::player::job, global::player::enemy);
                     *menuFlag = MAIN;
                     break;
                 case POS3:
-                    global::player::job[WIZARD].isPlayer = true;
-                    global::player::player = global::player::job[WIZARD];
+                    global::player::job[BERSERKER].isPlayer = true;
+                    global::player::player = global::player::job[BERSERKER];
                     player::SetEnemy(global::player::job, global::player::enemy);
                     *menuFlag = MAIN;
                     break;
@@ -539,7 +536,7 @@ void Update(int* menuFlag, int* curIndex)
                     *menuFlag = MAIN;
                     break;
                 case POS2: // 도적이면 독 스택 데미지 최대치 +5, 나머지는 공격력 + 5
-                    if (global::player::player.JOB == THIEF)
+                    if (global::player::player.JOB == MAGE)
                     {
                         global::player::player.maxPoisonStk += 5;
                     }
@@ -626,7 +623,7 @@ void Update(int* menuFlag, int* curIndex)
             global::player::isUseAttack = true;
             break;
         case 1:
-            if (global::player::enemy[global::player::current_enemy].JOB == WARRIOR && global::player::enemy[global::player::current_enemy].skillCount < 3)
+            if (global::player::enemy[global::player::current_enemy].JOB == KNIGHT && global::player::enemy[global::player::current_enemy].skillCount < 3)
             {
                 player::UseSkill(&global::player::enemy[global::player::current_enemy], &global::player::player, 1);
                 global::player::isUseSkill = true;

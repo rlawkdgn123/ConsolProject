@@ -243,7 +243,7 @@ namespace render
             }
             else
             {
-                if (player->JOB == THIEF)
+                if (player->JOB == MAGE)
                 {
                     if(enemy->poisonStack >= player->maxPoisonStk)
                         sprintf_s(numStr, "%d", player->maxPoisonStk);
@@ -356,7 +356,7 @@ namespace render
             PrintScreen(POS2 + 5, curPlayerPos->Y, "(남은 스킬 사용 횟수 : ");
             if (player->skillCount == 0)
             {
-                if (player->JOB == WARRIOR)
+                if (player->JOB == KNIGHT)
                     PrintScreen(POS2 + 28, curPlayerPos->Y, "1)");
                 else
                     PrintScreen(POS2 + 28, curPlayerPos->Y, "3)");
@@ -507,7 +507,7 @@ namespace render
     }
     void RenderTitle(int* choiceNum, COORD* curPlayerPos) {
         const char* a[13] = {
-            "Wizard_ATK_1",
+            "Berserker_ATK_1",
             "Wizard_ATK_2",
             "Wizard_ATK_3",
             "Wizard_ATK_4",
@@ -541,20 +541,20 @@ namespace render
     void RenderHeroChoice(int* choiceNum, COORD* curPlayerPos)
     {
         if (*choiceNum == 0) {
-            ChoiceDraw(POS1, curPlayerPos->Y, "Warrior", true, 11);
-            ChoiceDraw(POS2, curPlayerPos->Y, "Thief", false, 11);
+            ChoiceDraw(POS1, curPlayerPos->Y, "Knight", true, 11);
+            ChoiceDraw(POS2, curPlayerPos->Y, "Mage", false, 11);
             ChoiceDraw(POS3, curPlayerPos->Y, "Wizard", false, 11);
         }
         else if (*choiceNum == 1) {
-            ChoiceDraw(POS1, curPlayerPos->Y, "Warrior", false, 11);
-            ChoiceDraw(POS2, curPlayerPos->Y, "Thief", true, 11);
-            ChoiceDraw(POS3, curPlayerPos->Y, "Wizard", false, 11);
+            ChoiceDraw(POS1, curPlayerPos->Y, "Knight", false, 11);
+            ChoiceDraw(POS2, curPlayerPos->Y, "Mage", true, 11);
+            ChoiceDraw(POS3, curPlayerPos->Y, "Berserker", false, 11);
         }
         else {
-            ChoiceDraw(POS1, curPlayerPos->Y, "Warrior", false, 11);
-            ChoiceDraw(POS2, curPlayerPos->Y, "Thief", false, 11);
-            ChoiceDraw(POS3, curPlayerPos->Y, "Wizard", true, 11);
-            OpenTextAndWrite(80, 5, ".\\Images\\Wizard1.txt");
+            ChoiceDraw(POS1, curPlayerPos->Y, "Knight", false, 11);
+            ChoiceDraw(POS2, curPlayerPos->Y, "Mage", false, 11);
+            ChoiceDraw(POS3, curPlayerPos->Y, "Berserker", true, 11);
+            OpenTextAndWrite(80, 5, ".\\Images\\Berserker1.txt");
         }
     }
     void RenderMain(int* choiceNum, COORD* curPlayerPos, PLAYER* enemy)
