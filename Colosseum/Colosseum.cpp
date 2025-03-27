@@ -266,7 +266,12 @@ void Render(int* menuFlag, int* curIndex)
             render::DrawStateText(&global::curPlayerPos, &global::player::enemy[global::player::current_enemy], &global::player::player,
                 &global::player::isUseAttack, &global::player::isUseSkill, &global::player::isUseItem);
         }
+    }
 
+    if (*menuFlag == BATTLE || *menuFlag == BATTLE_SKILL || *menuFlag == BATTLE_ITEM
+        || *menuFlag == BATTLE_STATE)
+    {
+        render::DrawHP(&global::player::player, &global::player::enemy[global::player::current_enemy]);
     }
     render::ScreenFlipping();
     if (*menuFlag == BATTLE_STATE)
@@ -496,15 +501,19 @@ void Update(int* menuFlag, int* curIndex)
                     }
                     break;
                 case POS2: // 스턴 아이템 사용
-                    if (global::player::player.item[0].itemcount > 0)
+                    if (global::player::player.item[0].itemcount <= 0)
+                    {
+                        *menuFlag = BATTLE_ITEM;
+                    }
+                    else
                     {
                         player::UseItem(&global::player::player, 1);
                         global::player::isUseItem = true;
                         global::player::isPlayerTurn = false;
                         global::player::isEnemyTurn = true;
+                        *menuFlag = BATTLE_STATE;
+                        break;
                     }
-                    *menuFlag = BATTLE_STATE;
-                    break;
                 case POS3: // 돌아가기
                     *menuFlag = BATTLE;
                 default: break;
