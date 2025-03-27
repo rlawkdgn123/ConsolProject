@@ -201,10 +201,11 @@ namespace render
         free(string);
         fclose(pFile);
     }
-    void OpenTextAndWriteAnim(int x, int y, const char* dirPath)
+    void OpenTextAndWriteAnim(int x, int y, const char** fileName, int count)
     {
-        
-
+        for (int i = 0; i < count; i++) {
+            OpenTextAndWrite(x, y, fileName[i]);
+        }
     }
     void DrawStateText(COORD* curPlayerPos, PLAYER* player, PLAYER* enemy, bool* UseAttack, bool* UseSkill, bool* UseItem)
     {
@@ -454,6 +455,22 @@ namespace render
         }
     }
     void RenderTitle(int* choiceNum, COORD* curPlayerPos) {
+        const char* a[13] = {
+            "Wizard_ATK_1",
+            "Wizard_ATK_2",
+            "Wizard_ATK_3",
+            "Wizard_ATK_4",
+            "Wizard_ATK_5",
+            "Wizard_ATK_6",
+            "Wizard_ATK_7",
+            "Wizard_ATK_8",
+            "Wizard_ATK_9",
+            "Wizard_ATK_10",
+            "Wizard_ATK_11",
+            "Wizard_ATK_12",
+            "Wizard_ATK_13"
+        };
+        OpenTextAndWriteAnim(1, 2, a, 13);
         if (*choiceNum == 0) {
             ChoiceDraw(POS1, curPlayerPos->Y, "Game Start", true);
             ChoiceDraw(POS2, curPlayerPos->Y, "How To Play", false);
