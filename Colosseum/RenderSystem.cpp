@@ -203,13 +203,6 @@ namespace render
     }
     void OpenTextAndWriteAnim(int x, int y, const char** fileName, int count, int color)
     {
-<<<<<<< Updated upstream
-        static int animCount = 0;
-        OpenTextAndWrite(x, y, fileName[animCount]);
-        animCount++;
-        if (animCount > count)
-            animCount = 0;
-=======
         SetColor(color);
         static int animCount = 0;
         OpenTextAndWrite(x, y, fileName[animCount]);
@@ -217,7 +210,6 @@ namespace render
         if (animCount > count - 1)
             animCount = 0;
         SetColor(WHITE);
->>>>>>> Stashed changes
     }
 
     void DrawHP(PLAYER* player, PLAYER* enemy)
@@ -530,29 +522,9 @@ namespace render
             ScreenDraw(updateScreenSize.Right + 1, y, '#');
         }
     }
-<<<<<<< Updated upstream
-    void RenderTitle(int* choiceNum, COORD* curPlayerPos) {
-        OpenTextAndWrite(80, 5, ".\\Images\\Berserker1.txt");
-        const char* Wizard[13] = {
-            "Berserker_ATK_1","Wizard_ATK_2","Wizard_ATK_3","Wizard_ATK_4","Wizard_ATK_5",
-            "Wizard_ATK_6","Wizard_ATK_7","Wizard_ATK_8","Wizard_ATK_9","Wizard_ATK_10",
-            "Wizard_ATK_11","Wizard_ATK_12","Wizard_ATK_13"
-        };
-        const char* Berserker[28] = {
-            ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (1).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (2).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (3).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (4).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (5).txt",
-            ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (6).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (7).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (8).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (9).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (10).txt",
-            ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (11).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (12).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (13).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (14).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (15).txt",
-            ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (16).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (17).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (18).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (19).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (20).txt",
-            ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (21).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (22).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (23).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (24).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (25).txt",
-            ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (26).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (27).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (28).txt"
-        };
-        OpenTextAndWriteAnim(0, 0, Berserker, 28 );
-        //OpenTextAndWriteAnim(10, 2, Wizard, 13);
-        if (*choiceNum == 0) {
-=======
+
     void RenderTitle(COORD* curPlayerPos) {
         if (curPlayerPos->X == POS1) {
->>>>>>> Stashed changes
             ChoiceDraw(POS1, curPlayerPos->Y, "Game Start", true, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, "How To Play", false, 11);
             ChoiceDraw(POS3, curPlayerPos->Y, "Game Info", false, 11);
