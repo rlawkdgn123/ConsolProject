@@ -110,6 +110,7 @@ void Choice(int* menuFlag) {
         global::saveXPos[0] = POS1;
         global::saveXPos[1] = POS2;
         global::maxIndex = 2;
+        global::curPlayerPos.X = POS1;
         break;
     case BATTLE:
         global::saveXPos[0] = POS1;
@@ -471,18 +472,7 @@ void Update(int* menuFlag, int* curIndex)
                     }
                     else
                     {
-                        if (global::player::player.JOB == KNIGHT)
-                        {
-                            PlaySound(TEXT(".\\Audio\\Sword Attack.wav"), NULL, SND_ASYNC);
-                        }
-                        else if (global::player::player.JOB == ARCHER)
-                        {
-                            PlaySound(TEXT(".\\Audio\\Arrow Shot.mp3"), NULL, SND_ASYNC);
-                        }
-                        else if (global::player::player.JOB == BERSERKER)
-                        {
-                            PlaySound(TEXT(".\\Audio\\Axe Attack.mp3"), NULL, SND_ASYNC);
-                        }
+                        
                         player::UseSkill(&global::player::player, &global::player::enemy[global::player::current_enemy], 0);
                         global::player::isUseSkill = true;
                         global::player::isPlayerTurn = false;
