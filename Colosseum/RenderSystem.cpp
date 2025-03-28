@@ -201,13 +201,23 @@ namespace render
         free(string);
         fclose(pFile);
     }
-    void OpenTextAndWriteAnim(int x, int y, const char** fileName, int count)
+    void OpenTextAndWriteAnim(int x, int y, const char** fileName, int count, int color)
     {
+<<<<<<< Updated upstream
         static int animCount = 0;
         OpenTextAndWrite(x, y, fileName[animCount]);
         animCount++;
         if (animCount > count)
             animCount = 0;
+=======
+        SetColor(color);
+        static int animCount = 0;
+        OpenTextAndWrite(x, y, fileName[animCount]);
+        animCount++;
+        if (animCount > count - 1)
+            animCount = 0;
+        SetColor(WHITE);
+>>>>>>> Stashed changes
     }
 
     void DrawHP(PLAYER* player, PLAYER* enemy)
@@ -347,22 +357,22 @@ namespace render
     {
         switch (*menuFlag) {
         case TITLE:
-            RenderTitle(curIndex, curPlayerPos);
+            RenderTitle(curPlayerPos);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = TITLE;
             break;
         case HEROCHOICE:
-            RenderHeroChoice(curIndex, curPlayerPos);
+            RenderHeroChoice(curPlayerPos);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = HEROCHOICE;
             break;
         case MAIN:
-            RenderMain(curIndex, curPlayerPos, enemy);
+            RenderMain(curPlayerPos, enemy);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = MAIN;
             break;
         case BATTLE:
-            RenderBattle(curIndex, curPlayerPos);
+            RenderBattle(curPlayerPos);
             PrintScreen(POS2 + 5, curPlayerPos->Y, "(남은 스킬 사용 횟수 : ");
             if (player->skillCount == 0)
             {
@@ -396,7 +406,7 @@ namespace render
             *menuFlag = BATTLE;
             break;
         case BATTLE_SKILL:
-            RenderBattle_Skill(curIndex, curPlayerPos, player);
+            RenderBattle_Skill(curPlayerPos, player);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             for (int i = 40; i <= SCREEN_HEIGHT - 1; i++)
             {
@@ -416,7 +426,7 @@ namespace render
             *menuFlag = BATTLE_SKILL;
             break;
         case BATTLE_ITEM:
-            RenderBattle_Item(curIndex, curPlayerPos, player);
+            RenderBattle_Item(curPlayerPos, player);
             PrintScreen(POS1 + 6, curPlayerPos->Y, " : ");
             if (player->item[0].itemcount == 2)
                 PrintScreen(POS1 + 9, curPlayerPos->Y, "2");
@@ -450,36 +460,41 @@ namespace render
             *menuFlag = BATTLE_ITEM;
             break;
         case BATTLE_END:
-            RenderBattle_End(curIndex, curPlayerPos);
+            RenderBattle_End(curPlayerPos);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = BATTLE_END;
             break;
         case END_CLEAR:
-            RenderEnd(curIndex, curPlayerPos);
+            RenderEnd(curPlayerPos);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = END_CLEAR;
             break;
         case END_GAMEOVER:
             OpenTextAndWrite(80, 5, ".\\Images\\GameOver.txt");
-            RenderEnd(curIndex, curPlayerPos);
+            RenderEnd(curPlayerPos);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = END_CLEAR;
             break;
         case HOWTOPLAY:
-            PrintScreen((SCREEN_WIDTH/2) - 20, 5, "이 게임은 턴제 전투 게임 '콜로세움' 입니다.\n 당신은 전사, 도적, 마법사 이 세 가지 직업 중\n");
-            PrintScreen((SCREEN_WIDTH / 2) - 20, 8, "한 가지를 선택하여 플레이 할 수 있습니다.\n 당신이 선택하지 않은 두 직업은 당신의 상대가 되어 당신과\n 전투를 하게 됩니다. \n");
-            PrintScreen((SCREEN_WIDTH / 2) - 20, 12, "두 명의 상대를 모두 물리치면 게임에서 승리하게 됩니다.\n");
-            RenderEnd(curIndex, curPlayerPos);
+            PrintScreen((SCREEN_WIDTH/2) - 20, 5, "이 게임은 턴제 전투 게임 '콜로세움' 입니다.");
+            PrintScreen((SCREEN_WIDTH/2) - 20, 6, "당신은 전사, 도적, 마법사 이 세 가지 직업 중");
+            PrintScreen((SCREEN_WIDTH / 2) - 20, 7, "한 가지를 선택하여 플레이 할 수 있습니다.");
+            PrintScreen((SCREEN_WIDTH / 2) - 20, 8, "당신이 선택하지 않은 두 직업은 당신의 상대가 되어 당신과");
+            PrintScreen((SCREEN_WIDTH / 2) - 20, 9, "전투를 하게 됩니다. ");
+            PrintScreen((SCREEN_WIDTH / 2) - 20, 10, "두 명의 상대를 모두 물리치면 게임에서 승리하게 됩니다.");
+            RenderEnd(curPlayerPos);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = HOWTOPLAY;
+            break;
         case GAMEINFO:
             PrintScreen((SCREEN_WIDTH / 2) - 20, 5, "게임 개발");
             PrintScreen((SCREEN_WIDTH / 2) - 20, 6, "조현승");
             PrintScreen((SCREEN_WIDTH / 2) - 20, 7, "김장후");
             PrintScreen((SCREEN_WIDTH / 2) - 20, 8, "Colosseum");
-            RenderEnd(curIndex, curPlayerPos);
+            RenderEnd(curPlayerPos);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = GAMEINFO;
+            break;
         default:
             break;
         }
@@ -515,6 +530,7 @@ namespace render
             ScreenDraw(updateScreenSize.Right + 1, y, '#');
         }
     }
+<<<<<<< Updated upstream
     void RenderTitle(int* choiceNum, COORD* curPlayerPos) {
         OpenTextAndWrite(80, 5, ".\\Images\\Berserker1.txt");
         const char* Wizard[13] = {
@@ -533,136 +549,147 @@ namespace render
         OpenTextAndWriteAnim(0, 0, Berserker, 28 );
         //OpenTextAndWriteAnim(10, 2, Wizard, 13);
         if (*choiceNum == 0) {
+=======
+    void RenderTitle(COORD* curPlayerPos) {
+        if (curPlayerPos->X == POS1) {
+>>>>>>> Stashed changes
             ChoiceDraw(POS1, curPlayerPos->Y, "Game Start", true, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, "How To Play", false, 11);
             ChoiceDraw(POS3, curPlayerPos->Y, "Game Info", false, 11);
         }
-        else if (*choiceNum == 1) {
+        else if (curPlayerPos->X == POS2) {
             ChoiceDraw(POS1, curPlayerPos->Y, "Game Start", false, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, "How To Play", true, 11);
             ChoiceDraw(POS3, curPlayerPos->Y, "Game Info", false, 11);
         }
-        else {
+        else if (curPlayerPos->X == POS3) {
             ChoiceDraw(POS1, curPlayerPos->Y, "Game Start", false, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, "How To Play", false, 11);
             ChoiceDraw(POS3, curPlayerPos->Y, "Game Info", true, 11);
         }
     }
-    void RenderHeroChoice(int* choiceNum, COORD* curPlayerPos)
+    void RenderHeroChoice(COORD* curPlayerPos)
     {
-        if (*choiceNum == 0) {
+        const char* Berserker[23] = {
+            ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (1).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (2).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (3).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (4).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (5).txt",
+            ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (6).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (7).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (8).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (9).txt" , ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (10).txt",
+            ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (11).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (12).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (13).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (14).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (15).txt",
+            ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (16).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (17).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (18).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (19).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (20).txt",
+            ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (21).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (22).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (23).txt"
+        };
+        if (curPlayerPos->X == POS1) {
             ChoiceDraw(POS1, curPlayerPos->Y, "Knight", true, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, "Mage", false, 11);
             ChoiceDraw(POS3, curPlayerPos->Y, "Berserker", false, 11);
         }
-        else if (*choiceNum == 1) {
+        else if (curPlayerPos->X == POS2) {
             ChoiceDraw(POS1, curPlayerPos->Y, "Knight", false, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, "Mage", true, 11);
             ChoiceDraw(POS3, curPlayerPos->Y, "Berserker", false, 11);
         }
-        else {
+        else if (curPlayerPos->X == POS3) {
             ChoiceDraw(POS1, curPlayerPos->Y, "Knight", false, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, "Mage", false, 11);
             ChoiceDraw(POS3, curPlayerPos->Y, "Berserker", true, 11);
-            OpenTextAndWrite(80, 5, ".\\Images\\Berserker1.txt");
+            OpenTextAndWriteAnim((SCREEN_WIDTH / 2) - 50, 5, Berserker, 23, RED);
         }
     }
-    void RenderMain(int* choiceNum, COORD* curPlayerPos, PLAYER* enemy)
+    void RenderMain(COORD* curPlayerPos, PLAYER* enemy)
     {
-        if (*choiceNum == 0) {
+        if (curPlayerPos->X == POS1) {
             ChoiceDraw(POS1, curPlayerPos->Y, enemy[0].job_name, true, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, enemy[1].job_name, false, 11);
         }
-        else if (*choiceNum == 1) {
+        else if (curPlayerPos->X == POS2) {
             ChoiceDraw(POS1, curPlayerPos->Y, enemy[0].job_name, false, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, enemy[1].job_name, true, 11);
         }
     }
 
-    void RenderBattle(int* choiceNum, COORD* curPlayerPos)
+    void RenderBattle(COORD* curPlayerPos)
     {
-        if (*choiceNum == 0) {
+        if (curPlayerPos->X == POS1) {
             ChoiceDraw(POS1, curPlayerPos->Y, "공격", true, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, "스킬", false, 11);
             ChoiceDraw(POS3, curPlayerPos->Y, "아이템", false, 11);
         }
-        else if (*choiceNum == 1) {
+        else if (curPlayerPos->X == POS2) {
             ChoiceDraw(POS1, curPlayerPos->Y, "공격", false, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, "스킬", true, 11);
             ChoiceDraw(POS3, curPlayerPos->Y, "아이템", false, 11);
         }
-        else if (*choiceNum == 2) {
+        else if (curPlayerPos->X == POS3) {
             ChoiceDraw(POS1, curPlayerPos->Y, "공격", false, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, "스킬", false, 11);
             ChoiceDraw(POS3, curPlayerPos->Y, "아이템", true, 11);
         }
     }
 
-    void RenderBattle_Skill(int* choiceNum, COORD* curPlayerPos, PLAYER* player)
+    void RenderBattle_Skill(COORD* curPlayerPos, PLAYER* player)
     {
-        if (*choiceNum == 0)
+        if (curPlayerPos->X == POS1)
         {
             ChoiceDraw(POS1, curPlayerPos->Y, player->skill[0].skillName, true, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, player->skill[1].skillName, false, 11);
             ChoiceDraw(POS3, curPlayerPos->Y, "돌아가기", false, 11);
             PrintScreen(POS1, DEF_Y + 3, player->skill[0].description);
         }
-        else if (*choiceNum == 1)
+        else if (curPlayerPos->X == POS2)
         {
             ChoiceDraw(POS1, curPlayerPos->Y, player->skill[0].skillName, false , 11);
             ChoiceDraw(POS2, curPlayerPos->Y, player->skill[1].skillName, true, 11);
             ChoiceDraw(POS3, curPlayerPos->Y, "돌아가기", false, 11);
             PrintScreen(POS1, DEF_Y + 3, player->skill[1].description);
         }
-        else if (*choiceNum == 2)
+        else if (curPlayerPos->X == POS3)
         {
             ChoiceDraw(POS1, curPlayerPos->Y, player->skill[0].skillName, false, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, player->skill[1].skillName, false, 11);
             ChoiceDraw(POS3, curPlayerPos->Y, "돌아가기", true, 11);
         }
     }
-    void RenderBattle_Item(int* choiceNum, COORD* curPlayerPos, PLAYER* player)
+    void RenderBattle_Item(COORD* curPlayerPos, PLAYER* player)
     {
-        if (*choiceNum == 0)
+        if (curPlayerPos->X == POS1)
         {
             ChoiceDraw(POS1, curPlayerPos->Y, player->item[0].itemName, true, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, player->item[1].itemName, false, 11);
             ChoiceDraw(POS3, curPlayerPos->Y, "돌아가기", false, 11);
             PrintScreen(POS1, DEF_Y + 3, player->item[0].description);
         }
-        else if (*choiceNum == 1)
+        else if (curPlayerPos->X == POS2)
         {
             ChoiceDraw(POS1, curPlayerPos->Y, player->item[0].itemName, false, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, player->item[1].itemName, true, 11);
             ChoiceDraw(POS3, curPlayerPos->Y, "돌아가기", false, 11);
             PrintScreen(POS1, DEF_Y + 3, player->item[1].description);
         }
-        else if (*choiceNum == 2)
+        else if (curPlayerPos->X == POS3)
         {
             ChoiceDraw(POS1, curPlayerPos->Y, player->item[0].itemName, false, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, player->item[1].itemName, false, 11);
             ChoiceDraw(POS3, curPlayerPos->Y, "돌아가기", true, 11);
         }
     }
-    void RenderBattle_End(int* choiceNum, COORD* curPlayerPos)
+    void RenderBattle_End(COORD* curPlayerPos)
     {
-        if (*choiceNum == 0) {
+        if (curPlayerPos->X == POS1) {
             ChoiceDraw(POS1, curPlayerPos->Y, "Hp 50 회복", true, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, "공격력 5 증가(도적이면 스택 최대 데미지 5 증가)", false, 11);
             ChoiceDraw(POS4, curPlayerPos->Y, "스턴 아이템 한개 획득", false, 11);
         }
-        else if (*choiceNum == 1) {
+        else if (curPlayerPos->X == POS2) {
             ChoiceDraw(POS1, curPlayerPos->Y, "Hp 50 회복", false, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, "공격력 5 증가(도적이면 스택 최대 데미지 5 증가)", true, 11);
             ChoiceDraw(POS4, curPlayerPos->Y, "스턴 아이템 한개 획득", false, 11);
         }
-        else if (*choiceNum == 2) {
+        else if (curPlayerPos->X == POS3) {
             ChoiceDraw(POS1, curPlayerPos->Y, "Hp 50 회복", false, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, "공격력 5 증가(도적이면 스택 최대 데미지 5 증가)", false, 11);
             ChoiceDraw(POS4, curPlayerPos->Y, "스턴 아이템 한개 획득", true, 11);
         }
     }
-    void RenderEnd(int* choiceNum, COORD* curPlayerPos)
+    void RenderEnd(COORD* curPlayerPos)
     {
         ChoiceDraw(POS1, curPlayerPos->Y, "타이틀 화면으로", true, 11);
     }

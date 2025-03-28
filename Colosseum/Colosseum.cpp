@@ -12,6 +12,8 @@ namespace global {
     COORD curPlayerPos = { 20, 45 }; // 현재 플레이어 위치
     int saveXPos[5] = { 0, };
 
+    int maxIndex = 0;
+
     COORD enemyWorldBasis = { 10, 2 };
 
     SMALL_RECT playerMovableRect = { 5, 5, 30, 30 }; // @SEE StartGame()
@@ -84,7 +86,7 @@ void DrawPlayer()
 //        render::ScreenDraw(x, y, global::consoleEnemy[i].character);
 //    }
 //}
-void Choice(int* menuFlag, int* maxIndex) {
+void Choice(int* menuFlag) {
     static int preMenu = 0;
 
     switch (*menuFlag) {
@@ -92,59 +94,63 @@ void Choice(int* menuFlag, int* maxIndex) {
         global::saveXPos[0] = POS1;
         global::saveXPos[1] = POS2;
         global::saveXPos[2] = POS3;
-        *maxIndex = 3;
+        global::maxIndex = 3;
         global::curPlayerPos.Y = DEF_Y;
         break;
     case HEROCHOICE:
         global::saveXPos[0] = POS1;
         global::saveXPos[1] = POS2;
         global::saveXPos[2] = POS3;
-        *maxIndex = 3;
+        global::maxIndex = 3;
         break;
     case MAIN:
         global::saveXPos[0] = POS1;
         global::saveXPos[1] = POS2;
-        *maxIndex = 2;
+        global::maxIndex = 2;
         break;
     case BATTLE:
         global::saveXPos[0] = POS1;
         global::saveXPos[1] = POS2;
         global::saveXPos[2] = POS3;
-        *maxIndex = 3;
+        global::maxIndex = 3;
         break;
     case BATTLE_SKILL:
         global::saveXPos[0] = POS1;
         global::saveXPos[1] = POS2;
         global::saveXPos[2] = POS3;
-        *maxIndex = 3;
+        global::maxIndex = 3;
         break;
     case BATTLE_ITEM:
         global::saveXPos[0] = POS1;
         global::saveXPos[1] = POS2;
         global::saveXPos[2] = POS3;
-        *maxIndex = 3;
+        global::maxIndex = 3;
         break;
     case BATTLE_END:
         global::saveXPos[0] = POS1;
         global::saveXPos[1] = POS2;
         global::saveXPos[2] = POS4;
-        *maxIndex = 3;
+        global::maxIndex = 3;
         break;
     case END_CLEAR:
         global::saveXPos[0] = POS1;
-        *maxIndex = 1;
+        global::maxIndex = 1;
+        global::curPlayerPos.X = POS1;
         break;
     case END_GAMEOVER:
         global::saveXPos[0] = POS1;
-        *maxIndex = 1;
+        global::maxIndex = 1;
+        global::curPlayerPos.X = POS1;
         break;
     case HOWTOPLAY:
         global::saveXPos[0] = POS1;
-        *maxIndex = 1;
+        global::maxIndex = 1;
+        global::curPlayerPos.X = POS1;
         break;
     case GAMEINFO:
         global::saveXPos[0] = POS1;
-        *maxIndex = 1;
+        global::maxIndex = 1;
+        global::curPlayerPos.X = POS1;
         break;
     default:
         break;
@@ -153,10 +159,8 @@ void Choice(int* menuFlag, int* maxIndex) {
 }
 void UpdatePlayerPosition(int* menuFlag, int* index)
 {
-    static int maxIndex = 0;
-    
     if(*menuFlag == TITLE && global::saveXPos[0] == 0) // 처음 한 번만 호출
-        Choice(menuFlag, &maxIndex);
+        Choice(menuFlag);
     global::prePlayerPos = global::curPlayerPos; // 현재 위치 경신 전에 일단, 저장. 구조체를 쓰면 이런게 편한겁니다. :)
 
     if (global::input::IsEscapeCmdOn())
@@ -178,12 +182,8 @@ void UpdatePlayerPosition(int* menuFlag, int* index)
         {
             global::input::Set(global::input::USER_CMD_RIGHT, false);
 
-            if (*index < maxIndex - 1)
+            if (*index < global::maxIndex - 1)
                 global::curPlayerPos.X = global::saveXPos[++(*index)];
-        }
-        if (global::input::IsSpaceCmdOn())
-        {
-            Choice(menuFlag, &maxIndex);
         }
     }
 
@@ -310,7 +310,10 @@ void Update(int* menuFlag, int* curIndex)
         return;
 
     if (*menuFlag == BATTLE_STATE)
+    {
         *menuFlag = BATTLE;
+        Choice(menuFlag);
+    }
 
     global::time::updateCount += 1;
 
@@ -329,7 +332,9 @@ void Update(int* menuFlag, int* curIndex)
         else
         {
             if (*menuFlag != MAIN)
+            {
                 *menuFlag = BATTLE_END;
+            }
             if (global::player::current_enemy == 0) // 두 번째 적 강화
             {
                 global::player::enemy[1].hp = 150;
@@ -357,7 +362,6 @@ void Update(int* menuFlag, int* curIndex)
     {
         if (global::input::IsSpaceCmdOn())
         {
-            global::input::Set(global::input::USER_CMD_SPACE, false);
             if (*menuFlag == TITLE)
             {
                 switch (global::curPlayerPos.X)
@@ -594,6 +598,9 @@ void Update(int* menuFlag, int* curIndex)
                     break;
                 }
             }
+            
+            Choice(menuFlag);
+            global::input::Set(global::input::USER_CMD_SPACE, false);
         }
     }
     else if (global::player::isEnemyTurn)

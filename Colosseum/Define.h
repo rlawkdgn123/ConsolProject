@@ -36,3 +36,11 @@ enum CHOICE {
     ENEMY_HP_POSX = 195,
     ENEMY_HP_POSY = 3,
 };
+
+enum COLOR {
+    GREEN = 10,
+    CYAN = 11,
+    RED = 12,
+    WHITE = 15,
+
+};

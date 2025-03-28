@@ -24,17 +24,17 @@ namespace render
 	void DrawHP(PLAYER* player, PLAYER* enemy);
 	wchar_t* EncodeMap(wchar_t* pMap);
 	void OpenTextAndWrite(int x, int y, const char* fileName);
-	void OpenTextAndWriteAnim(int x, int y, const char** fileName, int count);
+	void OpenTextAndWriteAnim(int x, int y, const char** fileName, int count, int color);
 
 	SMALL_RECT GetPlayerMovableRect();
 	void setConsoleSize(int width, int height);
 	void DrawBorder();
-	void RenderTitle(int* choiceNum, COORD* curPlayerPos);
-	void RenderHeroChoice(int* choiceNum, COORD* curPlayerPos);
-	void RenderMain(int* choiceNum, COORD* curPlayerPos, PLAYER* enemy);
-	void RenderBattle(int* choiceNum, COORD* curPlayerPos);
-	void RenderBattle_Skill(int* choiceNum, COORD* curPlayerPos, PLAYER* player);
-	void RenderBattle_Item(int* choiceNum, COORD* curPlayerPos, PLAYER* player);
-	void RenderBattle_End(int* choiceNum, COORD* curPlayerPos);
-	void RenderEnd(int* choiceNum, COORD* curPlayerPos);
+	void RenderTitle(COORD* curPlayerPos);
+	void RenderHeroChoice(COORD* curPlayerPos);
+	void RenderMain(COORD* curPlayerPos, PLAYER* enemy);
+	void RenderBattle(COORD* curPlayerPos);
+	void RenderBattle_Skill(COORD* curPlayerPos, PLAYER* player);
+	void RenderBattle_Item( COORD* curPlayerPos, PLAYER* player);
+	void RenderBattle_End(COORD* curPlayerPos);
+	void RenderEnd(COORD* curPlayerPos);
 };
