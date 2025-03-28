@@ -203,9 +203,11 @@ namespace render
     }
     void OpenTextAndWriteAnim(int x, int y, const char** fileName, int count)
     {
-        for (int i = 0; i < count; i++) {
-            OpenTextAndWrite(x, y, fileName[i]);
-        }
+        static int animCount = 0;
+        OpenTextAndWrite(x, y, fileName[animCount]);
+        animCount++;
+        if (animCount > count)
+            animCount = 0;
     }
 
     void DrawHP(PLAYER* player, PLAYER* enemy)
@@ -528,7 +530,7 @@ namespace render
             ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (21).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (22).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (23).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (24).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (25).txt",
             ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (26).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (27).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (28).txt"
         };
-        OpenTextAndWriteAnim(0, 0, Berserker, 28);
+        OpenTextAndWriteAnim(0, 0, Berserker, 28 );
         //OpenTextAndWriteAnim(10, 2, Wizard, 13);
         if (*choiceNum == 0) {
             ChoiceDraw(POS1, curPlayerPos->Y, "Game Start", true, 11);
