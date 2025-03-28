@@ -2,10 +2,13 @@
 #include <stdio.h>
 #include <windows.h>
 #include <random>
+#pragma comment (lib, "winmm.lib")
+#include<mmsystem.h>
 #include "Define.h"
 #include "InputSystem.h" // 기능 별로 모듈화를 한다는 개념에 대해 생각해 봅시다!
 #include "RenderSystem.h"
 #include "Player.h"
+
 namespace global {
     int mSecPerFrame = 1000 / 25; // 40
     COORD prePlayerPos; // 기존 플레이어 위치
@@ -439,6 +442,7 @@ void Update(int* menuFlag, int* curIndex)
                     switch (global::curPlayerPos.X)
                     {
                     case POS1: // 기본 공격
+                        //PlaySound(TEXT("bgm.wav"), NULL, SND_ASYNC);
                         player::UseAttack(&global::player::player, &global::player::enemy[global::player::current_enemy]);
                         global::player::isUseAttack = true;
                         global::player::isPlayerTurn = false;
@@ -467,6 +471,18 @@ void Update(int* menuFlag, int* curIndex)
                     }
                     else
                     {
+                        if (global::player::player.JOB == KNIGHT)
+                        {
+                            PlaySound(TEXT(".\\Audio\\Sword Attack.wav"), NULL, SND_ASYNC);
+                        }
+                        else if (global::player::player.JOB == ARCHER)
+                        {
+                            PlaySound(TEXT(".\\Audio\\Arrow Shot.mp3"), NULL, SND_ASYNC);
+                        }
+                        else if (global::player::player.JOB == BERSERKER)
+                        {
+                            PlaySound(TEXT(".\\Audio\\Axe Attack.mp3"), NULL, SND_ASYNC);
+                        }
                         player::UseSkill(&global::player::player, &global::player::enemy[global::player::current_enemy], 0);
                         global::player::isUseSkill = true;
                         global::player::isPlayerTurn = false;
@@ -539,14 +555,14 @@ void Update(int* menuFlag, int* curIndex)
                     global::player::player.hp += 50;
                     *menuFlag = MAIN;
                     break;
-                case POS2: // 도적이면 독 스택 데미지 최대치 +5, 나머지는 공격력 + 5
+                case POS2: // 도적이면 독 스택 데미지 최대치 +10, 나머지는 공격력 + 10
                     if (global::player::player.JOB == ARCHER)
                     {
-                        global::player::player.maxPoisonStk += 5;
+                        global::player::player.maxPoisonStk += 10;
                     }
                     else
                     {
-                        global::player::player.atkDamage += 5;
+                        global::player::player.atkDamage += 10;
                     }
                     *menuFlag = MAIN;
                     break;

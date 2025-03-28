@@ -179,6 +179,10 @@ namespace render
         char* string = (char*)malloc(MAP_WIDTH + 1);  // +1은 널 종료 문자 추가를 위해;
         size_t length;
         int count = 0;
+        if (fileName == nullptr)
+        {
+            return;
+        }
         fopen_s(&pFile, fileName, "rb");
         if (pFile == nullptr) {
             return;
@@ -207,6 +211,10 @@ namespace render
         char* string = (char*)malloc(MAP_WIDTH + 1);  // +1은 널 종료 문자 추가를 위해;
         size_t length;
         int count = 0;
+        if (fileName == nullptr)
+        {
+            return;
+        }
         fopen_s(&pFile, fileName, "rb");
         if (pFile == nullptr) {
             return;
@@ -221,16 +229,20 @@ namespace render
         while (fgets(string, length + 1, pFile) != NULL) {
             length = strlen(string);
 
-            if (isEnemy)
+   
+           /*if (isEnemy)
             {
-                for (int i = 0; i <= length / 2; i++)
-                {
-                    char temp = ' ';
-                    temp = string[length - i];
-                    string[length - i] = string[i];
-                    string[i] = temp;
+                int start = 0;
+                int end = length - 1;
+                char temp;
+                while (start < end) {
+                    temp = string[start];
+                    string[start] = string[end];
+                    string[end] = temp;
+                    start++;
+                    end--;
                 }
-            }
+            }*/
 
             if (string[length - 1] == '\n')
                 string[length - 1] = '\0';
@@ -241,21 +253,18 @@ namespace render
         free(string);
         fclose(pFile);
     }
-    void OpenTextAndWriteAnim(int x, int y, const char** fileName, int count, int color)
-    {
-        SetColor(color);
-        static int animCount = 0;
-        OpenTextAndWrite(x, y, fileName[animCount]);
-        animCount++;
-        if (animCount > count - 1)
-            animCount = 0;
-        SetColor(WHITE);
-    }
     void OpenTextAndWriteAnim(int x, int y, const char** fileName, int count, int color, bool isEnemy)
     {
         SetColor(color);
         static int animCount = 0;
-        OpenTextAndWrite(x, y, fileName[animCount], true);
+        if (animCount >= count)
+        {
+            animCount = 0;
+        }
+        if(isEnemy)
+            OpenTextAndWrite(x, y, fileName[animCount], isEnemy);
+        else
+            OpenTextAndWrite(x, y, fileName[animCount]);
         animCount++;
         if (animCount > count - 1)
             animCount = 0;
@@ -577,31 +586,32 @@ namespace render
     {
         if (player->JOB == KNIGHT)
         {
-
+            OpenTextAndWriteAnim(0, 5, KnightIdle, 16, CYAN, false);
         }
         else if (player->JOB == ARCHER)
         {
-
+            OpenTextAndWriteAnim(0, 5, ArcherIdle, 24, GREEN, false);
         }
         else if (player->JOB == BERSERKER)
         {
-            OpenTextAndWriteAnim(0, 5, BerserkerIdle, 23, RED);
+            OpenTextAndWriteAnim(0, 5, BerserkerIdle, 23, RED, false);
         }
-        if (enemy[0].JOB == KNIGHT)
+        if (enemy->JOB == KNIGHT)
         {
-
+            OpenTextAndWriteAnim(100, 5, KnightIdle, 16, CYAN, true);
         }
-        else if (enemy[0].JOB == ARCHER)
+        else if (enemy->JOB == ARCHER)
         {
-
+            OpenTextAndWriteAnim(100, 5, ArcherIdle, 24, GREEN, true);
         }
-        else if (enemy[0].JOB == BERSERKER)
+        else if (enemy->JOB == BERSERKER)
         {
-            OpenTextAndWriteAnim((SCREEN_WIDTH / 2) - 20, 5, BerserkerIdle, 23, RED, true);
+            OpenTextAndWriteAnim(100, 5, BerserkerIdle, 23, RED, true);
         }
     }
 
     void RenderTitle(COORD* curPlayerPos) {
+        OpenTextAndWrite(10, 10, TitleLogo);
         if (curPlayerPos->X == POS1) {
             ChoiceDraw(POS1, curPlayerPos->Y, "Game Start", true, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, "How To Play", false, 11);
@@ -624,17 +634,19 @@ namespace render
             ChoiceDraw(POS1, curPlayerPos->Y, "Knight", true, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, "Archer", false, 11);
             ChoiceDraw(POS3, curPlayerPos->Y, "Berserker", false, 11);
+            OpenTextAndWriteAnim((SCREEN_WIDTH / 2) - 50, 5, KnightIdle, 16, CYAN, false);
         }
         else if (curPlayerPos->X == POS2) {
             ChoiceDraw(POS1, curPlayerPos->Y, "Knight", false, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, "Archer", true, 11);
             ChoiceDraw(POS3, curPlayerPos->Y, "Berserker", false, 11);
+            OpenTextAndWriteAnim((SCREEN_WIDTH / 2) - 50, 5, ArcherIdle, 24, GREEN, false);
         }
         else if (curPlayerPos->X == POS3) {
             ChoiceDraw(POS1, curPlayerPos->Y, "Knight", false, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, "Archer", false, 11);
             ChoiceDraw(POS3, curPlayerPos->Y, "Berserker", true, 11);
-            OpenTextAndWriteAnim((SCREEN_WIDTH / 2) - 50, 5, BerserkerIdle, 23, RED);
+            OpenTextAndWriteAnim((SCREEN_WIDTH / 2) - 50, 5, BerserkerIdle, 23, RED, false);
         }
     }
     void RenderMain(COORD* curPlayerPos, PLAYER* enemy)
@@ -644,15 +656,15 @@ namespace render
             ChoiceDraw(POS2, curPlayerPos->Y, enemy[1].job_name, false, 11);
             if (enemy[0].JOB == KNIGHT)
             {
-
+                OpenTextAndWriteAnim((SCREEN_WIDTH / 2) - 50, 5, KnightIdle, 16, CYAN, false);
             }
             else if (enemy[0].JOB == ARCHER)
             {
-
+                OpenTextAndWriteAnim((SCREEN_WIDTH / 2) - 50, 5, ArcherIdle, 24, GREEN, false);
             }
             else if (enemy[0].JOB == BERSERKER)
             {
-                OpenTextAndWriteAnim((SCREEN_WIDTH / 2) - 50, 5, BerserkerIdle, 23, RED);
+                OpenTextAndWriteAnim((SCREEN_WIDTH / 2) - 50, 5, BerserkerIdle, 23, RED, false);
             }
         }
         else if (curPlayerPos->X == POS2) {
@@ -660,15 +672,15 @@ namespace render
             ChoiceDraw(POS2, curPlayerPos->Y, enemy[1].job_name, true, 11);
             if (enemy[1].JOB == KNIGHT)
             {
-
+                OpenTextAndWriteAnim((SCREEN_WIDTH / 2) - 50, 5, KnightIdle, 16, CYAN, false);
             }
             else if (enemy[1].JOB == ARCHER)
             {
-
+                OpenTextAndWriteAnim((SCREEN_WIDTH / 2) - 50, 5, ArcherIdle, 24, GREEN, false);
             }
             else if (enemy[1].JOB == BERSERKER)
             {
-
+                OpenTextAndWriteAnim((SCREEN_WIDTH / 2) - 50, 5, BerserkerIdle, 23, RED, false);
             }
         }
     }
