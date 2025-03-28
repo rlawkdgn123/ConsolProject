@@ -443,7 +443,19 @@ void Update(int* menuFlag, int* curIndex)
                     switch (global::curPlayerPos.X)
                     {
                     case POS1: // 기본 공격
-                        //PlaySound(TEXT("bgm.wav"), NULL, SND_ASYNC);
+                        if (global::player::player.JOB == KNIGHT)
+                        {
+                            PlaySound(TEXT(".\\Audio\\Sword Attack.wav"), NULL, SND_ASYNC);
+                        }
+                        else if (global::player::player.JOB == ARCHER)
+                        {
+                            PlaySound(TEXT(".\\Audio\\Arrow Shot.wav"), NULL, SND_ASYNC);
+                            PlaySound(TEXT(".\\Audio\\Arrow Hit.wav"), NULL, SND_ASYNC);
+                        }
+                        else if (global::player::player.JOB == BERSERKER)
+                        {
+                            PlaySound(TEXT(".\\Audio\\Axe Attack.wav"), NULL, SND_ASYNC);
+                        }
                         player::UseAttack(&global::player::player, &global::player::enemy[global::player::current_enemy]);
                         global::player::isUseAttack = true;
                         global::player::isPlayerTurn = false;
