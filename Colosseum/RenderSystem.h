@@ -24,7 +24,9 @@ namespace render
 	void DrawHP(PLAYER* player, PLAYER* enemy);
 	wchar_t* EncodeMap(wchar_t* pMap);
 	void OpenTextAndWrite(int x, int y, const char* fileName);
+	void OpenTextAndWrite(int x, int y, const char* fileName, bool isEnemy);
 	void OpenTextAndWriteAnim(int x, int y, const char** fileName, int count, int color);
+	void OpenTextAndWriteAnim(int x, int y, const char** fileName, int count, int color, bool isEnemy);
 
 	SMALL_RECT GetPlayerMovableRect();
 	void setConsoleSize(int width, int height);

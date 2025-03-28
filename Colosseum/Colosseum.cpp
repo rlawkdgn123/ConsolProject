@@ -275,6 +275,7 @@ void Render(int* menuFlag, int* curIndex)
     if (*menuFlag == BATTLE || *menuFlag == BATTLE_SKILL || *menuFlag == BATTLE_ITEM
         || *menuFlag == BATTLE_STATE)
     {
+        render::RenderPLAYERS(&global::player::player, &global::player::enemy[global::player::current_enemy]);
         render::DrawHP(&global::player::player, &global::player::enemy[global::player::current_enemy]);
     }
     render::ScreenFlipping();

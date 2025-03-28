@@ -202,11 +202,60 @@ namespace render
         free(string);
         fclose(pFile);
     }
+    void OpenTextAndWrite(int x, int y, const char* fileName, bool isEnemy) {
+        FILE* pFile = nullptr;
+        char* string = (char*)malloc(MAP_WIDTH + 1);  // +1은 널 종료 문자 추가를 위해;
+        size_t length;
+        int count = 0;
+        fopen_s(&pFile, fileName, "rb");
+        if (pFile == nullptr) {
+            return;
+        }
+        // 파일 끝까지 반복
+        fgets(string, MAP_WIDTH, pFile);
+
+        length = strlen(string);
+        // 동적으로 메모리 할당
+        //string = (char*)malloc(length + 1);  // +1은 널 종료 문자 추가를 위해
+
+        while (fgets(string, length + 1, pFile) != NULL) {
+            length = strlen(string);
+
+            if (isEnemy)
+            {
+                for (int i = 0; i <= length / 2; i++)
+                {
+                    char temp = ' ';
+                    temp = string[length - i];
+                    string[length - i] = string[i];
+                    string[i] = temp;
+                }
+            }
+
+            if (string[length - 1] == '\n')
+                string[length - 1] = '\0';
+
+            PrintScreen(x, y, string);
+            y++;
+        }
+        free(string);
+        fclose(pFile);
+    }
     void OpenTextAndWriteAnim(int x, int y, const char** fileName, int count, int color)
     {
         SetColor(color);
         static int animCount = 0;
         OpenTextAndWrite(x, y, fileName[animCount]);
+        animCount++;
+        if (animCount > count - 1)
+            animCount = 0;
+        SetColor(WHITE);
+    }
+    void OpenTextAndWriteAnim(int x, int y, const char** fileName, int count, int color, bool isEnemy)
+    {
+        SetColor(color);
+        static int animCount = 0;
+        OpenTextAndWrite(x, y, fileName[animCount], true);
         animCount++;
         if (animCount > count - 1)
             animCount = 0;
@@ -526,7 +575,30 @@ namespace render
 
     void RenderPLAYERS(PLAYER* player, PLAYER* enemy)
     {
+        if (player->JOB == KNIGHT)
+        {
 
+        }
+        else if (player->JOB == ARCHER)
+        {
+
+        }
+        else if (player->JOB == BERSERKER)
+        {
+            OpenTextAndWriteAnim(0, 5, BerserkerIdle, 23, RED);
+        }
+        if (enemy[0].JOB == KNIGHT)
+        {
+
+        }
+        else if (enemy[0].JOB == ARCHER)
+        {
+
+        }
+        else if (enemy[0].JOB == BERSERKER)
+        {
+            OpenTextAndWriteAnim((SCREEN_WIDTH / 2) - 20, 5, BerserkerIdle, 23, RED, true);
+        }
     }
 
     void RenderTitle(COORD* curPlayerPos) {
