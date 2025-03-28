@@ -533,6 +533,14 @@ namespace render
             PrintScreen((SCREEN_WIDTH / 2) - 20, 8, "당신이 선택하지 않은 두 직업은 당신의 상대가 되어 당신과");
             PrintScreen((SCREEN_WIDTH / 2) - 20, 9, "전투를 하게 됩니다. ");
             PrintScreen((SCREEN_WIDTH / 2) - 20, 10, "두 명의 상대를 모두 물리치면 게임에서 승리하게 됩니다.");
+            PrintScreen((SCREEN_WIDTH / 2) - 20, 13, "전사 : ");
+            PrintScreen((SCREEN_WIDTH / 2) - 20, 14, "특성 - 체력 + 20");    
+            PrintScreen((SCREEN_WIDTH / 2) - 20, 15, "스킬 - 20 % 확률로 받는 데미지 절반(패시브), 이전 상대 턴에 받은 피해만큼 공격력 증가(1회만 사용가능)");
+            PrintScreen((SCREEN_WIDTH / 2) - 20, 17, "도적 : 특성 - 기본공격(0, 3, 6, 9, 12 랜덤)스택 중독(중첩 O), 스택으로 받는 최대 데미지 25");
+            PrintScreen((SCREEN_WIDTH / 2) - 20, 18, "스킬 - (11~15스택) 랜덤으로 독 스택, 현재 스택만큼 적에게 데미지->모든 스택 삭제");
+            PrintScreen((SCREEN_WIDTH / 2) - 20, 20, "마법사 :");
+            PrintScreen((SCREEN_WIDTH / 2) - 20, 21, "특성 - 공격력 + 10");
+            PrintScreen((SCREEN_WIDTH / 2) - 20, 22, "스킬 - 50 % 확률로 적 공격력 5 감소, and 내 hp 10 회복, 적에게 준 데미지 만큼 hp흡수(20데미지) ");
             RenderEnd(curPlayerPos);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = HOWTOPLAY;
