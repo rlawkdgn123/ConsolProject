@@ -28,7 +28,7 @@ void player::SetPlayer(PLAYER* player)
 	player[KNIGHT].JOB = KNIGHT;
 	player[KNIGHT].isPlayer = false;
 	player[KNIGHT].hp = 120;
-	player[KNIGHT].atkDamage = 15;
+	player[KNIGHT].atkDamage = 20;
 	player[KNIGHT].state = NORMAL;
 	player::SetItem(player[KNIGHT].item);
 	player[KNIGHT].skill[0].skillName = "KNIGHTSkill1(ÆÐ½Ãºê)";
@@ -61,7 +61,7 @@ void player::SetPlayer(PLAYER* player)
 	player[BERSERKER].JOB = BERSERKER;
 	player[BERSERKER].isPlayer = false;
 	player[BERSERKER].hp = 100;
-	player[BERSERKER].atkDamage = 22;
+	player[BERSERKER].atkDamage = 28;
 	player[BERSERKER].state = NORMAL;
 	player::SetItem(player[BERSERKER].item);
 	player[BERSERKER].skill[0].skillName = "BERSERKERSkill1";

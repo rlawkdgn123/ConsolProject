@@ -516,19 +516,18 @@ namespace render
             *menuFlag = BATTLE_END;
             break;
         case END_CLEAR:
-            RenderEnd(curPlayerPos);
+            RenderClear(curPlayerPos);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = END_CLEAR;
             break;
         case END_GAMEOVER:
-            OpenTextAndWrite(80, 5, ".\\Images\\GameOver.txt");
-            RenderEnd(curPlayerPos);
+            RenderGameOver(curPlayerPos);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = END_CLEAR;
             break;
         case HOWTOPLAY:
             PrintScreen((SCREEN_WIDTH/2) - 20, 5, "이 게임은 턴제 전투 게임 '콜로세움' 입니다.");
-            PrintScreen((SCREEN_WIDTH/2) - 20, 6, "당신은 전사, 도적, 마법사 이 세 가지 직업 중");
+            PrintScreen((SCREEN_WIDTH/2) - 20, 6, "당신은 기사, 아쳐, 버서커 이 세 가지 직업 중");
             PrintScreen((SCREEN_WIDTH / 2) - 20, 7, "한 가지를 선택하여 플레이 할 수 있습니다.");
             PrintScreen((SCREEN_WIDTH / 2) - 20, 8, "당신이 선택하지 않은 두 직업은 당신의 상대가 되어 당신과");
             PrintScreen((SCREEN_WIDTH / 2) - 20, 9, "전투를 하게 됩니다. ");
@@ -541,6 +540,7 @@ namespace render
             PrintScreen((SCREEN_WIDTH / 2) - 20, 20, "버서커 :");
             PrintScreen((SCREEN_WIDTH / 2) - 20, 21, "특성 - 공격력 + 10");
             PrintScreen((SCREEN_WIDTH / 2) - 20, 22, "스킬 - 50 % 확률로 적 공격력 5 감소, and 내 hp 10 회복, 적에게 준 데미지 만큼 hp흡수(20데미지) ");
+            PrintScreen((SCREEN_WIDTH / 2) - 20, 26, "***짱돌은 버그로 아무 효과 없습니다*** ");
             RenderEnd(curPlayerPos);
             PrintScreen(curPlayerPos->X - 3, curPlayerPos->Y, ">>");
             *menuFlag = HOWTOPLAY;
@@ -778,6 +778,16 @@ namespace render
     }
     void RenderEnd(COORD* curPlayerPos)
     {
+        ChoiceDraw(POS1, curPlayerPos->Y, "타이틀 화면으로", true, 11);
+    }
+    void RenderGameOver(COORD* curPlayerPos)
+    {
+        OpenTextAndWrite(10, 10, GameOver);
+        ChoiceDraw(POS1, curPlayerPos->Y, "타이틀 화면으로", true, 11);
+    }
+    void RenderClear(COORD* curPlayerPos)
+    {
+        OpenTextAndWrite(10, 10, Victory);
         ChoiceDraw(POS1, curPlayerPos->Y, "타이틀 화면으로", true, 11);
     }
 };

@@ -23,4 +23,6 @@ const char* KnightIdle[16] = {
             ".\\Images\\Heros\\Ascii\\Knight\\IDLE\\Knight_IDLE (16).txt"
 };
 
-const char* TitleLogo = ".\\Images\\Font\\Colosseum.txt";
+const char* TitleLogo = ".\\Images\\Font\\Colosseum.txt";   
+const char* GameOver = ".\\Images\\Font\\GameOver.txt";
+const char* Victory = ".\\Images\\Font\\Victory.txt";

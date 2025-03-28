@@ -39,4 +39,6 @@ namespace render
 	void RenderBattle_Item( COORD* curPlayerPos, PLAYER* player);
 	void RenderBattle_End(COORD* curPlayerPos);
 	void RenderEnd(COORD* curPlayerPos);
+	void RenderGameOver(COORD* curPlayerPos);
+	void RenderClear(COORD* curPlayerPos);
 };
