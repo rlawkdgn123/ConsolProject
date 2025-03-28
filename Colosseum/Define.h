@@ -42,5 +42,4 @@ enum COLOR {
     CYAN = 11,
     RED = 12,
     WHITE = 15,
-
 };

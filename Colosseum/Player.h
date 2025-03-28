@@ -3,7 +3,7 @@
 
 constexpr int JOBCOUNT = 3; // Á÷¾÷ ¼ö
 constexpr int KNIGHT = 0;
-constexpr int MAGE = 1;
+constexpr int ARCHER = 1;
 constexpr int BERSERKER = 2;
 
 constexpr int NORMAL = 0;

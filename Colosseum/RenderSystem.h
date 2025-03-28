@@ -29,6 +29,7 @@ namespace render
 	SMALL_RECT GetPlayerMovableRect();
 	void setConsoleSize(int width, int height);
 	void DrawBorder();
+	void RenderPLAYERS(PLAYER* player, PLAYER* enemy);
 	void RenderTitle(COORD* curPlayerPos);
 	void RenderHeroChoice(COORD* curPlayerPos);
 	void RenderMain(COORD* curPlayerPos, PLAYER* enemy);

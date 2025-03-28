@@ -40,22 +40,22 @@ void player::SetPlayer(PLAYER* player)
 	player[KNIGHT].poisonStack = 0;
 	player[KNIGHT].skillCount = 0;
 
-	player[MAGE].job_name = "MAGE";
-	player[MAGE].JOB = MAGE;
-	player[MAGE].isPlayer = false;
-	player[MAGE].hp = 100;
-	player[MAGE].atkDamage = 0;
-	player[MAGE].state = NORMAL;
-	player[MAGE].maxPoisonStk = 20;
-	player::SetItem(player[MAGE].item);
-	player[MAGE].skill[0].skillName = "MAGESkill1";
-	player[MAGE].skill[0].passiveProb = 20;
-	player[MAGE].skill[0].description = "랜덤으로 적에게 독 스택을 추가한다.(범위 : 11 ~ 15)";
-	player[MAGE].skill[1].skillName = "MAGESkill2";
-	player[MAGE].skill[1].passiveProb = 20;
-	player[MAGE].skill[1].description = "현재 적의 독 스택 만큼 적에게 데미지를 주고 적의 독 스택을 초기화한다.";
-	player[MAGE].poisonStack = 0;
-	player[MAGE].skillCount = 0;
+	player[ARCHER].job_name = "ARCHER";
+	player[ARCHER].JOB = ARCHER;
+	player[ARCHER].isPlayer = false;
+	player[ARCHER].hp = 100;
+	player[ARCHER].atkDamage = 0;
+	player[ARCHER].state = NORMAL;
+	player[ARCHER].maxPoisonStk = 20;
+	player::SetItem(player[ARCHER].item);
+	player[ARCHER].skill[0].skillName = "ARCHERSkill1";
+	player[ARCHER].skill[0].passiveProb = 20;
+	player[ARCHER].skill[0].description = "랜덤으로 적에게 독 스택을 추가한다.(범위 : 11 ~ 15)";
+	player[ARCHER].skill[1].skillName = "ARCHERSkill2";
+	player[ARCHER].skill[1].passiveProb = 20;
+	player[ARCHER].skill[1].description = "현재 적의 독 스택 만큼 적에게 데미지를 주고 적의 독 스택을 초기화한다.";
+	player[ARCHER].poisonStack = 0;
+	player[ARCHER].skillCount = 0;
 
 	player[BERSERKER].job_name = "BERSERKER";
 	player[BERSERKER].JOB = BERSERKER;
@@ -100,7 +100,7 @@ void player::UseAttack(PLAYER* player, PLAYER* enemy)
 
 	enemy->receiveDmg = 0;
 
-	if (player->JOB == MAGE)
+	if (player->JOB == ARCHER)
 	{
 		enemy->poisonStack += dist(gen) * 3;
 
@@ -153,7 +153,7 @@ void player::UseSkill(PLAYER* player, PLAYER* enemy, int skillNum)
 
 	enemy->receiveDmg = 0;
 
-	if (player->JOB == MAGE)
+	if (player->JOB == ARCHER)
 	{
 		switch (skillNum)
 		{
@@ -208,7 +208,7 @@ void player::UseSkill(PLAYER* player, PLAYER* enemy, int skillNum)
 			if (dist(gen) == 1)
 			{
 				player->hp += 10;
-				if (enemy->JOB == MAGE)
+				if (enemy->JOB == ARCHER)
 				{
 					player->poisonStack -= 10;
 				}

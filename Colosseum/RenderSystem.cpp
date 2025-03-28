@@ -2,6 +2,7 @@
 
 #include "renderSystem.h"
 #include "Define.h"
+#include"CharacterLocal.h"
 
 #include "InputSystem.h"
 using namespace render;
@@ -239,7 +240,7 @@ namespace render
         {
             if (player->isPlayer)
             {
-                if (player->JOB == MAGE)
+                if (player->JOB == ARCHER)
                 {
                     if (enemy->poisonStack >= player->maxPoisonStk)
                         sprintf_s(numStr, "%d", player->maxPoisonStk);
@@ -255,7 +256,7 @@ namespace render
             }
             else
             {
-                if (player->JOB == MAGE)
+                if (player->JOB == ARCHER)
                 {
                     if(enemy->poisonStack >= player->maxPoisonStk)
                         sprintf_s(numStr, "%d", player->maxPoisonStk);
@@ -523,6 +524,11 @@ namespace render
         }
     }
 
+    void RenderPLAYERS(PLAYER* player, PLAYER* enemy)
+    {
+
+    }
+
     void RenderTitle(COORD* curPlayerPos) {
         if (curPlayerPos->X == POS1) {
             ChoiceDraw(POS1, curPlayerPos->Y, "Game Start", true, 11);
@@ -542,28 +548,21 @@ namespace render
     }
     void RenderHeroChoice(COORD* curPlayerPos)
     {
-        const char* Berserker[23] = {
-            ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (1).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (2).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (3).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (4).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (5).txt",
-            ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (6).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (7).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (8).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (9).txt" , ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (10).txt",
-            ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (11).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (12).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (13).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (14).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (15).txt",
-            ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (16).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (17).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (18).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (19).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (20).txt",
-            ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (21).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (22).txt", ".\\Images\\Heros\\Ascii\\Berserker\\IDLE\\Berserker_IDLE (23).txt"
-        };
         if (curPlayerPos->X == POS1) {
             ChoiceDraw(POS1, curPlayerPos->Y, "Knight", true, 11);
-            ChoiceDraw(POS2, curPlayerPos->Y, "Mage", false, 11);
+            ChoiceDraw(POS2, curPlayerPos->Y, "Archer", false, 11);
             ChoiceDraw(POS3, curPlayerPos->Y, "Berserker", false, 11);
         }
         else if (curPlayerPos->X == POS2) {
             ChoiceDraw(POS1, curPlayerPos->Y, "Knight", false, 11);
-            ChoiceDraw(POS2, curPlayerPos->Y, "Mage", true, 11);
+            ChoiceDraw(POS2, curPlayerPos->Y, "Archer", true, 11);
             ChoiceDraw(POS3, curPlayerPos->Y, "Berserker", false, 11);
         }
         else if (curPlayerPos->X == POS3) {
             ChoiceDraw(POS1, curPlayerPos->Y, "Knight", false, 11);
-            ChoiceDraw(POS2, curPlayerPos->Y, "Mage", false, 11);
+            ChoiceDraw(POS2, curPlayerPos->Y, "Archer", false, 11);
             ChoiceDraw(POS3, curPlayerPos->Y, "Berserker", true, 11);
-            OpenTextAndWriteAnim((SCREEN_WIDTH / 2) - 50, 5, Berserker, 23, RED);
+            OpenTextAndWriteAnim((SCREEN_WIDTH / 2) - 50, 5, BerserkerIdle, 23, RED);
         }
     }
     void RenderMain(COORD* curPlayerPos, PLAYER* enemy)
@@ -571,10 +570,34 @@ namespace render
         if (curPlayerPos->X == POS1) {
             ChoiceDraw(POS1, curPlayerPos->Y, enemy[0].job_name, true, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, enemy[1].job_name, false, 11);
+            if (enemy[0].JOB == KNIGHT)
+            {
+
+            }
+            else if (enemy[0].JOB == ARCHER)
+            {
+
+            }
+            else if (enemy[0].JOB == BERSERKER)
+            {
+                OpenTextAndWriteAnim((SCREEN_WIDTH / 2) - 50, 5, BerserkerIdle, 23, RED);
+            }
         }
         else if (curPlayerPos->X == POS2) {
             ChoiceDraw(POS1, curPlayerPos->Y, enemy[0].job_name, false, 11);
             ChoiceDraw(POS2, curPlayerPos->Y, enemy[1].job_name, true, 11);
+            if (enemy[1].JOB == KNIGHT)
+            {
+
+            }
+            else if (enemy[1].JOB == ARCHER)
+            {
+
+            }
+            else if (enemy[1].JOB == BERSERKER)
+            {
+
+            }
         }
     }
 

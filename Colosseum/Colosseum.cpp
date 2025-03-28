@@ -272,7 +272,6 @@ void Render(int* menuFlag, int* curIndex)
                 &global::player::isUseAttack, &global::player::isUseSkill, &global::player::isUseItem);
         }
     }
-
     if (*menuFlag == BATTLE || *menuFlag == BATTLE_SKILL || *menuFlag == BATTLE_ITEM
         || *menuFlag == BATTLE_STATE)
     {
@@ -387,8 +386,8 @@ void Update(int* menuFlag, int* curIndex)
                     *menuFlag = MAIN;
                     break;
                 case POS2:
-                    global::player::job[MAGE].isPlayer = true;
-                    global::player::player = global::player::job[MAGE];
+                    global::player::job[ARCHER].isPlayer = true;
+                    global::player::player = global::player::job[ARCHER];
                     player::SetEnemy(global::player::job, global::player::enemy);
                     *menuFlag = MAIN;
                     break;
@@ -540,7 +539,7 @@ void Update(int* menuFlag, int* curIndex)
                     *menuFlag = MAIN;
                     break;
                 case POS2: // 도적이면 독 스택 데미지 최대치 +5, 나머지는 공격력 + 5
-                    if (global::player::player.JOB == MAGE)
+                    if (global::player::player.JOB == ARCHER)
                     {
                         global::player::player.maxPoisonStk += 5;
                     }
